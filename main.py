@@ -330,7 +330,6 @@ def main():
     while True:
         game_stage.stage_manager()
         mouse = pygame.mouse.get_pos()
-        # console.console_commands()
 
 if __name__ == "__main__":
     main()
