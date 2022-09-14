@@ -10,6 +10,8 @@ stages = {1: "menu", 2: "stage_one", 3: "stage_two", 4: "stage_three"}
 size = width, height = 852, 480
 screen = pygame.display.set_mode(size)
 
+green = 25, 255, 25
+
 stage1_sprites_list = pygame.sprite.Group()
 stage2_sprites_list = pygame.sprite.Group()
 stage3_sprites_list = pygame.sprite.Group()
@@ -198,12 +200,17 @@ class Slime(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
         
+        self.health = 100
+        
         self.image = animations.slime_idle_images[animations.slime_idle_index]
         self.image = pygame.transform.scale(self.image, (500, 500))
         self.rect = self.image.get_rect()
         screen.blit(self.image, self.rect)
     
     def hurt(self):
+        # self.health -= 10
+        # print(self.health)
+        
         animations.slime_hurt_index += 1
         
         if animations.slime_hurt_index >= len(animations.slime_hurt_images):
@@ -211,6 +218,10 @@ class Slime(pygame.sprite.Sprite):
         
         self.image = animations.slime_hurt_images[animations.slime_hurt_index]
         self.image = pygame.transform.scale(self.image, (500, 500))
+        
+        damage_font = pygame.font.Font("fonts/PixelFont.ttf", 16)
+        damage_text = damage_font.render("10", True, green)
+        screen.blit(damage_text, (self.rect.x, self.rect.y))
     
     def idle(self):
         animations.slime_idle_index += 1
