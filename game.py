@@ -197,7 +197,7 @@ class SpellGlow(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (64, 64))
 
 class Slime(pygame.sprite.Sprite):
-    def __init__(self):
+    def __init__(self, stage):
         super().__init__()
         
         self.health = 100 * 100
@@ -224,6 +224,11 @@ class Slime(pygame.sprite.Sprite):
         screen.blit(damage_text, (self.rect.x, self.rect.y))
         
         if self.health == 0:
+            current_slime = Item(1)
+            current_slime.rect.x = self.rect.x
+            current_slime.rect.y = self.rect.y
+            if stage == 2:
+                stage2_sprites_list.add(current_slime)
             self.kill()
     
     def idle(self):
