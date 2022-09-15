@@ -200,7 +200,7 @@ class Slime(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
         
-        self.health = 100
+        self.health = 100 * 100
         
         self.image = animations.slime_idle_images[animations.slime_idle_index]
         self.image = pygame.transform.scale(self.image, (500, 500))
@@ -208,7 +208,7 @@ class Slime(pygame.sprite.Sprite):
         screen.blit(self.image, self.rect)
     
     def hurt(self):
-        # self.health -= 10
+        self.health -= 10
         # print(self.health)
         
         animations.slime_hurt_index += 1
@@ -222,6 +222,9 @@ class Slime(pygame.sprite.Sprite):
         damage_font = pygame.font.Font("fonts/PixelFont.ttf", 16)
         damage_text = damage_font.render("10", True, green)
         screen.blit(damage_text, (self.rect.x, self.rect.y))
+        
+        if self.health == 0:
+            self.kill()
     
     def idle(self):
         animations.slime_idle_index += 1
@@ -237,6 +240,17 @@ class Slime(pygame.sprite.Sprite):
             self.hurt()
         else:
             self.idle()
+
+class Item(pygame.sprite.Sprite):
+    def __init__(self, item_number):
+        super().__init__()
+        
+        if item_number == 1:
+            self.image = pygame.image.load("items/slimeball.png")
+            self.image = pygame.transform.scale(self.image, (64, 64))
+        
+        self.rect = self.image.get_rect()
+        screen.blit(self.image, self.rect)
 
 class NewSprite(pygame.sprite.Sprite):
     def __init__(self, surface_color, color, height, width, border_radius):
