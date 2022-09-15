@@ -200,6 +200,8 @@ class Slime(pygame.sprite.Sprite):
     def __init__(self, stage):
         super().__init__()
         
+        self.stage = stage
+        
         self.health = 100 * 100
         
         self.image = animations.slime_idle_images[animations.slime_idle_index]
