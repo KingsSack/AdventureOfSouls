@@ -227,7 +227,7 @@ class Slime(pygame.sprite.Sprite):
             current_slime = Item(1)
             current_slime.rect.x = self.rect.x
             current_slime.rect.y = self.rect.y
-            if stage == 2:
+            if self.stage == 2:
                 stage2_sprites_list.add(current_slime)
             self.kill()
     
