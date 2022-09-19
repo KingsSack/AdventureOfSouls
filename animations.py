@@ -192,6 +192,132 @@ for i in range(12):
     wizard_bomb_left_images.append(pygame.image.load("wizard/WizardFirebomb2-26.png"))
 wizard_bomb_left_index = 0
 
+wizard_thunder_right_images = []
+for i in range(12):
+    wizard_thunder_right_images.append(pygame.image.load("wizard/WizardThunder2-0.png"))
+for i in range(12):
+    wizard_thunder_right_images.append(pygame.image.load("wizard/WizardThunder2-1.png"))
+for i in range(12):
+    wizard_thunder_right_images.append(pygame.image.load("wizard/WizardThunder2-2.png"))
+for i in range(12):
+    wizard_thunder_right_images.append(pygame.image.load("wizard/WizardThunder2-3.png"))
+for i in range(12):
+    wizard_thunder_right_images.append(pygame.image.load("wizard/WizardThunder2-4.png"))
+for i in range(12):
+    wizard_thunder_right_images.append(pygame.image.load("wizard/WizardThunder2-5.png"))
+for i in range(12):
+    wizard_thunder_right_images.append(pygame.image.load("wizard/WizardThunder2-6.png"))
+for i in range(12):
+    wizard_thunder_right_images.append(pygame.image.load("wizard/WizardThunder2-7.png"))
+for i in range(12):
+    wizard_thunder_right_images.append(pygame.image.load("wizard/WizardThunder2-8.png"))
+for i in range(12):
+    wizard_thunder_right_images.append(pygame.image.load("wizard/WizardThunder2-9.png"))
+for i in range(12):
+    wizard_thunder_right_images.append(pygame.image.load("wizard/WizardThunder2-10.png"))
+for i in range(12):
+    wizard_thunder_right_images.append(pygame.image.load("wizard/WizardThunder2-11.png"))
+for i in range(12):
+    wizard_thunder_right_images.append(pygame.image.load("wizard/WizardThunder2-12.png"))
+for i in range(12):
+    wizard_thunder_right_images.append(pygame.image.load("wizard/WizardThunder2-13.png"))
+for i in range(12):
+    wizard_thunder_right_images.append(pygame.image.load("wizard/WizardThunder2-14.png"))
+for i in range(12):
+    wizard_thunder_right_images.append(pygame.image.load("wizard/WizardThunder2-15.png"))
+for i in range(12):
+    wizard_thunder_right_images.append(pygame.image.load("wizard/WizardThunder2-16.png"))
+for i in range(12):
+    wizard_thunder_right_images.append(pygame.image.load("wizard/WizardThunder2-17.png"))
+for i in range(12):
+    wizard_thunder_right_images.append(pygame.image.load("wizard/WizardThunder2-18.png"))
+for i in range(12):
+    wizard_thunder_right_images.append(pygame.image.load("wizard/WizardThunder2-19.png"))
+for i in range(12):
+    wizard_thunder_right_images.append(pygame.image.load("wizard/WizardThunder2-20.png"))
+for i in range(12):
+    wizard_thunder_right_images.append(pygame.image.load("wizard/WizardThunder2-21.png"))
+for i in range(12):
+    wizard_thunder_right_images.append(pygame.image.load("wizard/WizardThunder2-22.png"))
+for i in range(12):
+    wizard_thunder_right_images.append(pygame.image.load("wizard/WizardThunder2-23.png"))
+for i in range(12):
+    wizard_thunder_right_images.append(pygame.image.load("wizard/WizardThunder2-24.png"))
+for i in range(12):
+    wizard_thunder_right_images.append(pygame.image.load("wizard/WizardThunder2-25.png"))
+for i in range(12):
+    wizard_thunder_right_images.append(pygame.image.load("wizard/WizardThunder2-26.png"))
+for i in range(12):
+    wizard_thunder_right_images.append(pygame.image.load("wizard/WizardThunder2-27.png"))
+for i in range(12):
+    wizard_thunder_right_images.append(pygame.image.load("wizard/WizardThunder2-28.png"))
+for i in range(12):
+    wizard_thunder_right_images.append(pygame.image.load("wizard/WizardThunder2-29.png"))
+wizard_thunder_right_index = 0
+
+wizard_thunder_left_images = []
+for i in range(12):
+    wizard_thunder_left_images.append(pygame.image.load("wizard/WizardThunder2-0.png"))
+for i in range(12):
+    wizard_thunder_left_images.append(pygame.image.load("wizard/WizardThunder2-1.png"))
+for i in range(12):
+    wizard_thunder_left_images.append(pygame.image.load("wizard/WizardThunder2-2.png"))
+for i in range(12):
+    wizard_thunder_left_images.append(pygame.image.load("wizard/WizardThunder2-3.png"))
+for i in range(12):
+    wizard_thunder_left_images.append(pygame.image.load("wizard/WizardThunder2-4.png"))
+for i in range(12):
+    wizard_thunder_left_images.append(pygame.image.load("wizard/WizardThunder2-5.png"))
+for i in range(12):
+    wizard_thunder_left_images.append(pygame.image.load("wizard/WizardThunder2-6.png"))
+for i in range(12):
+    wizard_thunder_left_images.append(pygame.image.load("wizard/WizardThunder2-7.png"))
+for i in range(12):
+    wizard_thunder_left_images.append(pygame.image.load("wizard/WizardThunder2-8.png"))
+for i in range(12):
+    wizard_thunder_left_images.append(pygame.image.load("wizard/WizardThunder2-9.png"))
+for i in range(12):
+    wizard_thunder_left_images.append(pygame.image.load("wizard/WizardThunder2-10.png"))
+for i in range(12):
+    wizard_thunder_left_images.append(pygame.image.load("wizard/WizardThunder2-11.png"))
+for i in range(12):
+    wizard_thunder_left_images.append(pygame.image.load("wizard/WizardThunder2-12.png"))
+for i in range(12):
+    wizard_thunder_left_images.append(pygame.image.load("wizard/WizardThunder2-13.png"))
+for i in range(12):
+    wizard_thunder_left_images.append(pygame.image.load("wizard/WizardThunder2-14.png"))
+for i in range(12):
+    wizard_thunder_left_images.append(pygame.image.load("wizard/WizardThunder2-15.png"))
+for i in range(12):
+    wizard_thunder_left_images.append(pygame.image.load("wizard/WizardThunder2-16.png"))
+for i in range(12):
+    wizard_thunder_left_images.append(pygame.image.load("wizard/WizardThunder2-17.png"))
+for i in range(12):
+    wizard_thunder_left_images.append(pygame.image.load("wizard/WizardThunder2-18.png"))
+for i in range(12):
+    wizard_thunder_left_images.append(pygame.image.load("wizard/WizardThunder2-19.png"))
+for i in range(12):
+    wizard_thunder_left_images.append(pygame.image.load("wizard/WizardThunder2-20.png"))
+for i in range(12):
+    wizard_thunder_left_images.append(pygame.image.load("wizard/WizardThunder2-21.png"))
+for i in range(12):
+    wizard_thunder_left_images.append(pygame.image.load("wizard/WizardThunder2-22.png"))
+for i in range(12):
+    wizard_thunder_left_images.append(pygame.image.load("wizard/WizardThunder2-23.png"))
+for i in range(12):
+    wizard_thunder_left_images.append(pygame.image.load("wizard/WizardThunder2-24.png"))
+for i in range(12):
+    wizard_thunder_left_images.append(pygame.image.load("wizard/WizardThunder2-25.png"))
+for i in range(12):
+    wizard_thunder_left_images.append(pygame.image.load("wizard/WizardThunder2-26.png"))
+for i in range(12):
+    wizard_thunder_left_images.append(pygame.image.load("wizard/WizardThunder2-27.png"))
+for i in range(12):
+    wizard_thunder_left_images.append(pygame.image.load("wizard/WizardThunder2-28.png"))
+for i in range(12):
+    wizard_thunder_left_images.append(pygame.image.load("wizard/WizardThunder2-29.png"))
+wizard_thunder_left_index = 0
+
 slime_idle_images = []
 for i in range(24):
     slime_idle_images.append(pygame.image.load("slime/SlimeIdle-0.png"))
