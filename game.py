@@ -131,6 +131,23 @@ class MainCharacter(pygame.sprite.Sprite):
         
             self.image = animations.wizard_bomb_right_images[animations.wizard_bomb_right_index]
         self.image = pygame.transform.scale(self.image, (172, 172))
+    
+    def wizardThunder(self):
+        if instantiate.direction == "left":
+            animations.wizard_thunder_left_index += 1
+
+            if animations.wizard_thunder_left_index >= len(animations.wizard_thunder_left_images):
+                animations.wizard_thunder_left_index = 0
+        
+            self.image = animations.wizard_thunder_left_images[animations.wizard_thunder_left_index]
+        else:
+            animations.wizard_thunder_right_index += 1
+
+            if animations.wizard_thunder_right_index >= len(animations.wizard_thunder_right_images):
+                animations.wizard_thunder_right_index = 0
+        
+            self.image = animations.wizard_thunder_right_images[animations.wizard_thunder_right_index]
+        self.image = pygame.transform.scale(self.image, (172, 172))
 
 class House(pygame.sprite.Sprite):
     def __init__(self, width, height, rotation):
