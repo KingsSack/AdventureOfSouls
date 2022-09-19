@@ -1,4 +1,5 @@
 from os import kill
+from multiprocessing import Process
 import time
 import sys
 import pygame
@@ -340,14 +341,17 @@ def main():
             
             if self.state == "stage_one":
                 game.stage1_sprites_list.update()
+                # console.commands.tick()
                 self.stage_one()
             
             if self.state == "stage_two":
                 game.stage2_sprites_list.update()
+                # console.commands.tick()
                 self.stage_two()
 
             if self.state == "stage_three":
                 game.stage3_sprites_list.update()
+                # console.commands.tick()
                 self.stage_three()
 
     game_stage = GameState()
