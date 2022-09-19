@@ -322,13 +322,20 @@ def check_attacks():
 
     for event in pygame.event.get():
         if event.type == pygame.MOUSEBUTTONDOWN:
-            if animations.attacking == "false" and 350 <= mouse[0] <= 398 and 428 <= mouse[1] <= 476 and savedata.fireball_spell == 1:
-                animations.attacking = "true"
-                animations.wizard_bomb_left_index = 0
-                animations.wizard_bomb_right_index = 0
+            if animations.attacking == "false" and 350 <= mouse[0] <= 398 and 428 <= mouse[1] <= 476:
+                if savedata.spell_slot1 == "fireball":
+                    animations.attacking = "fireball"
+                    animations.wizard_bomb_left_index = 0
+                    animations.wizard_bomb_right_index = 0
+                if savedata.spell_slot1 == "thunder":
+                    animations.attacking = "thunder"
+                    animations.wizard_thunder_left_index = 0
+                    animations.wizard_thunder_right_index = 0
 
-    if animations.attacking == "true":
+    if animations.attacking == "fireball":
         main_character.wizardFirebomb()
+    if animations.attacking == "thunder":
+        main_character.wizardThunder()
     
     if animations.wizard_bomb_right_index == 323 or animations.wizard_bomb_left_index == 323:
         animations.attacking = "false"
