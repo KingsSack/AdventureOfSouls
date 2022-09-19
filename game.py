@@ -304,10 +304,18 @@ def stage_one():
 def stage_two():
     spell_gain = 0
     if spell_gain == 0 and 375 > main_character.rect.x > 335 and 180 > main_character.rect.y > 140:
-        savedata.fireball_spell = 1
         spell_object1.gain_spell()
         spell_glow1.gain_spell()
         spell_gain = 1
+        savedata.fireball_spell = 1
+        if savedata.spell_slot1 == "empty":
+            savedata.spell_slot1 = "fireball"
+        else:
+            if savedata.spell_slot1 != "fireball" and savedata.spell_slot3 != "fireball" and savedata.spell_slot2 == "empty":
+                savedata.spell_slot2 = "fireball"
+            else:
+                if savedata.spell_slot2 != "fireball" and savedata.spell_slot1 != "fireball" and savedata.spell_slot3 == "empty":
+                    savedata.spell_slot3 = "fireball"
 
 def check_attacks():
     mouse = pygame.mouse.get_pos()

@@ -286,28 +286,53 @@ def main():
             spell1 = pygame.image.load("menu/SquareMenu.png")
             spell1 = pygame.transform.scale(spell1, (48, 48))
             screen.blit(spell1, (width / 2 - 76, height - 52))
-            if savedata.fireball_spell == 0:
+            if savedata.spell_slot1 == "empty":
                 lock1 = pygame.image.load("menu/Lock.png")
                 lock1 = pygame.transform.scale(lock1, (36, 36))
                 screen.blit(lock1, (width / 2 - 70, height - 46))
             else:
-                fireball = pygame.image.load("menu/Firebomb.png")
-                fireball = pygame.transform.scale(fireball, (36, 36))
-                screen.blit(fireball, (width / 2 - 70, height - 46))
+                if savedata.spell_slot1 == "fireball":
+                    fireball = pygame.image.load("menu/Firebomb.png")
+                    fireball = pygame.transform.scale(fireball, (36, 36))
+                    screen.blit(fireball, (width / 2 - 70, height - 46))
+                if savedata.spell_slot1 == "thunder":
+                    thunderbomb = pygame.image.load("menu/Firebomb.png")
+                    thunderbomb = pygame.transform.scale(thunderbomb, (36, 36))
+                    screen.blit(thunderbomb, (width / 2 - 70, height - 46))
 
             spell2 = pygame.image.load("menu/SquareMenu.png")
             spell2 = pygame.transform.scale(spell2, (48, 48))
             screen.blit(spell2, (width / 2 - 24, height - 52))
-            lock2 = pygame.image.load("menu/Lock.png")
-            lock2 = pygame.transform.scale(lock2, (36, 36))
-            screen.blit(lock2, (width / 2 - 18, height - 46))
+            if savedata.spell_slot2 == "empty":
+                lock2 = pygame.image.load("menu/Lock.png")
+                lock2 = pygame.transform.scale(lock2, (36, 36))
+                screen.blit(lock2, (width / 2 - 18, height - 46))
+            else:
+                if savedata.spell_slot2 == "fireball":
+                    fireball = pygame.image.load("menu/Firebomb.png")
+                    fireball = pygame.transform.scale(fireball, (36, 36))
+                    screen.blit(fireball, (width / 2 - 18, height - 46))
+                if savedata.spell_slot2 == "thunder":
+                    thunderbomb = pygame.image.load("menu/Firebomb.png")
+                    thunderbomb = pygame.transform.scale(thunderbomb, (36, 36))
+                    screen.blit(thunderbomb, (width / 2 - 18, height - 46))
 
             spell3 = pygame.image.load("menu/SquareMenu.png")
             spell3 = pygame.transform.scale(spell3, (48, 48))
             screen.blit(spell3, (width / 2 + 28, height - 52))
-            lock3 = pygame.image.load("menu/Lock.png")
-            lock3 = pygame.transform.scale(lock3, (36, 36))
-            screen.blit(lock3, (width / 2 + 34, height - 46))
+            if savedata.spell_slot3 == "empty":
+                lock3 = pygame.image.load("menu/Lock.png")
+                lock3 = pygame.transform.scale(lock3, (36, 36))
+                screen.blit(lock3, (width / 2 + 34, height - 46))
+            else:
+                if savedata.spell_slot3 == "fireball":
+                    fireball = pygame.image.load("menu/Firebomb.png")
+                    fireball = pygame.transform.scale(fireball, (36, 36))
+                    screen.blit(fireball, (width / 2 + 34, height - 46))
+                if savedata.spell_slot3 == "thunder":
+                    thunderbomb = pygame.image.load("menu/Firebomb.png")
+                    thunderbomb = pygame.transform.scale(thunderbomb, (36, 36))
+                    screen.blit(thunderbomb, (width / 2 + 34, height - 46))
         
         def stage_manager(self):
             if self.state == "menu":
