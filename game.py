@@ -337,5 +337,5 @@ def check_attacks():
     if animations.attacking == "thunder":
         main_character.wizardThunder()
     
-    if animations.wizard_bomb_right_index == 323 or animations.wizard_bomb_left_index == 323:
+    if animations.wizard_bomb_right_index == 323 or animations.wizard_bomb_left_index == 323 or animations.wizard_thunder_right_index == 348 or animations.wizard_thunder_left_index == 348:
         animations.attacking = "false"
