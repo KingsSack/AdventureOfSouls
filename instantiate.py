@@ -96,10 +96,18 @@ spellbook_title = undertale_font.render("Spellbook", True, ui_title_color)
 inventory_sprites = pygame.sprite.Group()
 
 def new_tab(type, rect_x, rect_y):
-    current_tab = game.InvTab(type)
-    current_tab.rect.x = rect_x
-    current_tab.rect.y = rect_y
-    inventory_sprites.add(current_tab)
+    if type == "backpack":
+        current_tab = pygame.image.load("menu/tabs/Backpack.png")
+    if type == "armor":
+        current_tab = pygame.image.load("menu/tabs/Armor.png")
+    if type == "cosmetics":
+        current_tab = pygame.image.load("menu/tabs/Cosmetics.png")
+    if type == "fairies":
+        current_tab = pygame.image.load("menu/tabs/Fairies.png")
+    if type == "stats":
+        current_tab = pygame.image.load("menu/tabs/Stats.png")
+    current_tab = pygame.transform.scale(current_tab, (82, 82))
+    game.screen.blit(current_tab, (rect_x, rect_y))
 
 def inventory():
     pygame.draw.rect(game.screen, ui_background_color, [width / 2 - 110, height / 2 - 190, 220, 40], 0, 6)
@@ -131,7 +139,11 @@ def inventory():
         width_var += 1
         game.screen.blit(inventory_slot, (width / 2 - (width_var * (48 + 3)), height / 2 - height_var))
     
-    new_tab("backpack", width / 2 - 100, height / 2 - 105)
+    new_tab("backpack", width / 2 - 204, height / 2 - 170)
+    new_tab("armor", width / 2 - 166, height / 2 - 170)
+    new_tab("cosmetics", width / 2 - 128, height / 2 - 170)
+    new_tab("fairies", width / 2 - 90, height / 2 - 170)
+    new_tab("stats", width / 2 - 52, height / 2 - 170)
     
     close_menu = pygame.image.load("menu/CloseMenu.png")
     close_menu = pygame.transform.scale(close_menu, (48, 48))

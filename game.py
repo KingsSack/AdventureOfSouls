@@ -276,25 +276,6 @@ class Item(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         screen.blit(self.image, self.rect)
 
-class InvTab(pygame.sprite.Sprite):
-    def __init__(self, type):
-        super().__init__()
-        
-        if type == "backpack":
-            self.image = pygame.image.load("menu/tabs/Backpack.png")
-        if type == "armor":
-            self.image = pygame.image.load("menu/tabs/Armor.png")
-        if type == "cosmetics":
-            self.image = pygame.image.load("menu/tabs/Cosmetics.png")
-        if type == "fairies":
-            self.image = pygame.image.load("menu/tabs/Fairies.png")
-        if type == "stats":
-            self.image = pygame.image.load("menu/tabs/Stats.png")
-        self.image = pygame.transform.scale(self.image, (89, 89))
-        
-        self.rect = self.image.get_rect()
-        screen.blit(self.image, self.rect)
-
 class NewSprite(pygame.sprite.Sprite):
     def __init__(self, surface_color, color, height, width, border_radius):
         super().__init__()
