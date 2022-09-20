@@ -93,6 +93,14 @@ undertale_font = pygame.font.Font("fonts/UndertaleFont.ttf", 21)
 inventory_title = undertale_font.render("Inventory", True, ui_title_color)
 spellbook_title = undertale_font.render("Spellbook", True, ui_title_color)
 
+inventory_sprites = pygame.sprite.Group()
+
+def new_tab(type, rect_x, rect_y):
+    current_tab = game.InvTab(type)
+    current_tab.rect.x = rect_x
+    current_tab.rect.y = rect_y
+    inventory_sprites.add(current_tab)
+
 def inventory():
     pygame.draw.rect(game.screen, ui_background_color, [width / 2 - 110, height / 2 - 190, 220, 40], 0, 6)
     pygame.draw.rect(game.screen, ui_background_color, [width / 2 - 190, height / 2 - 155, 380, 310], 0, 7)
@@ -122,6 +130,8 @@ def inventory():
             width_var = -3.5
         width_var += 1
         game.screen.blit(inventory_slot, (width / 2 - (width_var * (48 + 3)), height / 2 - height_var))
+    
+    new_tab("backpack", width / 2 - 100, height / 2 - 105)
     
     close_menu = pygame.image.load("menu/CloseMenu.png")
     close_menu = pygame.transform.scale(close_menu, (48, 48))

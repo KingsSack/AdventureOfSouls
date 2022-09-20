@@ -200,6 +200,7 @@ def main():
                 instantiate.spellbook()
             if game.gui_open == "inventory":
                 instantiate.inventory()
+                instantiate.inventory_sprites.draw()
             if game.gui_open == "false":
                 game.check_attacks()
             
