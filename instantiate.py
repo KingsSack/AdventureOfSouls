@@ -17,6 +17,8 @@ def new_house(rotation, rect_x, rect_y, stage):
         game.stage1_sprites_list.add(current_house)
     if stage == 2:
         game.stage2_sprites_list.add(current_house)
+    if stage == 3:
+        game.stage3_sprites_list.add(current_house)
 
 def new_tree(tree_type, width, height, rotation, rect_x, rect_y, stage):
     current_tree = game.Tree(tree_type, width, height, rotation)
@@ -26,6 +28,8 @@ def new_tree(tree_type, width, height, rotation, rect_x, rect_y, stage):
         game.stage1_sprites_list.add(current_tree)
     if stage == 2:
         game.stage2_sprites_list.add(current_tree)
+    if stage == 3:
+        game.stage3_sprites_list.add(current_tree)
 
 def new_slime(rect_x, rect_y, stage):
     current_slime = game.Slime(stage)
