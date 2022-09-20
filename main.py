@@ -115,22 +115,8 @@ def main():
             game.stage1_sprites_list.draw(screen)
             game.character_sprite_list.draw(screen)
             self.user_interface()
-
-            pressed_keys = pygame.key.get_pressed()
-            if animations.attacking == "false" and game.gui_open == "false":
-                if pressed_keys[pygame.K_LEFT]:
-                    game.main_character.moveLeft(savedata.speed1)
-                else:
-                    if pressed_keys[pygame.K_RIGHT]:
-                        game.main_character.moveRight(savedata.speed1)
-                    else:
-                        if pressed_keys[pygame.K_DOWN]:
-                            game.main_character.moveForward(savedata.speed2)
-                        else:
-                            if pressed_keys[pygame.K_UP]:
-                                game.main_character.moveBack(savedata.speed2)
-                            else:
-                                game.main_character.idle()
+            
+            game.main_character.update()
 
             collisions.stage_one()
             if game.gui_open == "spellbook":
@@ -179,22 +165,8 @@ def main():
             game.stage2_sprites_list.draw(screen)
             game.character_sprite_list.draw(screen)
             self.user_interface()
-
-            pressed_keys = pygame.key.get_pressed()
-            if animations.attacking == "false" and game.gui_open == "false":
-                if pressed_keys[pygame.K_LEFT]:
-                    game.main_character.moveLeft(savedata.speed1)
-                else:
-                    if pressed_keys[pygame.K_RIGHT]:
-                        game.main_character.moveRight(savedata.speed1)
-                    else:
-                        if pressed_keys[pygame.K_DOWN]:
-                            game.main_character.moveForward(savedata.speed2)
-                        else:
-                            if pressed_keys[pygame.K_UP]:
-                                game.main_character.moveBack(savedata.speed2)
-                            else:
-                                game.main_character.idle()
+            
+            game.main_character.update()
             
             if game.gui_open == "spellbook":
                 instantiate.spellbook()
@@ -237,22 +209,8 @@ def main():
             game.stage3_sprites_list.draw(screen)
             game.character_sprite_list.draw(screen)
             self.user_interface()
-
-            pressed_keys = pygame.key.get_pressed()
-            if animations.attacking == "false" and game.gui_open == "false":
-                if pressed_keys[pygame.K_LEFT]:
-                    game.main_character.moveLeft(savedata.speed1)
-                else:
-                    if pressed_keys[pygame.K_RIGHT]:
-                        game.main_character.moveRight(savedata.speed1)
-                    else:
-                        if pressed_keys[pygame.K_DOWN]:
-                            game.main_character.moveForward(savedata.speed2)
-                        else:
-                            if pressed_keys[pygame.K_UP]:
-                                game.main_character.moveBack(savedata.speed2)
-                            else:
-                                game.main_character.idle()
+            
+            game.main_character.update()
             
             if game.gui_open == "spellbook":
                 instantiate.spellbook()
