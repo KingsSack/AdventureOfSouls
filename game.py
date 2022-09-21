@@ -24,6 +24,8 @@ headrect = head.get_rect()
 
 gui_open = "false"
 
+tab = "backpack"
+
 class MainCharacter(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()

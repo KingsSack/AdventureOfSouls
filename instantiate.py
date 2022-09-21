@@ -1,4 +1,5 @@
 from cmath import rect
+from curses import mouseinterval
 import pygame
 import time
 import game
@@ -98,8 +99,6 @@ undertale_font = pygame.font.Font("fonts/UndertaleFont.ttf", 21)
 inventory_title = undertale_font.render("Inventory", True, ui_title_color)
 spellbook_title = undertale_font.render("Spellbook", True, ui_title_color)
 
-tab = "backpack"
-
 tab_font = pygame.font.Font("fonts/UndertaleFont.ttf", 18)
 pack_tab_text = tab_font.render("Backpack", True, tab_title_color)
 armor_tab_text = tab_font.render("Armor", True, tab_title_color)
@@ -124,6 +123,25 @@ def new_tab(type, rect_x, rect_y):
     game.screen.blit(current_tab, (rect_x, rect_y))
 
 def inventory():
+    mouse = pygame.mouse.get_pos()
+    
+    for event in pygame.event.get():
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if 245 <= mouse[0] <= 280 and 95 <= mouse[1] <= 135:
+                game.tab = "backpack"
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if 285 <= mouse[0] <= 315 and 95 <= mouse[1] <= 135:
+                game.tab = "armor"
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if 320 <= mouse[0] <= 355 and 95 <= mouse[1] <= 135:
+                game.tab = "cosmetics"
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if 360 <= mouse[0] <= 395 and 95 <= mouse[1] <= 135:
+                game.tab = "fairies"
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if 400 <= mouse[0] <= 435 and 95 <= mouse[1] <= 135:
+                game.tab = "stats"
+
     pygame.draw.rect(game.screen, ui_background_color, [width / 2 - 110, height / 2 - 190, 220, 40], 0, 6)
     pygame.draw.rect(game.screen, ui_background_color, [width / 2 - 190, height / 2 - 155, 380, 310], 0, 7)
     pygame.draw.rect(game.screen, ui_main_color, [width / 2 - 185, height / 2 - 150, 370, 300], 0, 5)
@@ -154,21 +172,33 @@ def inventory():
             width_var += 1
             game.screen.blit(inventory_slot, (width / 2 - (width_var * (48 + 3)), height / 2 - height_var))
     
-    if tab == "backpack":
+    def armor():
+        print("armor")
+    
+    def cosmetics():
+        print("cosmetics")
+    
+    def fairies():
+        print("fairies")
+    
+    def stats():
+        print("stats")
+    
+    if game.tab == "backpack":
         backpack()
         game.screen.blit(pack_tab_text, (width / 2 + 14, height / 2 - 136))
-    if tab == "inventory":
-        backpack()
-        game.screen.blit(armor_tab_text, (width / 2 + 32, height / 2 - 136))
-    if tab == "inventory":
-        backpack()
-        game.screen.blit(cosmetics_tab_text, (width / 2 + 32, height / 2 - 136))
-    if tab == "inventory":
-        backpack()
-        game.screen.blit(fairy_tab_text, (width / 2 + 32, height / 2 - 136))
-    if tab == "inventory":
-        backpack()
-        game.screen.blit(stats_tab_text, (width / 2 + 32, height / 2 - 136))
+    if game.tab == "armor":
+        armor()
+        game.screen.blit(armor_tab_text, (width / 2 + 42, height / 2 - 136))
+    if game.tab == "cosmetics":
+        cosmetics()
+        game.screen.blit(cosmetics_tab_text, (width / 2 + 14, height / 2 - 136))
+    if game.tab == "fairies":
+        fairies()
+        game.screen.blit(fairy_tab_text, (width / 2 + 34, height / 2 - 136))
+    if game.tab == "stats":
+        stats()
+        game.screen.blit(stats_tab_text, (width / 2 + 42, height / 2 - 136))
     
     new_tab("backpack", width / 2 - 204, height / 2 - 170)
     new_tab("armor", width / 2 - 166, height / 2 - 170)
