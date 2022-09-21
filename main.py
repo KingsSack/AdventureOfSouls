@@ -96,18 +96,7 @@ def main():
                         sys.exit()
                 
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if game.gui_open == "false" and 108 <= mouse[0] <= 156 and height - 52 <= mouse[1] <= height - 4:
-                        game.gui_open = "spellbook"
-                    
-                    if game.gui_open == "false" and 64 <= mouse[0] <= 102 and height - 52 <= mouse[1] <= height - 4:
-                        game.gui_open = "inventory"
-                        instantiate.tab = "backpack"
-                    
-                    if game.gui_open == "spellbook" and 460 <= mouse[0] <= 600 and 42 <= mouse[1] <= 80:
-                        game.gui_open = "false"
-                    
-                    if game.gui_open == "inventory" and 460 <= mouse[0] <= 600 and 42 <= mouse[1] <= 80:
-                        game.gui_open = "false"
+                    game.ui_buttons()
                     
                     print("mouse clicked")
 
@@ -149,17 +138,7 @@ def main():
                         sys.exit()
                 
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if game.gui_open == "false" and 108 <= mouse[0] <= 156 and height - 52 <= mouse[1] <= height - 4:
-                        game.gui_open = "spellbook"
-                    
-                    if game.gui_open == "false" and 64 <= mouse[0] <= 102 and height - 52 <= mouse[1] <= height - 4:
-                        game.gui_open = "inventory"
-                    
-                    if game.gui_open == "spellbook" and 460 <= mouse[0] <= 600 and 42 <= mouse[1] <= 80:
-                        game.gui_open = "false"
-                    
-                    if game.gui_open == "inventory" and 460 <= mouse[0] <= 600 and 42 <= mouse[1] <= 80:
-                        game.gui_open = "false"
+                    game.ui_buttons()
 
             screen.fill(ground)
             game.stage_two()
@@ -194,17 +173,7 @@ def main():
                         sys.exit()
                 
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if game.gui_open == "false" and 108 <= mouse[0] <= 156 and height - 52 <= mouse[1] <= height - 4:
-                        game.gui_open = "spellbook"
-                    
-                    if game.gui_open == "false" and 64 <= mouse[0] <= 102 and height - 52 <= mouse[1] <= height - 4:
-                        game.gui_open = "inventory"
-                    
-                    if game.gui_open == "spellbook" and 460 <= mouse[0] <= 600 and 42 <= mouse[1] <= 80:
-                        game.gui_open = "false"
-                    
-                    if game.gui_open == "inventory" and 460 <= mouse[0] <= 600 and 42 <= mouse[1] <= 80:
-                        game.gui_open = "false"
+                    game.ui_buttons()
             
             screen.fill(ground)
             game.stage3_sprites_list.draw(screen)

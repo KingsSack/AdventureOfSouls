@@ -359,3 +359,21 @@ def check_attacks():
     
     if animations.wizard_bomb_right_index == 323 or animations.wizard_bomb_left_index == 323 or animations.wizard_thunder_right_index == 348 or animations.wizard_thunder_left_index == 348:
         animations.attacking = "false"
+
+def ui_buttons():
+    global gui_open
+    global tab
+    mouse = pygame.mouse.get_pos()
+    
+    if gui_open == "false" and 108 <= mouse[0] <= 156 and height - 52 <= mouse[1] <= height - 4:
+        gui_open = "spellbook"
+
+    if gui_open == "false" and 64 <= mouse[0] <= 102 and height - 52 <= mouse[1] <= height - 4:
+        gui_open = "inventory"
+        tab = "backpack"
+                    
+    if gui_open == "spellbook" and 460 <= mouse[0] <= 600 and 42 <= mouse[1] <= 80:
+        gui_open = "false"
+                    
+    if gui_open == "inventory" and 460 <= mouse[0] <= 600 and 42 <= mouse[1] <= 80:
+        gui_open = "false"
