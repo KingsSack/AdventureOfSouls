@@ -277,7 +277,7 @@ class Slime(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (500, 500))
     
     def update(self):
-        if animations.attacking == "true" and main_character.rect.x and main_character.rect.y:
+        if animations.attacking != "false" and main_character.rect.x and main_character.rect.y:
             self.hurt()
         else:
             self.idle()
@@ -340,6 +340,7 @@ def check_attacks():
     for event in pygame.event.get():
         if event.type == pygame.MOUSEBUTTONDOWN:
             if animations.attacking == "false" and 350 <= mouse[0] <= 398 and 428 <= mouse[1] <= 476:
+                # animations.attacking = "true"
                 if savedata.spell_slot1 == "fireball":
                     animations.attacking = "fireball"
                     animations.wizard_bomb_left_index = 0
