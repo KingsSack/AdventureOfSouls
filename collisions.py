@@ -1,9 +1,21 @@
+from cmath import rect
 import pygame
 import game
 
 def stage_one():
     # print(game.main_character.rect.x)
     # print(game.main_character.rect.y)
+    
+    def collide_rect(rect1, rect2, rect3, rect4):
+        if rect3 < game.main_character.rect.y < rect4 and rect1 < game.main_character.rect.x < (rect1 + 4):
+            game.main_character.rect.x += 3
+        if rect3 < game.main_character.rect.y < rect4 and (rect2 + 4) < game.main_character.rect.x < rect2:
+            game.main_character.rect.x -= 3
+        if rect3 < game.main_character.rect.y < (rect3 + 4) and rect1 > game.main_character.rect.x > rect2:
+            game.main_character.rect.y += 3
+        if (rect4 + 4) < game.main_character.rect.y < rect4 and rect1 > game.main_character.rect.x > rect2:
+            game.main_character.rect.y -= 3
+        
     
     if -125 < game.main_character.rect.y < 70 and 290 > game.main_character.rect.x > 270:
         game.main_character.rect.x += 3

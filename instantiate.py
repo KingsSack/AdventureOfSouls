@@ -1,5 +1,3 @@
-from cmath import rect
-from curses import mouseinterval
 import pygame
 import time
 import game
@@ -102,7 +100,7 @@ spellbook_title = undertale_font.render("Spellbook", True, ui_title_color)
 tab_font = pygame.font.Font("fonts/UndertaleFont.ttf", 18)
 pack_tab_text = tab_font.render("Backpack", True, tab_title_color)
 armor_tab_text = tab_font.render("Armor", True, tab_title_color)
-cosmetics_tab_text = tab_font.render("Costmetics", True, tab_title_color)
+cosmetics_tab_text = tab_font.render("Cosmetics", True, tab_title_color)
 fairy_tab_text = tab_font.render("Fairies", True, tab_title_color)
 stats_tab_text = tab_font.render("Stats", True, tab_title_color)
 
@@ -192,7 +190,7 @@ def inventory():
         game.screen.blit(armor_tab_text, (width / 2 + 42, height / 2 - 136))
     if game.tab == "cosmetics":
         cosmetics()
-        game.screen.blit(cosmetics_tab_text, (width / 2 + 14, height / 2 - 136))
+        game.screen.blit(cosmetics_tab_text, (width / 2 + 9.5, height / 2 - 136))
     if game.tab == "fairies":
         fairies()
         game.screen.blit(fairy_tab_text, (width / 2 + 34, height / 2 - 136))
