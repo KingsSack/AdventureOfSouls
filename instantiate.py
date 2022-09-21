@@ -92,10 +92,20 @@ pygame.init()
 ui_background_color = 51, 34, 0
 ui_main_color = 102, 51, 0
 ui_title_color = 255, 217, 179
+tab_title_color = 255, 136, 77
 
 undertale_font = pygame.font.Font("fonts/UndertaleFont.ttf", 21)
 inventory_title = undertale_font.render("Inventory", True, ui_title_color)
 spellbook_title = undertale_font.render("Spellbook", True, ui_title_color)
+
+tab = "backpack"
+
+tab_font = pygame.font.Font("fonts/UndertaleFont.ttf", 18)
+pack_tab_text = tab_font.render("Backpack", True, tab_title_color)
+armor_tab_text = tab_font.render("Armor", True, tab_title_color)
+cosmetics_tab_text = tab_font.render("Costmetics", True, tab_title_color)
+fairy_tab_text = tab_font.render("Fairies", True, tab_title_color)
+stats_tab_text = tab_font.render("Stats", True, tab_title_color)
 
 inventory_sprites = pygame.sprite.Group()
 
@@ -118,30 +128,47 @@ def inventory():
     pygame.draw.rect(game.screen, ui_background_color, [width / 2 - 190, height / 2 - 155, 380, 310], 0, 7)
     pygame.draw.rect(game.screen, ui_main_color, [width / 2 - 185, height / 2 - 150, 370, 300], 0, 5)
     game.screen.blit(inventory_title, (width / 2 - 104, height / 2 - 180))
+
+    def backpack():
+        for i in range(35):
+            inventory_slot = pygame.image.load("menu/Slot.png")
+            inventory_slot = pygame.transform.scale(inventory_slot, (48, 48))
+            if i == 0:
+                height_var = 105
+                width_var = -3.5
+            if i == 7:
+                height_var = 54
+                width_var = -3.5
+            if i == 14:
+                height_var = 2
+                width_var = -3.5
+            if i == 21:
+                height_var = -50
+                width_var = -3.5
+            if i == 28:
+                height_var = -102
+                width_var = -3.5
+            if i == 35:
+                height_var = -154
+                width_var = -3.5
+            width_var += 1
+            game.screen.blit(inventory_slot, (width / 2 - (width_var * (48 + 3)), height / 2 - height_var))
     
-    height_var = 105
-    width_var = -3.5
-    
-    for i in range(35):
-        inventory_slot = pygame.image.load("menu/Slot.png")
-        inventory_slot = pygame.transform.scale(inventory_slot, (48, 48))
-        if i == 7:
-            height_var = 54
-            width_var = -3.5
-        if i == 14:
-            height_var = 2
-            width_var = -3.5
-        if i == 21:
-            height_var = -50
-            width_var = -3.5
-        if i == 28:
-            height_var = -102
-            width_var = -3.5
-        if i == 35:
-            height_var = -154
-            width_var = -3.5
-        width_var += 1
-        game.screen.blit(inventory_slot, (width / 2 - (width_var * (48 + 3)), height / 2 - height_var))
+    if tab == "backpack":
+        backpack()
+        game.screen.blit(pack_tab_text, (width / 2 + 14, height / 2 - 136))
+    if tab == "inventory":
+        backpack()
+        game.screen.blit(armor_tab_text, (width / 2 + 32, height / 2 - 136))
+    if tab == "inventory":
+        backpack()
+        game.screen.blit(cosmetics_tab_text, (width / 2 + 32, height / 2 - 136))
+    if tab == "inventory":
+        backpack()
+        game.screen.blit(fairy_tab_text, (width / 2 + 32, height / 2 - 136))
+    if tab == "inventory":
+        backpack()
+        game.screen.blit(stats_tab_text, (width / 2 + 32, height / 2 - 136))
     
     new_tab("backpack", width / 2 - 204, height / 2 - 170)
     new_tab("armor", width / 2 - 166, height / 2 - 170)

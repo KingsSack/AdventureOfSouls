@@ -101,6 +101,7 @@ def main():
                     
                     if game.gui_open == "false" and 64 <= mouse[0] <= 102 and height - 52 <= mouse[1] <= height - 4:
                         game.gui_open = "inventory"
+                        instantiate.tab = "backpack"
                     
                     if game.gui_open == "spellbook" and 460 <= mouse[0] <= 600 and 42 <= mouse[1] <= 80:
                         game.gui_open = "false"
