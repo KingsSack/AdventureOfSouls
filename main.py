@@ -225,7 +225,7 @@ def main():
                     fireball = pygame.transform.scale(fireball, (36, 36))
                     screen.blit(fireball, (width / 2 - 70, height - 46))
                 if savedata.spell_slot1 == "thunder":
-                    thunderbomb = pygame.image.load("menu/Firebomb.png")
+                    thunderbomb = pygame.image.load("menu/Bolt.png")
                     thunderbomb = pygame.transform.scale(thunderbomb, (36, 36))
                     screen.blit(thunderbomb, (width / 2 - 70, height - 46))
 
