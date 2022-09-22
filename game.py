@@ -351,6 +351,28 @@ def check_attacks():
                     animations.attacking = "thunder"
                     animations.wizard_thunder_left_index = 0
                     animations.wizard_thunder_right_index = 0
+        
+        if animations.attacking == "false" and 402 <= mouse[0] <= 450 and 428 <= mouse[1] <= 476:
+                # animations.attacking = "true"
+                if savedata.spell_slot2 == "fireball":
+                    animations.attacking = "fireball"
+                    animations.wizard_bomb_left_index = 0
+                    animations.wizard_bomb_right_index = 0
+                if savedata.spell_slot2 == "thunder":
+                    animations.attacking = "thunder"
+                    animations.wizard_thunder_left_index = 0
+                    animations.wizard_thunder_right_index = 0
+        
+        if animations.attacking == "false" and 454 <= mouse[0] <= 502 and 428 <= mouse[1] <= 476:
+                # animations.attacking = "true"
+                if savedata.spell_slot3 == "fireball":
+                    animations.attacking = "fireball"
+                    animations.wizard_bomb_left_index = 0
+                    animations.wizard_bomb_right_index = 0
+                if savedata.spell_slot3 == "thunder":
+                    animations.attacking = "thunder"
+                    animations.wizard_thunder_left_index = 0
+                    animations.wizard_thunder_right_index = 0
 
     if animations.attacking == "fireball":
         main_character.wizardFirebomb()

@@ -236,6 +236,11 @@ def spellbook():
         fireball1 = pygame.image.load("menu/FirebombLevel1Icon.png")
         fireball1 = pygame.transform.scale(fireball1, (52, 52))
         game.screen.blit(fireball1, (width / 2 - 174, height / 2 - 130))
+
+    if savedata.thunder_spell == 1:
+        thunder1 = pygame.image.load("menu/BoltLevel1Icon.png")
+        thunder1 = pygame.transform.scale(thunder1, (52, 52))
+        game.screen.blit(thunder1, (width / 2 - 108, height / 2 - 130))
     
     close_menu = pygame.image.load("menu/CloseMenu.png")
     close_menu = pygame.transform.scale(close_menu, (48, 48))
