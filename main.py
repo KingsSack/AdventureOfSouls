@@ -8,6 +8,7 @@ import collisions
 import savedata
 import console
 import animations
+import map
 
 from pygame.locals import (
     K_UP,
