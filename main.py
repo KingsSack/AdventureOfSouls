@@ -59,6 +59,23 @@ def main():
             if current_stage == game.stages[4]:
                 instantiate.stage_three()
         
+        def level(self):
+            game.item_sprite_list.draw(screen)
+            game.enemy_sprite_list.draw(screen)
+            game.character_sprite_list.draw(screen)
+            self.user_interface()
+            
+            game.main_character.update()
+            game.enemy_sprite_list.update()
+            game.item_sprite_list.update()
+            
+            if game.gui_open == "spellbook":
+                instantiate.spellbook()
+            if game.gui_open == "inventory":
+                instantiate.inventory()
+            if game.gui_open == "false":
+                game.check_attacks()
+        
         def menu(self):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT: sys.exit()
@@ -103,20 +120,9 @@ def main():
             screen.fill(ground)
             game.stage_one()
             game.stage1_sprites_list.draw(screen)
-            game.enemy_sprite_list.draw(screen)
-            game.character_sprite_list.draw(screen)
-            self.user_interface()
-            
-            game.main_character.update()
-            game.enemy_sprite_list.update()
+            self.level()
 
             collisions.stage_one()
-            if game.gui_open == "spellbook":
-                instantiate.spellbook()
-            if game.gui_open == "inventory":
-                instantiate.inventory()
-            if game.gui_open == "false":
-                game.check_attacks()
 
             if game.main_character.rect.y < -130 and 400 >= game.main_character.rect.x >= 300:
                 instantiate.last_stage = 1
@@ -145,20 +151,7 @@ def main():
             screen.fill(ground)
             game.stage_two()
             game.stage2_sprites_list.draw(screen)
-            game.enemy_sprite_list.draw(screen)
-            game.character_sprite_list.draw(screen)
-            self.user_interface()
-            
-            game.main_character.update()
-            game.enemy_sprite_list.update()
-            
-            if game.gui_open == "spellbook":
-                instantiate.spellbook()
-            if game.gui_open == "inventory":
-                instantiate.inventory()
-                instantiate.inventory_sprites.draw()
-            if game.gui_open == "false":
-                game.check_attacks()
+            self.level()
             
             if game.main_character.rect.y > 400 and 400 >= game.main_character.rect.x >= 300:
                 instantiate.last_stage = 2
@@ -181,19 +174,7 @@ def main():
             
             screen.fill(ground)
             game.stage3_sprites_list.draw(screen)
-            game.enemy_sprite_list.draw(screen)
-            game.character_sprite_list.draw(screen)
-            self.user_interface()
-            
-            game.main_character.update()
-            game.enemy_sprite_list.update()
-            
-            if game.gui_open == "spellbook":
-                instantiate.spellbook()
-            if game.gui_open == "inventory":
-                instantiate.inventory()
-            if game.gui_open == "false":
-                game.check_attacks()
+            self.level()
             
             pygame.display.flip()
         

@@ -17,6 +17,7 @@ stage2_sprites_list = pygame.sprite.Group()
 stage3_sprites_list = pygame.sprite.Group()
 character_sprite_list = pygame.sprite.Group()
 enemy_sprite_list = pygame.sprite.Group()
+item_sprite_list = pygame.sprite.Group()
 user_interface_sprite_list = pygame.sprite.Group()
 
 head = pygame.image.load("WizardHead.png")
@@ -234,20 +235,17 @@ class SpellGlow(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (64, 64))
 
 class Slime(pygame.sprite.Sprite):
-    def __init__(self, stage):
+    def __init__(self):
         super().__init__()
-        
-        self.stage = stage
-        
-        self.health = 100 * 100
+        self.health = 100
         
         self.image = animations.slime_idle_images[animations.slime_idle_index]
-        self.image = pygame.transform.scale(self.image, (500, 500))
+        self.image = pygame.transform.scale(self.image, (89, 89))
         self.rect = self.image.get_rect()
         screen.blit(self.image, self.rect)
     
     def hurt(self):
-        self.health -= 10
+        self.health -= 2
         # print(self.health)
         
         animations.slime_hurt_index += 1
@@ -256,18 +254,17 @@ class Slime(pygame.sprite.Sprite):
             animations.slime_hurt_index = 0
         
         self.image = animations.slime_hurt_images[animations.slime_hurt_index]
-        self.image = pygame.transform.scale(self.image, (500, 500))
+        self.image = pygame.transform.scale(self.image, (89, 89))
         
-        # damage_font = pygame.font.Font("fonts/PixelFont.ttf", 16)
-        # damage_text = damage_font.render("10", True, green)
-        # screen.blit(damage_text, (self.rect.x, self.rect.y))
+        damage_font = pygame.font.Font("fonts/PixelFont.ttf", 16)
+        damage_text = damage_font.render("2", True, green)
+        screen.blit(damage_text, (self.rect.x / 2, self.rect.y / 2))
         
         if self.health == 0:
-            current_slime = Item(1)
-            current_slime.rect.x = self.rect.x
-            current_slime.rect.y = self.rect.y
-            if self.stage == 2:
-                stage2_sprites_list.add(current_slime)
+            slimeball = Item(1)
+            slimeball.rect.x = self.rect.x
+            slimeball.rect.y = self.rect.y
+            item_sprite_list.add(slimeball)
             self.kill()
     
     def idle(self):
@@ -277,12 +274,9 @@ class Slime(pygame.sprite.Sprite):
             animations.slime_idle_index = 0
         
         self.image = animations.slime_idle_images[animations.slime_idle_index]
-        self.image = pygame.transform.scale(self.image, (500, 500))
+        self.image = pygame.transform.scale(self.image, (89, 89))
     
     def update(self):
-        damage_font = pygame.font.Font("fonts/PixelFont.ttf", 16)
-        damage_text = damage_font.render("10", True, green)
-        screen.blit(damage_text, (self.rect.x / 2, self.rect.y))
         if pygame.sprite.spritecollideany(main_character, enemy_sprite_list):
             self.hurt()
         else:
@@ -294,7 +288,7 @@ class Item(pygame.sprite.Sprite):
         
         if item_number == 1:
             self.image = pygame.image.load("items/slimeball.png")
-            self.image = pygame.transform.scale(self.image, (64, 64))
+            self.image = pygame.transform.scale(self.image, (21, 21))
         
         self.rect = self.image.get_rect()
         screen.blit(self.image, self.rect)

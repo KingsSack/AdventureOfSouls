@@ -30,8 +30,8 @@ def new_tree(tree_type, width, height, rotation, rect_x, rect_y, stage):
     if stage == 3:
         game.stage3_sprites_list.add(current_tree)
 
-def new_slime(rect_x, rect_y, stage):
-    current_slime = game.Slime(stage)
+def new_slime(rect_x, rect_y):
+    current_slime = game.Slime()
     current_slime.rect.x = rect_x
     current_slime.rect.y = rect_y
     game.enemy_sprite_list.add(current_slime)
@@ -71,7 +71,7 @@ def stage_two():
     game.character_sprite_list.add(game.main_character)
 
 def stage_three():
-    new_slime(width / 2 - 250, height / 2 - 500, 3)
+    new_slime(width / 2 - 42.5, height / 2 - 42.5)
 
     if last_stage == 1:
         game.main_character.rect.x = width / 2 - 86
