@@ -277,7 +277,7 @@ class Slime(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (89, 89))
     
     def update(self):
-        if pygame.sprite.spritecollideany(main_character, enemy_sprite_list):
+        if animations.attacking != "false" and pygame.sprite.spritecollideany(main_character, enemy_sprite_list):
             self.hurt()
         else:
             self.idle()

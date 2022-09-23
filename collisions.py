@@ -19,9 +19,9 @@ def stage_one():
             game.main_character.rect.y -= 3
     
     if pygame.sprite.spritecollideany(game.main_character, game.stage1_sprites_list):
-        if instantiate.direction == "right":
-            game.main_character.rect.x += 3
         if instantiate.direction == "left":
+            game.main_character.rect.x += 3
+        if instantiate.direction == "right":
             game.main_character.rect.x -= 3
         # game.main_character.rect.y += 3
         # game.main_character.rect.y -= 3

@@ -48,6 +48,8 @@ def main():
     class GameState():
         def __init__(self):
             self.state = game.stages[1]
+            # pygame.mixer.music.load("Dynamaxed ▸ Lavender Town (Red & Blue) copy.mp3")
+            # pygame.mixer.music.play()
         
         def change_stage(self, current_stage):
             if current_stage == game.stages[2]:
