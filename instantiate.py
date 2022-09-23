@@ -34,12 +34,7 @@ def new_slime(rect_x, rect_y, stage):
     current_slime = game.Slime(stage)
     current_slime.rect.x = rect_x
     current_slime.rect.y = rect_y
-    if stage == 1:
-        game.stage1_sprites_list.add(current_slime)
-    if stage == 2:
-        game.stage2_sprites_list.add(current_slime)
-    if stage == 3:
-        game.stage3_sprites_list.add(current_slime)
+    game.enemy_sprite_list.add(current_slime)
 
 def stage_one():
     new_house(0, width / 2 - 380, height / 2 - 345, 1)

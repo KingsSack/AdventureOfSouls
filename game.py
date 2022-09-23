@@ -16,6 +16,7 @@ stage1_sprites_list = pygame.sprite.Group()
 stage2_sprites_list = pygame.sprite.Group()
 stage3_sprites_list = pygame.sprite.Group()
 character_sprite_list = pygame.sprite.Group()
+enemy_sprite_list = pygame.sprite.Group()
 user_interface_sprite_list = pygame.sprite.Group()
 
 head = pygame.image.load("WizardHead.png")
@@ -257,9 +258,9 @@ class Slime(pygame.sprite.Sprite):
         self.image = animations.slime_hurt_images[animations.slime_hurt_index]
         self.image = pygame.transform.scale(self.image, (500, 500))
         
-        damage_font = pygame.font.Font("fonts/PixelFont.ttf", 16)
-        damage_text = damage_font.render("10", True, green)
-        screen.blit(damage_text, (self.rect.x, self.rect.y))
+        # damage_font = pygame.font.Font("fonts/PixelFont.ttf", 16)
+        # damage_text = damage_font.render("10", True, green)
+        # screen.blit(damage_text, (self.rect.x, self.rect.y))
         
         if self.health == 0:
             current_slime = Item(1)
@@ -279,7 +280,10 @@ class Slime(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (500, 500))
     
     def update(self):
-        if animations.attacking != "false" and main_character.rect.x and main_character.rect.y:
+        damage_font = pygame.font.Font("fonts/PixelFont.ttf", 16)
+        damage_text = damage_font.render("10", True, green)
+        screen.blit(damage_text, (self.rect.x / 2, self.rect.y))
+        if pygame.sprite.spritecollideany(main_character, enemy_sprite_list):
             self.hurt()
         else:
             self.idle()

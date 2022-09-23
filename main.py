@@ -103,10 +103,12 @@ def main():
             screen.fill(ground)
             game.stage_one()
             game.stage1_sprites_list.draw(screen)
+            game.enemy_sprite_list.draw(screen)
             game.character_sprite_list.draw(screen)
             self.user_interface()
             
             game.main_character.update()
+            game.enemy_sprite_list.update()
 
             collisions.stage_one()
             if game.gui_open == "spellbook":
@@ -143,10 +145,12 @@ def main():
             screen.fill(ground)
             game.stage_two()
             game.stage2_sprites_list.draw(screen)
+            game.enemy_sprite_list.draw(screen)
             game.character_sprite_list.draw(screen)
             self.user_interface()
             
             game.main_character.update()
+            game.enemy_sprite_list.update()
             
             if game.gui_open == "spellbook":
                 instantiate.spellbook()
@@ -177,10 +181,12 @@ def main():
             
             screen.fill(ground)
             game.stage3_sprites_list.draw(screen)
+            game.enemy_sprite_list.draw(screen)
             game.character_sprite_list.draw(screen)
             self.user_interface()
             
             game.main_character.update()
+            game.enemy_sprite_list.update()
             
             if game.gui_open == "spellbook":
                 instantiate.spellbook()
