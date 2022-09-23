@@ -5,6 +5,7 @@ import instantiate
 import animations
 import map
 import savedata
+import collisions
 
 stages = {1: "menu", 2: "stage_one", 3: "stage_two", 4: "stage_three"}
 size = width, height = 852, 480
@@ -50,6 +51,7 @@ class MainCharacter(pygame.sprite.Sprite):
     def moveRight(self, pixels):
         self.rect.x += pixels
         instantiate.direction = "right"
+        collisions.direction = "right"
         animations.walk_right_index += 1
         if animations.walk_right_index >= len(animations.walk_right_images):
             animations.walk_right_index = 0
@@ -59,6 +61,7 @@ class MainCharacter(pygame.sprite.Sprite):
     def moveLeft(self, pixels):
         self.rect.x -= pixels
         instantiate.direction = "left"
+        collisions.direction = "left"
         animations.walk_left_index += 1
         if animations.walk_left_index >= len(animations.walk_left_images):
             animations.walk_left_index = 0
@@ -67,6 +70,7 @@ class MainCharacter(pygame.sprite.Sprite):
     
     def moveForward(self, speed):
         self.rect.y += speed * speed / 10
+        collisions.direction = "up"
         if instantiate.direction == "left":
             animations.walk_left_index += 1
 
@@ -85,6 +89,7 @@ class MainCharacter(pygame.sprite.Sprite):
     
     def moveBack(self, speed):
         self.rect.y -= speed * speed / 10
+        collisions.direction = "down"
         if instantiate.direction == "left":
             animations.walk_left_index += 1
 

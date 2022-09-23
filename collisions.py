@@ -4,6 +4,8 @@ import pygame
 import game
 import instantiate
 
+direction = "up"
+
 def stage_one():
     # print(game.main_character.rect.x)
     # print(game.main_character.rect.y)
@@ -19,12 +21,14 @@ def stage_one():
             game.main_character.rect.y -= 3
     
     if pygame.sprite.spritecollideany(game.main_character, game.stage1_sprites_list):
-        if instantiate.direction == "left":
+        if direction == "left":
             game.main_character.rect.x += 3
-        if instantiate.direction == "right":
+        if direction == "right":
             game.main_character.rect.x -= 3
-        # game.main_character.rect.y += 3
-        # game.main_character.rect.y -= 3
+        if direction == "down":
+            game.main_character.rect.y += 3
+        if direction == "up":
+            game.main_character.rect.y -= 3
         
     
     # if -125 < game.main_character.rect.y < 70 and 290 > game.main_character.rect.x > 270:
