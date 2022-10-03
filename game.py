@@ -1,3 +1,4 @@
+from re import S
 import pygame
 import time
 import main
@@ -46,6 +47,7 @@ class MainCharacter(pygame.sprite.Sprite):
                 self.image = pygame.transform.scale(self.image, (172, 172))
 
         self.rect = self.image.get_rect()
+        
         screen.blit(self.image, self.rect)
     
     def moveRight(self, pixels):
@@ -182,8 +184,9 @@ class House(pygame.sprite.Sprite):
         self.image = pygame.image.load("house/House.png")
         self.image = pygame.transform.scale(self.image, (width, height))
         self.image = pygame.transform.rotate(self.image, rotation)
-
+        
         self.rect = self.image.get_rect()
+        
         screen.blit(self.image, self.rect)
 
 class Tree(pygame.sprite.Sprite):

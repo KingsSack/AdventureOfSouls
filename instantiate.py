@@ -9,7 +9,7 @@ direction = "right"
 last_stage = 1
 
 def new_house(rotation, rect_x, rect_y, stage):
-    current_house = game.House(506, 320, rotation)
+    current_house = game.House(200, 200, rotation)
     current_house.rect.x = rect_x
     current_house.rect.y = rect_y
     if stage == 1:
@@ -37,8 +37,8 @@ def new_slime(rect_x, rect_y):
     game.enemy_sprite_list.add(current_slime)
 
 def stage_one():
-    new_house(0, width / 2 - 380, height / 2 - 345, 1)
-    new_house(0, width / 2 - 112, height / 2 - 345, 1)
+    new_house(0, width / 2 - 245, height / 2 - 236, 1)
+    new_house(0, width / 2 + 45, height / 2 - 236, 1)
     
     new_tree(1, 103, 129, 0, width / 2 + 225, height / 2 - 240, 1)
     new_tree(1, 103, 129, 0, width / 2 + 275, height / 2 - 166, 1)

@@ -24,7 +24,6 @@ def main():
     # load
     t = time.time()
     time.sleep(.1)
-    print(f'project loaded in {time.time() - t}s')
 
     # game start
     pygame.init()
@@ -44,6 +43,8 @@ def main():
 
     smallfont = pygame.font.SysFont('Corbel',35)
     text = smallfont.render('Play' , True , green)
+    
+    print(f'Project loaded in {time.time() - t}s')
 
     class GameState():
         def __init__(self):
