@@ -32,6 +32,7 @@ tab = "backpack"
 
 stage_changed = False
 
+
 class MainCharacter(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
@@ -163,6 +164,8 @@ class MainCharacter(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (172, 172))
     
     def update(self):
+        collisions.hitbox.update(self.rect.x - 64.5, self.rect.y - 37.625)
+        
         pressed_keys = pygame.key.get_pressed()
         if animations.attacking == "false" and gui_open == "false":
             if pressed_keys[pygame.K_LEFT]:
