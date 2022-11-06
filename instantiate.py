@@ -1,8 +1,8 @@
 import pygame
-import time
 import game
 import main
 import savedata
+import tutorial
 
 size = width, height = 852, 480
 direction = "right"
@@ -31,10 +31,11 @@ def new_tree(tree_type, width, height, rotation, rect_x, rect_y, stage):
         game.stage3_sprites_list.add(current_tree)
 
 def new_slime(rect_x, rect_y):
-    current_slime = game.Slime()
-    current_slime.rect.x = rect_x
-    current_slime.rect.y = rect_y
-    game.enemy_sprite_list.add(current_slime)
+    if game.time.time() - savedata.t >= 100:
+        current_slime = game.Slime()
+        current_slime.rect.x = rect_x
+        current_slime.rect.y = rect_y
+        game.enemy_sprite_list.add(current_slime)
 
 def stage_one():
     new_house(0, width / 2 - 245, height / 2 - 236, 1)
@@ -49,18 +50,32 @@ def stage_one():
         game.main_character.rect.x = width / 2 - 86
         game.main_character.rect.y = height / 2 - 300
     else:
-        game.main_character.rect.x = width / 2 - 86
-        game.main_character.rect.y = height / 2 - 86
+        if last_stage == 3:
+            game.main_character.rect.x = width - 176
+            game.main_character.rect.y = height / 2 - 86
+        else:
+            game.main_character.rect.x = width / 2 - 86
+            game.main_character.rect.y = height / 2 - 86
+    game.character_sprite_list.empty()
     game.character_sprite_list.add(game.main_character)
+    
+    if savedata.tutorial_level == 0:
+        tutorial.stage_one()
 
 def stage_two():
-    game.spell_object1.rect.x = width / 2 - 32
-    game.spell_object1.rect.y = height / 2 - 32
-    game.stage2_sprites_list.add(game.spell_object1)
+    new_house(0, 10, 5, 2)
+    new_house(0, 220, 5, 2)
+    new_house(0, 430, 5, 2)
+    new_house(0, 640, 5, 2)
+    
+    if savedata.fireball_spell == 0:
+        game.spell_object1.rect.x = width / 2 - 32
+        game.spell_object1.rect.y = height / 2 - 32
+        game.stage2_sprites_list.add(game.spell_object1)
 
-    game.spell_glow1.rect.x = width / 2 - 32
-    game.spell_glow1.rect.y = height / 2 - 42
-    game.stage2_sprites_list.add(game.spell_glow1)
+        game.spell_glow1.rect.x = width / 2 - 32
+        game.spell_glow1.rect.y = height / 2 - 42
+        game.stage2_sprites_list.add(game.spell_glow1)
 
     if last_stage == 1:
         game.main_character.rect.x = width / 2 - 86
@@ -68,17 +83,24 @@ def stage_two():
     else:
         game.main_character.rect.x = width / 2 - 86
         game.main_character.rect.y = height / 2 - 86
+    game.character_sprite_list.empty()
     game.character_sprite_list.add(game.main_character)
 
 def stage_three():
+    new_tree(1, 103, 129, 0, width / 2 - 352, height / 2 - 197, 3)
+    new_tree(1, 133, 159, 0, width / 2 - 273, height / 2 - 238, 3)
+    new_tree(1, 103, 129, 0, width / 2 + 225, height / 2 - 242, 3)
+    new_tree(1, 103, 129, 0, width / 2 - 154, height / 2 + 102, 3)
+    
     new_slime(width / 2 - 42.5, height / 2 - 42.5)
 
     if last_stage == 1:
-        game.main_character.rect.x = width / 2 - 86
-        game.main_character.rect.y = height / 2 + 150
+        game.main_character.rect.x = 4
+        game.main_character.rect.y = height / 2 - 86
     else:
         game.main_character.rect.x = width / 2 - 86
         game.main_character.rect.y = height / 2 - 86
+    game.character_sprite_list.empty()
     game.character_sprite_list.add(game.main_character)
 
 pygame.init()

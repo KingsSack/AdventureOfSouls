@@ -30,6 +30,8 @@ gui_open = "false"
 
 tab = "backpack"
 
+stage_changed = False
+
 class MainCharacter(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
@@ -245,7 +247,8 @@ class SpellGlow(pygame.sprite.Sprite):
 class Slime(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.health = 100
+        self.health = 250
+        self.direction = "right"
         
         self.image = animations.slime_idle_images[animations.slime_idle_index]
         self.image = pygame.transform.scale(self.image, (89, 89))
@@ -264,15 +267,18 @@ class Slime(pygame.sprite.Sprite):
         self.image = animations.slime_hurt_images[animations.slime_hurt_index]
         self.image = pygame.transform.scale(self.image, (89, 89))
         
-        damage_font = pygame.font.Font("fonts/PixelFont.ttf", 16)
+        damage_font = pygame.font.Font("fonts/PixelFont.ttf", 21)
         damage_text = damage_font.render("2", True, green)
-        screen.blit(damage_text, (self.rect.x / 2, self.rect.y / 2))
+        screen.blit(damage_text, (self.rect.x + 40, self.rect.y + 40))
         
         if self.health == 0:
             slimeball = Item(1)
-            slimeball.rect.x = self.rect.x
-            slimeball.rect.y = self.rect.y
+            slimeball.rect.x = self.rect.x + 42
+            slimeball.rect.y = self.rect.y + 40
             item_sprite_list.add(slimeball)
+            
+            savedata.t = time.time()
+            
             self.kill()
     
     def idle(self):
@@ -283,6 +289,16 @@ class Slime(pygame.sprite.Sprite):
         
         self.image = animations.slime_idle_images[animations.slime_idle_index]
         self.image = pygame.transform.scale(self.image, (89, 89))
+        
+        if self.rect.x > width / 2 + 160:
+            self.direction = "left"
+        if self.rect.x < width / 2 - 160:
+            self.direction = "right"
+        
+        if self.direction == "right":
+            self.rect.x += 1
+        else:
+            self.rect.x -= 1
     
     def update(self):
         if animations.attacking != "false" and pygame.sprite.spritecollideany(main_character, enemy_sprite_list):
@@ -300,6 +316,35 @@ class Item(pygame.sprite.Sprite):
         
         self.rect = self.image.get_rect()
         screen.blit(self.image, self.rect)
+
+
+class Arrow(pygame.sprite.Sprite):
+    def __init__(self, width, height, rotation):
+        super().__init__()
+        
+        self.frame = 0
+        
+        self.image = pygame.image.load("tutorial/arrow.png")
+        self.image = pygame.transform.scale(self.image, (width, height))
+        self.image = pygame.transform.rotate(self.image, rotation)
+        
+        self.rect = self.image.get_rect()
+        
+        screen.blit(self.image, self.rect)
+    
+    def update(self):
+        self.frame += 1
+        
+        if self.frame >= 30:
+            self.frame = 0
+        
+        if self.frame <= 15:
+            self.rect.y = 36
+        
+        if self.frame > 15:
+            self.rect.y = 46
+        
+
 
 class NewSprite(pygame.sprite.Sprite):
     def __init__(self, surface_color, color, height, width, border_radius):
@@ -327,6 +372,8 @@ def stage_one():
     map.paths("y")
     
 def stage_two():
+    map.paths("spell1")
+    
     spell_gain = 0
     if spell_gain == 0 and 375 > main_character.rect.x > 335 and 180 > main_character.rect.y > 140:
         spell_object1.gain_spell()
@@ -341,6 +388,9 @@ def stage_two():
             else:
                 if savedata.spell_slot2 != "fireball" and savedata.spell_slot1 != "fireball" and savedata.spell_slot3 == "empty":
                     savedata.spell_slot3 = "fireball"
+
+def stage_three():
+    map.paths("horizantal")
 
 def check_attacks():
     mouse = pygame.mouse.get_pos()

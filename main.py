@@ -1,14 +1,10 @@
-from os import kill
 import time
-import sys
 import pygame
 import game
 import instantiate
 import collisions
 import savedata
 import console
-import animations
-import map
 
 from pygame.locals import (
     K_UP,
@@ -51,8 +47,12 @@ def main():
             self.state = game.stages[1]
             # pygame.mixer.music.load("Dynamaxed ▸ Lavender Town (Red & Blue) copy.mp3")
             # pygame.mixer.music.play()
+            self.running = True
         
         def change_stage(self, current_stage):
+            game.enemy_sprite_list.empty()
+            game.item_sprite_list.empty()
+            
             if current_stage == game.stages[2]:
                 instantiate.stage_one()
             
@@ -81,11 +81,12 @@ def main():
         
         def menu(self):
             for event in pygame.event.get():
-                if event.type == pygame.QUIT: sys.exit()
+                if event.type == pygame.QUIT:
+                    self.running = False
         
                 if event.type == KEYDOWN:
                     if event.key == K_ESCAPE:
-                        sys.exit()
+                        self.running = False
         
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if width / 2 - 50 <= mouse[0] <= width / 2 + 50 and height / 2 - 23 <= mouse[1] <= height / 2 + 23:
@@ -109,11 +110,11 @@ def main():
         def stage_one(self):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    sys.exit()
+                    self.running = False
 
                 if event.type == KEYDOWN:
                     if event.key == K_ESCAPE:
-                        sys.exit()
+                        self.running = False
                 
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     game.ui_buttons()
@@ -142,11 +143,11 @@ def main():
         def stage_two(self):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    sys.exit()
+                    self.running = False
 
                 if event.type == KEYDOWN:
                     if event.key == K_ESCAPE:
-                        sys.exit()
+                        self.running = False
                 
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     game.ui_buttons()
@@ -166,18 +167,24 @@ def main():
         def stage_three(self):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    sys.exit()
+                    self.running = False
 
                 if event.type == KEYDOWN:
                     if event.key == K_ESCAPE:
-                        sys.exit()
+                        self.running = False
                 
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     game.ui_buttons()
             
             screen.fill(ground)
+            game.stage_three()
             game.stage3_sprites_list.draw(screen)
             self.level()
+            
+            if height / 2 - 100 <= game.main_character.rect.y <= height / 2 + 100 and game.main_character.rect.x <= -2:
+                instantiate.last_stage = 3
+                self.state = game.stages[2]
+                self.change_stage(game.stages[2])
             
             pygame.display.flip()
         
@@ -275,9 +282,13 @@ def main():
 
     game_stage = GameState()
 
-    while True:
+    while game_stage.running:
+        pygame.time.delay(7)
+        
         game_stage.stage_manager()
         mouse = pygame.mouse.get_pos()
+    
+    pygame.quit()
 
 if __name__ == "__main__":
     main()
