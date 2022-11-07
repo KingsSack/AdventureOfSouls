@@ -37,7 +37,7 @@ def main():
     pygame.display.set_icon(pygame_icon)
     pygame.display.set_caption("Adventure of Souls")
 
-    smallfont = pygame.font.SysFont('Corbel',35)
+    smallfont = pygame.font.SysFont('Corbel', 35)
     text = smallfont.render('Play' , True , green)
     
     print(f'Project loaded in {time.time() - t}s')
@@ -54,16 +54,20 @@ def main():
             game.item_sprite_list.empty()
             
             if current_stage == game.stages[2]:
+                game.current_stage = 2
                 instantiate.stage_one()
             
             if current_stage == game.stages[3]:
+                game.current_stage = 3
                 instantiate.stage_two()
             
             if current_stage == game.stages[4]:
+                game.current_stage = 4
                 instantiate.stage_three()
         
         def level(self):
             game.item_sprite_list.draw(screen)
+            game.tutorial_sprites_list.draw(screen)
             game.enemy_sprite_list.draw(screen)
             game.character_sprite_list.draw(screen)
             self.user_interface()
@@ -71,6 +75,7 @@ def main():
             game.main_character.update()
             game.enemy_sprite_list.update()
             game.item_sprite_list.update()
+            game.tutorial_sprites_list.update()
             
             if game.gui_open == "spellbook":
                 instantiate.spellbook()
@@ -157,6 +162,8 @@ def main():
             game.stage2_sprites_list.draw(screen)
             self.level()
             
+            collisions.stage_two()
+            
             if game.main_character.rect.y > 400 and 400 >= game.main_character.rect.x >= 300:
                 instantiate.last_stage = 2
                 self.state = game.stages[2]
@@ -180,6 +187,8 @@ def main():
             game.stage_three()
             game.stage3_sprites_list.draw(screen)
             self.level()
+            
+            collisions.stage_three()
             
             if height / 2 - 100 <= game.main_character.rect.y <= height / 2 + 100 and game.main_character.rect.x <= -2:
                 instantiate.last_stage = 3

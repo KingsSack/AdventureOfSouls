@@ -1,4 +1,3 @@
-from re import S
 import pygame
 import time
 import main
@@ -7,6 +6,8 @@ import animations
 import map
 import savedata
 import collisions
+
+current_stage = 1
 
 stages = {1: "menu", 2: "stage_one", 3: "stage_two", 4: "stage_three"}
 size = width, height = 852, 480
@@ -17,6 +18,7 @@ green = 25, 255, 25
 stage1_sprites_list = pygame.sprite.Group()
 stage2_sprites_list = pygame.sprite.Group()
 stage3_sprites_list = pygame.sprite.Group()
+tutorial_sprites_list = pygame.sprite.Group()
 character_sprite_list = pygame.sprite.Group()
 enemy_sprite_list = pygame.sprite.Group()
 item_sprite_list = pygame.sprite.Group()
@@ -29,8 +31,6 @@ headrect = head.get_rect()
 gui_open = "false"
 
 tab = "backpack"
-
-stage_changed = False
 
 
 class MainCharacter(pygame.sprite.Sprite):
@@ -164,7 +164,7 @@ class MainCharacter(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (172, 172))
     
     def update(self):
-        collisions.hitbox.update(self.rect.x - 64.5, self.rect.y - 37.625)
+        collisions.hitbox.update(self.rect.x + 64.5, self.rect.y + 42.5)
         
         pressed_keys = pygame.key.get_pressed()
         if animations.attacking == "false" and gui_open == "false":
@@ -322,8 +322,10 @@ class Item(pygame.sprite.Sprite):
 
 
 class Arrow(pygame.sprite.Sprite):
-    def __init__(self, width, height, rotation):
+    def __init__(self, width, height, rotation, type):
         super().__init__()
+        
+        self.level = type
         
         self.frame = 0
         
@@ -346,6 +348,9 @@ class Arrow(pygame.sprite.Sprite):
         
         if self.frame > 15:
             self.rect.y = 46
+        
+        if self.level == 1 and current_stage != 2:
+            self.kill()
         
 
 
