@@ -456,6 +456,32 @@ for i in range(12):
     wizard_shadow_left_images.append(pygame.image.load("wizard/WizardShadow2-32.png"))
 wizard_shadow_left_index = 0
 
+wizard_sprint_right_images = []
+for i in range(15):
+    wizard_sprint_right_images.append(pygame.image.load("wizard/WizardSprint1-0.png"))
+for i in range(15):
+    wizard_sprint_right_images.append(pygame.image.load("wizard/WizardSprint1-1.png"))
+for i in range(15):
+    wizard_sprint_right_images.append(pygame.image.load("wizard/WizardSprint1-2.png"))
+for i in range(15):
+    wizard_sprint_right_images.append(pygame.image.load("wizard/WizardSprint1-3.png"))
+for i in range(15):
+    wizard_sprint_right_images.append(pygame.image.load("wizard/WizardSprint1-4.png"))
+wizard_sprint_right_index = 0
+
+wizard_sprint_left_images = []
+for i in range(15):
+    wizard_sprint_left_images.append(pygame.image.load("wizard/WizardSprint1-0.png"))
+for i in range(15):
+    wizard_sprint_left_images.append(pygame.image.load("wizard/WizardSprint1-1.png"))
+for i in range(15):
+    wizard_sprint_left_images.append(pygame.image.load("wizard/WizardSprint1-2.png"))
+for i in range(15):
+    wizard_sprint_left_images.append(pygame.image.load("wizard/WizardSprint1-3.png"))
+for i in range(15):
+    wizard_sprint_left_images.append(pygame.image.load("wizard/WizardSprint1-4.png"))
+wizard_sprint_left_index = 0
+
 
 slime_idle_images = []
 for i in range(24):
