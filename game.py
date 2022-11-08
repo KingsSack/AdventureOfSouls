@@ -37,10 +37,8 @@ class MainCharacter(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
 
-        # animations.idle_right_index = 0
-        # animations.idle_left_index = 0
-        # animations.walk_right_index = 0
-        # animations.walk_left_index = 0
+        self.health = 1000
+        
         if animations.attacking == "false":
             if instantiate.direction == "left":
                 self.image = animations.idle_left_images[animations.idle_left_index]
@@ -120,13 +118,29 @@ class MainCharacter(pygame.sprite.Sprite):
             
             self.image = animations.idle_left_images[animations.idle_left_index]
         else:
-            # print(animations.idle_right_index)
             animations.idle_right_index += 1
 
             if animations.idle_right_index >= len(animations.idle_right_images):
                 animations.idle_right_index = 0
             
             self.image = animations.idle_right_images[animations.idle_right_index]
+        self.image = pygame.transform.scale(self.image, (172, 172))
+    
+    def hurt(self):
+        if instantiate.direction == "left":
+            animations.hurt_left_index += 1
+
+            if animations.hurt_left_index >= len(animations.hurt_left_images):
+                animations.hurt_left_index = 0
+
+            self.image = animations.hurt_left_images[animations.hurt_left_index]
+        else:
+            animations.hurt_right_index += 1
+
+            if animations.hurt_right_index >= len(animations.hurt_right_images):
+                animations.hurt_right_index = 0
+            
+            self.image = animations.hurt_right_images[animations.hurt_right_index]
         self.image = pygame.transform.scale(self.image, (172, 172))
 
     def wizardFirebomb(self):
@@ -163,8 +177,29 @@ class MainCharacter(pygame.sprite.Sprite):
             self.image = animations.wizard_thunder_right_images[animations.wizard_thunder_right_index]
         self.image = pygame.transform.scale(self.image, (172, 172))
     
+    def death(self):
+        if instantiate.direction == "left":
+            animations.death_left_index += 1
+
+            if animations.death_left_index >= len(animations.death_left_images):
+                animations.death_left_index = 0
+        
+            self.image = animations.death_left_images[animations.death_left_index]
+        else:
+            animations.death_right_index += 1
+
+            if animations.death_right_index >= len(animations.death_right_images):
+                animations.death_right_index = 0
+        
+            self.image = animations.death_right_images[animations.death_right_index]
+        self.image = pygame.transform.scale(self.image, (172, 172))
+    
     def update(self):
         collisions.hitbox.update(self.rect.x + 64.5, self.rect.y + 42.5)
+        
+        if self.health <= 0:
+            self.death
+            return
         
         pressed_keys = pygame.key.get_pressed()
         if animations.attacking == "false" and gui_open == "false":
@@ -283,6 +318,19 @@ class Slime(pygame.sprite.Sprite):
             savedata.t = time.time()
             
             self.kill()
+        
+    def attack(self):
+        animations.slime_jump_index += 1
+        
+        if animations.slime_jump_index >= len(animations.slime_jump_images):
+            animations.slime_jump_index = 0
+        
+        self.image = animations.slime_jump_images[animations.slime_jump_index]
+        self.image = pygame.transform.scale(self.image, (89, 89))
+        
+        main_character.hurt()
+        
+        self.rect.x -= .25
     
     def idle(self):
         animations.slime_idle_index += 1
@@ -293,19 +341,25 @@ class Slime(pygame.sprite.Sprite):
         self.image = animations.slime_idle_images[animations.slime_idle_index]
         self.image = pygame.transform.scale(self.image, (89, 89))
         
-        if self.rect.x > width / 2 + 160:
-            self.direction = "left"
-        if self.rect.x < width / 2 - 160:
-            self.direction = "right"
-        
-        if self.direction == "right":
-            self.rect.x += 1
+        if pygame.sprite.spritecollideany(main_character, enemy_sprite_list):
+            """ """
         else:
-            self.rect.x -= 1
+            if self.rect.x > width / 2 + 160:
+                self.direction = "left"
+            if self.rect.x < width / 2 - 160:
+                self.direction = "right"
+            
+            if self.direction == "right":
+                self.rect.x += 1
+            else:
+                self.rect.x -= 1
     
     def update(self):
-        if animations.attacking != "false" and pygame.sprite.spritecollideany(main_character, enemy_sprite_list):
-            self.hurt()
+        if pygame.sprite.spritecollideany(collisions.hitbox, enemy_sprite_list):
+            if animations.attacking != "false":
+                self.hurt()
+            else:
+                self.attack()
         else:
             self.idle()
 

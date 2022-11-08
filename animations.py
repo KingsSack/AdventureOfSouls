@@ -56,6 +56,110 @@ for i in range(24):
     idle_left_images.append(pygame.image.load("wizard/WizardIdle2-12.png"))
 idle_left_index = 0
 
+hurt_right_images = []
+for i in range(20):
+    hurt_right_images.append(pygame.image.load("wizard/WizardHurt1-0.png"))
+for i in range(20):
+    hurt_right_images.append(pygame.image.load("wizard/WizardHurt1-1.png"))
+for i in range(20):
+    hurt_right_images.append(pygame.image.load("wizard/WizardHurt1-2.png"))
+hurt_right_index = 0
+
+hurt_left_images = []
+for i in range(20):
+    idle_left_images.append(pygame.image.load("wizard/WizardHurt2-0.png"))
+for i in range(20):
+    idle_left_images.append(pygame.image.load("wizard/WizardHurt2-1.png"))
+for i in range(20):
+    idle_left_images.append(pygame.image.load("wizard/WizardHurt2-2.png"))
+hurt_left_index = 0
+
+death_right_images = []
+for i in range(14):
+    death_right_images.append(pygame.image.load("wizard/WizardDie1-0.png"))
+for i in range(14):
+    death_right_images.append(pygame.image.load("wizard/WizardDie1-1.png"))
+for i in range(14):
+    death_right_images.append(pygame.image.load("wizard/WizardDie1-2.png"))
+for i in range(14):
+    death_right_images.append(pygame.image.load("wizard/WizardDie1-3.png"))
+for i in range(14):
+    death_right_images.append(pygame.image.load("wizard/WizardDie1-4.png"))
+for i in range(14):
+    death_right_images.append(pygame.image.load("wizard/WizardDie1-5.png"))
+for i in range(14):
+    death_right_images.append(pygame.image.load("wizard/WizardDie1-6.png"))
+for i in range(14):
+    death_right_images.append(pygame.image.load("wizard/WizardDie1-7.png"))
+for i in range(14):
+    death_right_images.append(pygame.image.load("wizard/WizardDie1-8.png"))
+for i in range(14):
+    death_right_images.append(pygame.image.load("wizard/WizardDie1-9.png"))
+for i in range(14):
+    death_right_images.append(pygame.image.load("wizard/WizardDie1-10.png"))
+for i in range(14):
+    death_right_images.append(pygame.image.load("wizard/WizardDie1-11.png"))
+for i in range(14):
+    death_right_images.append(pygame.image.load("wizard/WizardDie1-12.png"))
+for i in range(14):
+    death_right_images.append(pygame.image.load("wizard/WizardDie1-13.png"))
+for i in range(14):
+    death_right_images.append(pygame.image.load("wizard/WizardDie1-14.png"))
+for i in range(14):
+    death_right_images.append(pygame.image.load("wizard/WizardDie1-15.png"))
+for i in range(14):
+    death_right_images.append(pygame.image.load("wizard/WizardDie1-16.png"))
+for i in range(14):
+    death_right_images.append(pygame.image.load("wizard/WizardDie1-17.png"))
+for i in range(14):
+    death_right_images.append(pygame.image.load("wizard/WizardDie1-18.png"))
+for i in range(14):
+    death_right_images.append(pygame.image.load("wizard/WizardDie1-19.png"))
+death_right_index = 0
+
+death_left_images = []
+for i in range(14):
+    death_left_images.append(pygame.image.load("wizard/WizardDie2-0.png"))
+for i in range(14):
+    death_left_images.append(pygame.image.load("wizard/WizardDie2-1.png"))
+for i in range(14):
+    death_left_images.append(pygame.image.load("wizard/WizardDie2-2.png"))
+for i in range(14):
+    death_left_images.append(pygame.image.load("wizard/WizardDie2-3.png"))
+for i in range(14):
+    death_left_images.append(pygame.image.load("wizard/WizardDie2-4.png"))
+for i in range(14):
+    death_left_images.append(pygame.image.load("wizard/WizardDie2-5.png"))
+for i in range(14):
+    death_left_images.append(pygame.image.load("wizard/WizardDie2-6.png"))
+for i in range(14):
+    death_left_images.append(pygame.image.load("wizard/WizardDie2-7.png"))
+for i in range(14):
+    death_left_images.append(pygame.image.load("wizard/WizardDie2-8.png"))
+for i in range(14):
+    death_left_images.append(pygame.image.load("wizard/WizardDie2-9.png"))
+for i in range(14):
+    death_left_images.append(pygame.image.load("wizard/WizardDie2-10.png"))
+for i in range(14):
+    death_left_images.append(pygame.image.load("wizard/WizardDie2-11.png"))
+for i in range(14):
+    death_left_images.append(pygame.image.load("wizard/WizardDie2-12.png"))
+for i in range(14):
+    death_left_images.append(pygame.image.load("wizard/WizardDie2-13.png"))
+for i in range(14):
+    death_left_images.append(pygame.image.load("wizard/WizardDie2-14.png"))
+for i in range(14):
+    death_left_images.append(pygame.image.load("wizard/WizardDie2-15.png"))
+for i in range(14):
+    death_left_images.append(pygame.image.load("wizard/WizardDie2-16.png"))
+for i in range(14):
+    death_left_images.append(pygame.image.load("wizard/WizardDie2-17.png"))
+for i in range(14):
+    death_left_images.append(pygame.image.load("wizard/WizardDie2-18.png"))
+for i in range(14):
+    death_left_images.append(pygame.image.load("wizard/WizardDie2-19.png"))
+death_left_index = 0
+
 walk_right_images = []
 for i in range(24):
     walk_right_images.append(pygame.image.load("wizard/WizardWalk1-1.png"))
@@ -471,15 +575,15 @@ wizard_sprint_right_index = 0
 
 wizard_sprint_left_images = []
 for i in range(15):
-    wizard_sprint_left_images.append(pygame.image.load("wizard/WizardSprint1-0.png"))
+    wizard_sprint_left_images.append(pygame.image.load("wizard/WizardSprint2-0.png"))
 for i in range(15):
-    wizard_sprint_left_images.append(pygame.image.load("wizard/WizardSprint1-1.png"))
+    wizard_sprint_left_images.append(pygame.image.load("wizard/WizardSprint2-1.png"))
 for i in range(15):
-    wizard_sprint_left_images.append(pygame.image.load("wizard/WizardSprint1-2.png"))
+    wizard_sprint_left_images.append(pygame.image.load("wizard/WizardSprint2-2.png"))
 for i in range(15):
-    wizard_sprint_left_images.append(pygame.image.load("wizard/WizardSprint1-3.png"))
+    wizard_sprint_left_images.append(pygame.image.load("wizard/WizardSprint2-3.png"))
 for i in range(15):
-    wizard_sprint_left_images.append(pygame.image.load("wizard/WizardSprint1-4.png"))
+    wizard_sprint_left_images.append(pygame.image.load("wizard/WizardSprint2-4.png"))
 wizard_sprint_left_index = 0
 
 
@@ -498,6 +602,32 @@ for i in range(24):
 for i in range(24):
     slime_hurt_images.append(pygame.image.load("slime/SlimeHurt-2.png"))
 slime_hurt_index = 0
+
+slime_jump_images = []
+for i in range(8):
+    slime_jump_images.append(pygame.image.load("slime/SlimeJump-0.png"))
+for i in range(8):
+    slime_jump_images.append(pygame.image.load("slime/SlimeJump-1.png"))
+for i in range(8):
+    slime_jump_images.append(pygame.image.load("slime/SlimeJump-2.png"))
+for i in range(8):
+    slime_jump_images.append(pygame.image.load("slime/SlimeJump-3.png"))
+for i in range(8):
+    slime_jump_images.append(pygame.image.load("slime/SlimeJump-4.png"))
+for i in range(8):
+    slime_jump_images.append(pygame.image.load("slime/SlimeJump-5.png"))
+for i in range(8):
+    slime_jump_images.append(pygame.image.load("slime/SlimeJump-6.png"))
+for i in range(8):
+    slime_jump_images.append(pygame.image.load("slime/SlimeJump-7.png"))
+for i in range(8):
+    slime_jump_images.append(pygame.image.load("slime/SlimeJump-8.png"))
+for i in range(8):
+    slime_jump_images.append(pygame.image.load("slime/SlimeJump-9.png"))
+for i in range(8):
+    slime_jump_images.append(pygame.image.load("slime/SlimeJump-10.png"))
+slime_jump_index = 0
+
 
 glow_images = []
 for i in range(24):
