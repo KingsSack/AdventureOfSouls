@@ -187,10 +187,10 @@ def inventory():
             width_var += 1
             game.screen.blit(inventory_slot, (width / 2 - (width_var * (48 + 3)), height / 2 - height_var))
             
-            if inventory[i + 1] == "slimeball":
+            if savedata.inventory[i + 1] == "slimeball":
                 slimeball = pygame.image.load("items/slimeball.png")
-                slimeball = pygame.transform.scale(slimeball, (48, 48))
-                game.screen.blit(slimeball, (width / 2 - (width_var * (48 + 3)), height / 2 - height_var))
+                slimeball = pygame.transform.scale(slimeball, (42, 42))
+                game.screen.blit(slimeball, (width / 2 - (width_var * (48 + 3)) + 4, height / 2 - height_var + 4))
     
     def armor():
         print("armor")
