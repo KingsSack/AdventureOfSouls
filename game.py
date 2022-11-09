@@ -490,11 +490,11 @@ def stage_one():
 def stage_two():
     map.paths("spell1")
     
-    spell_gain = 0
-    if spell_gain == 0 and 375 > main_character.rect.x > 335 and 180 > main_character.rect.y > 140:
+    # .spell_gain = 0
+    if spell_object1.rect.colliderect(collisions.hitbox.rect):
         spell_object1.gain_spell()
         spell_glow1.gain_spell()
-        spell_gain = 1
+        # spell_gain = 1
         savedata.fireball_spell = 1
         if savedata.spell_slot1 == "empty":
             savedata.spell_slot1 = "fireball"
