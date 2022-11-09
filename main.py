@@ -74,7 +74,7 @@ def main():
             
             game.main_character.update()
             game.enemy_sprite_list.update()
-            game.item_sprite_list.update()
+            # game.item_sprite_list.update()
             game.tutorial_sprites_list.update()
             
             if game.gui_open == "spellbook":

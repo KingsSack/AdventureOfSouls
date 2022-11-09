@@ -10,13 +10,16 @@ class Hitbox(pygame.sprite.Sprite):
         super().__init__()
         
         self.image = pygame.Surface([width, height])
+        # self.image.fill((0, 0, 0))
+        
+        # pygame.draw.rect(self.image, (0, 0, 0), pygame.Rect(0, 0, width, height))
   
         self.rect = self.image.get_rect()
     
     def update(self, pos_x, pos_y):
         self.rect.x, self.rect.y = pos_x, pos_y
 
-hitbox = Hitbox(43, 96.75)
+hitbox = Hitbox(43, 94)
 
 
 def stage_one():

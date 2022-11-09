@@ -184,6 +184,12 @@ class MainCharacter(pygame.sprite.Sprite):
                 self.image = animations.wizard_thunder_right_images[animations.wizard_thunder_right_index]
             self.image = pygame.transform.scale(self.image, (172, 172))
     
+    def collect_item(self):
+        for i in range(36):
+            if savedata.inventory[i + 1] == "":
+                item_sprite_list.update(i + 1)
+                break
+    
     def death(self):
         if instantiate.direction == "left":
             animations.death_left_index += 1
@@ -208,7 +214,7 @@ class MainCharacter(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (172, 172))
     
     def update(self):
-        collisions.hitbox.update(self.rect.x + 64.5, self.rect.y + 42.5)
+        collisions.hitbox.update(self.rect.x + 64.5, self.rect.y + 40)
         
         health_ui.update(self.health)
         
@@ -217,6 +223,9 @@ class MainCharacter(pygame.sprite.Sprite):
         else:
             pressed_keys = pygame.key.get_pressed()
             if animations.attacking == "false" and gui_open == "false":
+                if pygame.sprite.spritecollideany(collisions.hitbox, item_sprite_list):
+                    self.collect_item()
+                
                 if pressed_keys[pygame.K_LEFT]:
                     self.moveLeft(savedata.speed1)
                 else:
@@ -344,11 +353,10 @@ class Slime(pygame.sprite.Sprite):
         
         main_character.hurt(1)
         
-        if instantiate.direction == "right":
-            self.rect.x -= .25
+        if instantiate.direction == "left":
+            self.rect.x += 2
         else:
-            if instantiate.direction == "left":
-                self.rect.x += .25
+            self.rect.x -= 2
     
     def idle(self):
         animations.slime_idle_index += 1
@@ -360,7 +368,10 @@ class Slime(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (89, 89))
         
         if pygame.sprite.spritecollideany(main_character, enemy_sprite_list):
-            """ """
+            if instantiate.direction == "left":
+                self.rect.x += 1
+            else:
+                self.rect.x -= 1
         else:
             if self.rect.x > width / 2 + 160:
                 self.direction = "left"
@@ -391,6 +402,12 @@ class Item(pygame.sprite.Sprite):
         
         self.rect = self.image.get_rect()
         screen.blit(self.image, self.rect)
+    
+    def update(self, slot):
+        if pygame.sprite.spritecollideany(collisions.hitbox, item_sprite_list):
+            savedata.inventory[slot] = "slimeball"
+            self.kill()
+            
 
 class Arrow(pygame.sprite.Sprite):
     def __init__(self, width, height, rotation, type):

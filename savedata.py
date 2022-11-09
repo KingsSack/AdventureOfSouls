@@ -14,3 +14,7 @@ spell_slot3 = "empty"
 fireball_spell = 0
 thunder_spell = 0
 shadow_spell = 0
+
+inventory = {}
+for i in range(36):
+    inventory[i + 1] = ""
