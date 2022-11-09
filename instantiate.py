@@ -80,6 +80,9 @@ def stage_two():
     if last_stage == 1:
         game.main_character.rect.x = width / 2 - 86
         game.main_character.rect.y = height / 2 + 150
+    elif last_stage == 4:
+        game.main_character.rect.x = 4
+        game.main_character.rect.y = height / 2 - 86
     else:
         game.main_character.rect.x = width / 2 - 86
         game.main_character.rect.y = height / 2 - 86
@@ -96,6 +99,16 @@ def stage_three():
 
     if last_stage == 1:
         game.main_character.rect.x = 4
+        game.main_character.rect.y = height / 2 - 86
+    else:
+        game.main_character.rect.x = width / 2 - 86
+        game.main_character.rect.y = height / 2 - 86
+    game.character_sprite_list.empty()
+    game.character_sprite_list.add(game.main_character)
+
+def stage_four():
+    if last_stage == 2:
+        game.main_character.rect.x = width - 176
         game.main_character.rect.y = height / 2 - 86
     else:
         game.main_character.rect.x = width / 2 - 86

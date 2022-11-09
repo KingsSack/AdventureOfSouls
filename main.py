@@ -28,7 +28,8 @@ def main():
     speed = [2, 2]
     green = 25, 255, 25
     black = 0, 0, 0
-    ground = 153, 77, 0
+    ground = [(153, 77, 0), (140, 255, 25), (77, 25, 0)]
+    # ground = 153, 77, 0
     path = 153, 102, 0
 
     screen = pygame.display.set_mode(size)
@@ -64,6 +65,10 @@ def main():
             if current_stage == game.stages[4]:
                 game.current_stage = 4
                 instantiate.stage_three()
+            
+            if current_stage == game.stages[5]:
+                game.current_stage = 5
+                instantiate.stage_four()
         
         def level(self):
             game.item_sprite_list.draw(screen)
@@ -126,7 +131,7 @@ def main():
                     
                     print("mouse clicked")
 
-            screen.fill(ground)
+            screen.fill(ground[0])
             game.stage_one()
             game.stage1_sprites_list.draw(screen)
             self.level()
@@ -157,7 +162,7 @@ def main():
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     game.ui_buttons()
 
-            screen.fill(ground)
+            screen.fill(ground[0])
             game.stage_two()
             game.stage2_sprites_list.draw(screen)
             self.level()
@@ -168,6 +173,11 @@ def main():
                 instantiate.last_stage = 2
                 self.state = game.stages[2]
                 self.change_stage(game.stages[2])
+            
+            if height / 2 - 100 <= game.main_character.rect.y <= height / 2 + 100 and game.main_character.rect.x <= -2:
+                instantiate.last_stage = 2
+                self.state = game.stages[5]
+                self.change_stage(game.stages[5])
 
             pygame.display.flip()
         
@@ -183,7 +193,7 @@ def main():
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     game.ui_buttons()
             
-            screen.fill(ground)
+            screen.fill(ground[0])
             game.stage_three()
             game.stage3_sprites_list.draw(screen)
             self.level()
@@ -194,6 +204,32 @@ def main():
                 instantiate.last_stage = 3
                 self.state = game.stages[2]
                 self.change_stage(game.stages[2])
+            
+            pygame.display.flip()
+
+        def stage_four(self):
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    self.running = False
+
+                if event.type == KEYDOWN:
+                    if event.key == K_ESCAPE:
+                        self.running = False
+                
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    game.ui_buttons()
+            
+            screen.fill(ground[1])
+            game.stage_four()
+            game.stage4_sprites_list.draw(screen)
+            self.level()
+            
+            collisions.stage_four()
+            
+            if height / 2 - 100 <= game.main_character.rect.y <= height / 2 + 100 and game.main_character.rect.x >= width - 100:
+                instantiate.last_stage = 4
+                self.state = game.stages[3]
+                self.change_stage(game.stages[3])
             
             pygame.display.flip()
         
@@ -292,6 +328,11 @@ def main():
                 game.stage3_sprites_list.update()
                 # console.commands.tick()
                 self.stage_three()
+            
+            if self.state == "stage_four":
+                game.stage4_sprites_list.update()
+                # console.commands.tick()
+                self.stage_four()
 
     game_stage = GameState()
 

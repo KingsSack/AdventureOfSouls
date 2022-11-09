@@ -9,7 +9,7 @@ import collisions
 
 current_stage = 1
 
-stages = {1: "menu", 2: "stage_one", 3: "stage_two", 4: "stage_three"}
+stages = {1: "menu", 2: "stage_one", 3: "stage_two", 4: "stage_three", 5: "stage_four"}
 size = width, height = 852, 480
 screen = pygame.display.set_mode(size)
 
@@ -19,6 +19,7 @@ green = 25, 255, 25
 stage1_sprites_list = pygame.sprite.Group()
 stage2_sprites_list = pygame.sprite.Group()
 stage3_sprites_list = pygame.sprite.Group()
+stage4_sprites_list = pygame.sprite.Group()
 tutorial_sprites_list = pygame.sprite.Group()
 character_sprite_list = pygame.sprite.Group()
 enemy_sprite_list = pygame.sprite.Group()
@@ -266,6 +267,34 @@ class Tree(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         screen.blit(self.image, self.rect)
 
+class Flower(pygame.sprite.Sprite):
+    def __init__(self, type, width, height, rotation):
+        super().__init__()
+
+        # if type == 1:
+        #     self.image = pygame.image.load("tree/TallTree.png")
+        # else:
+        #     self.image = pygame.image.load("tree/ThickTree.png")
+        self.image = pygame.transform.scale(self.image, (width, height))
+        self.image = pygame.transform.rotate(self.image, rotation)
+
+        self.rect = self.image.get_rect()
+        screen.blit(self.image, self.rect)
+
+class Rock(pygame.sprite.Sprite):
+    def __init__(self, type, width, height, rotation):
+        super().__init__()
+
+        if type == 1:
+            self.image = pygame.image.load("vegetation/Rock1.png")
+        else:
+            self.image = pygame.image.load("vegetation/Rock1.png")
+        self.image = pygame.transform.scale(self.image, (width, height))
+        self.image = pygame.transform.rotate(self.image, rotation)
+
+        self.rect = self.image.get_rect()
+        screen.blit(self.image, self.rect)
+
 class SpellObjects(pygame.sprite.Sprite):
     def __init__(self, spell):
         super().__init__()
@@ -505,6 +534,9 @@ def stage_two():
                     savedata.spell_slot3 = "fireball"
 
 def stage_three():
+    map.paths("horizantal")
+
+def stage_four():
     map.paths("horizantal")
 
 def check_attacks():

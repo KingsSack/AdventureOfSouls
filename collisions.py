@@ -54,3 +54,14 @@ def stage_three():
             game.main_character.rect.y += 3
         if direction == "up":
             game.main_character.rect.y -= 3
+
+def stage_four():
+    if pygame.sprite.spritecollideany(hitbox, game.stage3_sprites_list):
+        if direction == "left":
+            game.main_character.rect.x += 3
+        if direction == "right":
+            game.main_character.rect.x -= 3
+        if direction == "down":
+            game.main_character.rect.y += 3
+        if direction == "up":
+            game.main_character.rect.y -= 3
