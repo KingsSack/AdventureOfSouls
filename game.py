@@ -13,6 +13,7 @@ stages = {1: "menu", 2: "stage_one", 3: "stage_two", 4: "stage_three"}
 size = width, height = 852, 480
 screen = pygame.display.set_mode(size)
 
+red = 255, 25, 25
 green = 25, 255, 25
 
 stage1_sprites_list = pygame.sprite.Group()
@@ -110,72 +111,78 @@ class MainCharacter(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (172, 172))
     
     def idle(self):
-        if instantiate.direction == "left":
-            animations.idle_left_index += 1
+        if self.health > 0:
+            if instantiate.direction == "left":
+                animations.idle_left_index += 1
 
-            if animations.idle_left_index >= len(animations.idle_left_images):
-                animations.idle_left_index = 0
-            
-            self.image = animations.idle_left_images[animations.idle_left_index]
-        else:
-            animations.idle_right_index += 1
+                if animations.idle_left_index >= len(animations.idle_left_images):
+                    animations.idle_left_index = 0
+                
+                self.image = animations.idle_left_images[animations.idle_left_index]
+            else:
+                animations.idle_right_index += 1
 
-            if animations.idle_right_index >= len(animations.idle_right_images):
-                animations.idle_right_index = 0
-            
-            self.image = animations.idle_right_images[animations.idle_right_index]
-        self.image = pygame.transform.scale(self.image, (172, 172))
+                if animations.idle_right_index >= len(animations.idle_right_images):
+                    animations.idle_right_index = 0
+                
+                self.image = animations.idle_right_images[animations.idle_right_index]
+            self.image = pygame.transform.scale(self.image, (172, 172))
     
-    def hurt(self):
-        if instantiate.direction == "left":
-            animations.hurt_left_index += 1
+    def hurt(self, damage):
+        if self.health > 0:
+            if instantiate.direction == "left":
+                animations.hurt_left_index += 1
 
-            if animations.hurt_left_index >= len(animations.hurt_left_images):
-                animations.hurt_left_index = 0
+                if animations.hurt_left_index >= len(animations.hurt_left_images):
+                    animations.hurt_left_index = 0
 
-            self.image = animations.hurt_left_images[animations.hurt_left_index]
-        else:
-            animations.hurt_right_index += 1
+                self.image = animations.hurt_left_images[animations.hurt_left_index]
+            else:
+                animations.hurt_right_index += 1
 
-            if animations.hurt_right_index >= len(animations.hurt_right_images):
-                animations.hurt_right_index = 0
+                if animations.hurt_right_index >= len(animations.hurt_right_images):
+                    animations.hurt_right_index = 0
+                
+                self.image = animations.hurt_right_images[animations.hurt_right_index]
+            self.image = pygame.transform.scale(self.image, (172, 172))
             
-            self.image = animations.hurt_right_images[animations.hurt_right_index]
-        self.image = pygame.transform.scale(self.image, (172, 172))
+            self.health -= damage
 
     def wizardFirebomb(self):
-        if instantiate.direction == "left":
-            animations.wizard_bomb_left_index += 1
+        if self.health > 0:
+            if instantiate.direction == "left":
+                animations.wizard_bomb_left_index += 1
 
-            if animations.wizard_bomb_left_index >= len(animations.wizard_bomb_left_images):
-                animations.wizard_bomb_left_index = 0
-        
-            self.image = animations.wizard_bomb_left_images[animations.wizard_bomb_left_index]
-        else:
-            animations.wizard_bomb_right_index += 1
+                if animations.wizard_bomb_left_index >= len(animations.wizard_bomb_left_images):
+                    animations.wizard_bomb_left_index = 0
+            
+                self.image = animations.wizard_bomb_left_images[animations.wizard_bomb_left_index]
+            else:
+                animations.wizard_bomb_right_index += 1
 
-            if animations.wizard_bomb_right_index >= len(animations.wizard_bomb_right_images):
-                animations.wizard_bomb_right_index = 0
-        
-            self.image = animations.wizard_bomb_right_images[animations.wizard_bomb_right_index]
-        self.image = pygame.transform.scale(self.image, (172, 172))
+                if animations.wizard_bomb_right_index >= len(animations.wizard_bomb_right_images):
+                    animations.wizard_bomb_right_index = 0
+            
+                self.image = animations.wizard_bomb_right_images[animations.wizard_bomb_right_index]
+            self.image = pygame.transform.scale(self.image, (172, 172))
     
     def wizardThunder(self):
-        if instantiate.direction == "left":
-            animations.wizard_thunder_left_index += 1
+        if self.health > 0:
+            if instantiate.direction == "left":
+                animations.wizard_thunder_left_index += 1
 
-            if animations.wizard_thunder_left_index >= len(animations.wizard_thunder_left_images):
-                animations.wizard_thunder_left_index = 0
-        
-            self.image = animations.wizard_thunder_left_images[animations.wizard_thunder_left_index]
-        else:
-            animations.wizard_thunder_right_index += 1
+                if animations.wizard_thunder_left_index >= len(animations.wizard_thunder_left_images):
+                    animations.wizard_thunder_left_index = 0
+            
+                self.image = animations.wizard_thunder_left_images[animations.wizard_thunder_left_index]
+            else:
+                animations.wizard_thunder_right_index += 1
 
-            if animations.wizard_thunder_right_index >= len(animations.wizard_thunder_right_images):
-                animations.wizard_thunder_right_index = 0
-        
-            self.image = animations.wizard_thunder_right_images[animations.wizard_thunder_right_index]
-        self.image = pygame.transform.scale(self.image, (172, 172))
+                if animations.wizard_thunder_right_index >= len(animations.wizard_thunder_right_images):
+                    animations.wizard_thunder_right_index = 0
+            
+                self.image = animations.wizard_thunder_right_images[animations.wizard_thunder_right_index]
+            self.image = pygame.transform.scale(self.image, (172, 172))
     
     def death(self):
         if instantiate.direction == "left":
@@ -183,6 +190,9 @@ class MainCharacter(pygame.sprite.Sprite):
 
             if animations.death_left_index >= len(animations.death_left_images):
                 animations.death_left_index = 0
+                self.health = 1000
+                self.rect.x = width / 2 - 86
+                self.rect.y = height / 2 - 86
         
             self.image = animations.death_left_images[animations.death_left_index]
         else:
@@ -190,6 +200,9 @@ class MainCharacter(pygame.sprite.Sprite):
 
             if animations.death_right_index >= len(animations.death_right_images):
                 animations.death_right_index = 0
+                self.health = 1000
+                self.rect.x = width / 2 - 86
+                self.rect.y = height / 2 - 86
         
             self.image = animations.death_right_images[animations.death_right_index]
         self.image = pygame.transform.scale(self.image, (172, 172))
@@ -197,25 +210,26 @@ class MainCharacter(pygame.sprite.Sprite):
     def update(self):
         collisions.hitbox.update(self.rect.x + 64.5, self.rect.y + 42.5)
         
-        if self.health <= 0:
-            self.death
-            return
+        health_ui.update(self.health)
         
-        pressed_keys = pygame.key.get_pressed()
-        if animations.attacking == "false" and gui_open == "false":
-            if pressed_keys[pygame.K_LEFT]:
-                self.moveLeft(savedata.speed1)
-            else:
-                if pressed_keys[pygame.K_RIGHT]:
-                    self.moveRight(savedata.speed1)
+        if self.health <= 0:
+            self.death()
+        else:
+            pressed_keys = pygame.key.get_pressed()
+            if animations.attacking == "false" and gui_open == "false":
+                if pressed_keys[pygame.K_LEFT]:
+                    self.moveLeft(savedata.speed1)
                 else:
-                    if pressed_keys[pygame.K_DOWN]:
-                        self.moveForward(savedata.speed2)
+                    if pressed_keys[pygame.K_RIGHT]:
+                        self.moveRight(savedata.speed1)
                     else:
-                        if pressed_keys[pygame.K_UP]:
-                            self.moveBack(savedata.speed2)
+                        if pressed_keys[pygame.K_DOWN]:
+                            self.moveForward(savedata.speed2)
                         else:
-                            self.idle()
+                            if pressed_keys[pygame.K_UP]:
+                                self.moveBack(savedata.speed2)
+                            else:
+                                self.idle()
 
 class House(pygame.sprite.Sprite):
     def __init__(self, width, height, rotation):
@@ -328,9 +342,13 @@ class Slime(pygame.sprite.Sprite):
         self.image = animations.slime_jump_images[animations.slime_jump_index]
         self.image = pygame.transform.scale(self.image, (89, 89))
         
-        main_character.hurt()
+        main_character.hurt(1)
         
-        self.rect.x -= .25
+        if instantiate.direction == "right":
+            self.rect.x -= .25
+        else:
+            if instantiate.direction == "left":
+                self.rect.x += .25
     
     def idle(self):
         animations.slime_idle_index += 1
@@ -374,7 +392,6 @@ class Item(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         screen.blit(self.image, self.rect)
 
-
 class Arrow(pygame.sprite.Sprite):
     def __init__(self, width, height, rotation, type):
         super().__init__()
@@ -405,8 +422,24 @@ class Arrow(pygame.sprite.Sprite):
         
         if self.level == 1 and current_stage != 2:
             self.kill()
-        
 
+class HealthUI(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        
+        self.font = pygame.font.Font('fonts/UndertaleFont.ttf', 32)
+        self.image = self.font.render("1000", True , red)
+        
+        self.rect = self.image.get_rect()
+    
+    def update(self, health):
+        self.image = self.font.render(f'{health}', True, red)
+        
+        self.rect = self.image.get_rect()
+        self.rect.x = 10
+        self.rect.y = 10
+        
+        screen.blit(self.image, self.rect)
 
 class NewSprite(pygame.sprite.Sprite):
     def __init__(self, surface_color, color, height, width, border_radius):
@@ -426,6 +459,10 @@ class NewSprite(pygame.sprite.Sprite):
 main_character = MainCharacter()
 main_character.rect.x = width / 2 - 86
 main_character.rect.y = height / 2 - 86
+
+health_ui = HealthUI()
+health_ui.rect.x = 5
+health_ui.rect.y = 5
 
 spell_object1 = SpellObjects("fire")
 spell_glow1 = SpellGlow()

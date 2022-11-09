@@ -67,11 +67,11 @@ hurt_right_index = 0
 
 hurt_left_images = []
 for i in range(20):
-    idle_left_images.append(pygame.image.load("wizard/WizardHurt2-0.png"))
+    hurt_left_images.append(pygame.image.load("wizard/WizardHurt2-0.png"))
 for i in range(20):
-    idle_left_images.append(pygame.image.load("wizard/WizardHurt2-1.png"))
+    hurt_left_images.append(pygame.image.load("wizard/WizardHurt2-1.png"))
 for i in range(20):
-    idle_left_images.append(pygame.image.load("wizard/WizardHurt2-2.png"))
+    hurt_left_images.append(pygame.image.load("wizard/WizardHurt2-2.png"))
 hurt_left_index = 0
 
 death_right_images = []
