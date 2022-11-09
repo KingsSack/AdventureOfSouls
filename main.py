@@ -198,6 +198,10 @@ def main():
             pygame.display.flip()
         
         def user_interface(self):
+            health_background = pygame.image.load("menu/ui_background.png")
+            health_background = pygame.transform.scale(health_background, (140, 140))
+            screen.blit(health_background, (12, -32))
+            
             settings_btn = pygame.image.load("menu/SquareMenu.png")
             settings_btn = pygame.transform.scale(settings_btn, (48, 48))
             screen.blit(settings_btn, (4, height - 52))

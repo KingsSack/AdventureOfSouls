@@ -354,9 +354,9 @@ class Slime(pygame.sprite.Sprite):
         main_character.hurt(1)
         
         if instantiate.direction == "left":
-            self.rect.x += 2
+            self.rect.x += 1
         else:
-            self.rect.x -= 2
+            self.rect.x -= 1
     
     def idle(self):
         animations.slime_idle_index += 1
@@ -407,7 +407,6 @@ class Item(pygame.sprite.Sprite):
         if pygame.sprite.spritecollideany(collisions.hitbox, item_sprite_list):
             savedata.inventory[slot] = "slimeball"
             self.kill()
-            
 
 class Arrow(pygame.sprite.Sprite):
     def __init__(self, width, height, rotation, type):
@@ -444,7 +443,7 @@ class HealthUI(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
         
-        self.font = pygame.font.Font('fonts/UndertaleFont.ttf', 32)
+        self.font = pygame.font.Font('fonts/UndertaleFont.ttf', 30)
         self.image = self.font.render("1000", True , red)
         
         self.rect = self.image.get_rect()
@@ -453,8 +452,8 @@ class HealthUI(pygame.sprite.Sprite):
         self.image = self.font.render(f'{health}', True, red)
         
         self.rect = self.image.get_rect()
-        self.rect.x = 10
-        self.rect.y = 10
+        self.rect.x = 22
+        self.rect.y = 28
         
         screen.blit(self.image, self.rect)
 

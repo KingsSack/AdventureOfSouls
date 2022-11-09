@@ -604,27 +604,27 @@ for i in range(24):
 slime_hurt_index = 0
 
 slime_jump_images = []
-for i in range(8):
+for i in range(5):
     slime_jump_images.append(pygame.image.load("slime/SlimeJump-0.png"))
-for i in range(8):
+for i in range(5):
     slime_jump_images.append(pygame.image.load("slime/SlimeJump-1.png"))
-for i in range(8):
+for i in range(5):
     slime_jump_images.append(pygame.image.load("slime/SlimeJump-2.png"))
-for i in range(8):
+for i in range(5):
     slime_jump_images.append(pygame.image.load("slime/SlimeJump-3.png"))
-for i in range(8):
+for i in range(5):
     slime_jump_images.append(pygame.image.load("slime/SlimeJump-4.png"))
-for i in range(8):
+for i in range(5):
     slime_jump_images.append(pygame.image.load("slime/SlimeJump-5.png"))
-for i in range(8):
+for i in range(5):
     slime_jump_images.append(pygame.image.load("slime/SlimeJump-6.png"))
-for i in range(8):
+for i in range(5):
     slime_jump_images.append(pygame.image.load("slime/SlimeJump-7.png"))
-for i in range(8):
+for i in range(5):
     slime_jump_images.append(pygame.image.load("slime/SlimeJump-8.png"))
-for i in range(8):
+for i in range(5):
     slime_jump_images.append(pygame.image.load("slime/SlimeJump-9.png"))
-for i in range(8):
+for i in range(5):
     slime_jump_images.append(pygame.image.load("slime/SlimeJump-10.png"))
 slime_jump_index = 0
 
