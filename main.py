@@ -26,7 +26,7 @@ def main():
 
     size = width, height = 852, 480
     speed = [2, 2]
-    green = 25, 255, 25
+    green = 25, 77, 0
     black = 0, 0, 0
     ground = [(153, 77, 0), (140, 255, 25), (77, 25, 0)]
     # ground = 153, 77, 0

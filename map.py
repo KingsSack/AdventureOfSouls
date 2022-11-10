@@ -21,3 +21,4 @@ def paths(design):
     
     if design == "horizantal":
         pygame.draw.rect(screen, path, [width / 2 - 500, height / 2 - 25, 1000, 80])
+        
