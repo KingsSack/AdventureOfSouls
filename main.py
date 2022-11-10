@@ -4,6 +4,7 @@ import game
 import instantiate
 import collisions
 import savedata
+import tutorial
 import console
 
 from pygame.locals import (
@@ -73,6 +74,7 @@ def main():
             game.map_sprites.empty()
             game.enemy_sprite_list.empty()
             game.item_sprite_list.empty()
+            game.tutorial_sprites_list.empty()
             
             # create new sprites
             game.current_stage = current_stage
@@ -93,10 +95,10 @@ def main():
             # draw sprites
             game.map_sprites.draw(screen)
             game.item_sprite_list.draw(screen)
-            game.tutorial_sprites_list.draw(screen)
             game.enemy_sprite_list.draw(screen)
             game.character_sprite_list.draw(screen)
             self.user_interface()
+            game.tutorial_sprites_list.draw(screen)
             
             # update sprites
             game.main_character.update()
@@ -140,6 +142,9 @@ def main():
             screen.fill(ground[0])
             game.ardale_spawn()
             self.level()
+            
+            if savedata.tutorial_level == 0:
+                tutorial.ardale_spawn(1)
 
             # stage changes
             if game.main_character.rect.y < -130 and 400 >= game.main_character.rect.x >= 300:

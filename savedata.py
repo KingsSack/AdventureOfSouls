@@ -1,6 +1,8 @@
 
 t = 0
 
+isbackdrop = False
+
 tutorial_level = 0
 
 speed1 = 3

@@ -62,7 +62,7 @@ def ardale_spawn():
             game.main_character.rect.y = height / 2 - 86
     
     if savedata.tutorial_level == 0:
-        tutorial.stage_one()
+        tutorial.ardale_spawn(0)
 
 def ardale_center():
     new_house(0, 30, 6)

@@ -464,6 +464,25 @@ class Arrow(pygame.sprite.Sprite):
         if self.level == 1 and current_stage != 2:
             self.kill()
 
+class TutorialBackdrop(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        
+        self.image = pygame.image.load("tutorial/TutorialBackdrop.png")
+        self.image = pygame.transform.scale(self.image, (460, 160))
+        
+        self.rect = self.image.get_rect()
+        
+        screen.blit(self.image, self.rect)
+    
+    def update(self):
+        pressed_keys = pygame.key.get_pressed()
+        
+        if pressed_keys[pygame.K_SPACE]:
+            self.kill()
+        
+        screen.blit(self.image, self.rect)
+
 class HealthUI(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
