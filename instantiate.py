@@ -6,57 +6,31 @@ import tutorial
 
 size = width, height = 852, 480
 direction = "right"
-last_stage = 1
+last_stage = 0
 
-def new_house(rotation, rect_x, rect_y, stage):
-    current_house = game.House(200, 200, rotation)
+def new_house(rotation, rect_x, rect_y):
+    current_house = game.House(180, 180, rotation)
     current_house.rect.x = rect_x
     current_house.rect.y = rect_y
-    if stage == 1:
-        game.stage1_sprites_list.add(current_house)
-    if stage == 2:
-        game.stage2_sprites_list.add(current_house)
-    if stage == 3:
-        game.stage3_sprites_list.add(current_house)
+    game.map_sprites.add(current_house)
 
-def new_tree(type, width, height, rotation, rect_x, rect_y, stage):
+def new_tree(type, width, height, rotation, rect_x, rect_y):
     current_tree = game.Tree(type, width, height, rotation)
     current_tree.rect.x = rect_x
     current_tree.rect.y = rect_y
-    if stage == 1:
-        game.stage1_sprites_list.add(current_tree)
-    if stage == 2:
-        game.stage2_sprites_list.add(current_tree)
-    if stage == 3:
-        game.stage3_sprites_list.add(current_tree)
-    if stage == 4:
-        game.stage4_sprites_list.add(current_tree)
+    game.map_sprites.add(current_tree)
 
-def new_flower(type, width, height, rotation, rect_x, rect_y, stage):
+def new_flower(type, width, height, rotation, rect_x, rect_y):
     current_flower = game.Flower(type, width, height, rotation)
     current_flower.rect.x = rect_x
     current_flower.rect.y = rect_y
-    if stage == 1:
-        game.stage1_sprites_list.add(current_flower)
-    if stage == 2:
-        game.stage2_sprites_list.add(current_flower)
-    if stage == 3:
-        game.stage3_sprites_list.add(current_flower)
-    if stage == 4:
-        game.stage4_sprites_list.add(current_flower)
+    game.map_sprites.add(current_flower)
 
-def new_rock(type, width, height, rotation, rect_x, rect_y, stage):
+def new_rock(type, width, height, rotation, rect_x, rect_y):
     current_rock = game.Rock(type, width, height, rotation)
     current_rock.rect.x = rect_x
     current_rock.rect.y = rect_y
-    if stage == 1:
-        game.stage1_sprites_list.add(current_rock)
-    if stage == 2:
-        game.stage2_sprites_list.add(current_rock)
-    if stage == 3:
-        game.stage3_sprites_list.add(current_rock)
-    if stage == 4:
-        game.stage4_sprites_list.add(current_rock)
+    game.map_sprites.add(current_rock)
 
 def new_slime(rect_x, rect_y):
     if game.time.time() - savedata.t >= 100:
@@ -65,14 +39,16 @@ def new_slime(rect_x, rect_y):
         current_slime.rect.y = rect_y
         game.enemy_sprite_list.add(current_slime)
 
-def stage_one():
-    new_house(0, width / 2 - 245, height / 2 - 238, 1)
-    new_house(0, width / 2 + 45, height / 2 - 238, 1)
+
+def ardale_spawn():
+    new_house(0, width / 2 - 225, height / 2 - 235)
+    new_house(0, width / 2 + 45, height / 2 - 235)
     
-    new_tree(1, 103, 129, 0, width / 2 + 225, height / 2 - 240, 1)
-    new_tree(1, 103, 129, 0, width / 2 + 275, height / 2 - 166, 1)
-    new_tree(1, 108, 134, 0, width / 2 + 333, height / 2 - 220, 1)
-    new_tree(2, 168, 187, 0, width / 2 - 400, height / 2 - 240, 1)
+    new_tree(1, 103, 129, 0, width / 2 + 225, height / 2 - 250)
+    new_tree(1, 108, 134, 0, width / 2 + 333, height / 2 - 225)
+    new_tree(1, 103, 129, 0, width / 2 + 275, height / 2 - 194)
+    new_tree(1, 103, 129, 0, width / 2 + 219, height / 2 - 179)
+    new_tree(2, 168, 187, 0, width / 2 - 400, height / 2 - 240)
 
     if last_stage == 2:
         game.main_character.rect.x = width / 2 - 86
@@ -84,26 +60,24 @@ def stage_one():
         else:
             game.main_character.rect.x = width / 2 - 86
             game.main_character.rect.y = height / 2 - 86
-    game.character_sprite_list.empty()
-    game.character_sprite_list.add(game.main_character)
     
     if savedata.tutorial_level == 0:
         tutorial.stage_one()
 
-def stage_two():
-    new_house(0, 10, 5, 2)
-    new_house(0, 220, 5, 2)
-    new_house(0, 430, 5, 2)
-    new_house(0, 640, 5, 2)
+def ardale_center():
+    new_house(0, 30, 6)
+    new_house(0, 240, 6)
+    new_house(0, 450, 6)
+    new_house(0, 660, 6)
     
     if savedata.fireball_spell == 0:
         game.spell_object1.rect.x = width / 2 - 32
         game.spell_object1.rect.y = height / 2 - 32
-        game.stage2_sprites_list.add(game.spell_object1)
+        game.map_sprites.add(game.spell_object1)
 
         game.spell_glow1.rect.x = width / 2 - 32
         game.spell_glow1.rect.y = height / 2 - 42
-        game.stage2_sprites_list.add(game.spell_glow1)
+        game.map_sprites.add(game.spell_glow1)
 
     if last_stage == 1:
         game.main_character.rect.x = width / 2 - 86
@@ -114,14 +88,12 @@ def stage_two():
     else:
         game.main_character.rect.x = width / 2 - 86
         game.main_character.rect.y = height / 2 - 86
-    game.character_sprite_list.empty()
-    game.character_sprite_list.add(game.main_character)
 
-def stage_three():
-    new_tree(1, 103, 129, 0, width / 2 - 352, height / 2 - 197, 3)
-    new_tree(1, 133, 159, 0, width / 2 - 273, height / 2 - 238, 3)
-    new_tree(1, 103, 129, 0, width / 2 + 225, height / 2 - 242, 3)
-    new_tree(1, 103, 129, 0, width / 2 - 154, height / 2 + 102, 3)
+def ardale_countryside():
+    new_tree(1, 103, 129, 0, width / 2 - 352, height / 2 - 197)
+    new_tree(1, 133, 159, 0, width / 2 - 273, height / 2 - 238)
+    new_tree(1, 103, 129, 0, width / 2 + 225, height / 2 - 242)
+    new_tree(1, 103, 129, 0, width / 2 - 154, height / 2 + 102)
     
     new_slime(width / 2 - 42.5, height / 2 - 42.5)
 
@@ -131,14 +103,12 @@ def stage_three():
     else:
         game.main_character.rect.x = width / 2 - 86
         game.main_character.rect.y = height / 2 - 86
-    game.character_sprite_list.empty()
-    game.character_sprite_list.add(game.main_character)
 
-def stage_four():
-    new_rock(1, 128, 128, 0, width / 2 - 233, height / 2 - 245, 4)
-    new_rock(1, 128, 128, 11, width / 2 + 130, height / 2 + 89, 4)
+def flowerfield_entrance():
+    new_rock(1, 128, 128, 0, width / 2 - 233, height / 2 - 245)
+    new_rock(1, 128, 128, 11, width / 2 + 130, height / 2 + 89)
     
-    new_tree(1, 105, 131, 0, width - 189, height / 2 - 222, 4)
+    new_tree(1, 105, 131, 0, width - 189, height / 2 - 222)
     
     if last_stage == 2:
         game.main_character.rect.x = width - 176
@@ -146,8 +116,6 @@ def stage_four():
     else:
         game.main_character.rect.x = width / 2 - 86
         game.main_character.rect.y = height / 2 - 86
-    game.character_sprite_list.empty()
-    game.character_sprite_list.add(game.main_character)
 
 pygame.init()
 

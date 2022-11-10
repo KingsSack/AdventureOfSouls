@@ -29,208 +29,169 @@ def main():
     green = 25, 77, 0
     black = 0, 0, 0
     ground = [(153, 77, 0), (140, 255, 25), (77, 25, 0)]
-    # ground = 153, 77, 0
-    path = 153, 102, 0
 
+    # surface
     screen = pygame.display.set_mode(size)
-
+    
+    # window settings
     pygame_icon = pygame.image.load("WizardHead.png")
     pygame.display.set_icon(pygame_icon)
     pygame.display.set_caption("Adventure of Souls")
-
+    
+    # fonts
     smallfont = pygame.font.SysFont('Corbel', 35)
     text = smallfont.render('Play' , True , green)
     
+    # project loaded
     print(f'Project loaded in {time.time() - t}s')
 
+    # game class
     class GameState():
         def __init__(self):
-            self.state = game.stages[1]
-            # pygame.mixer.music.load("Dynamaxed ▸ Lavender Town (Red & Blue) copy.mp3")
-            # pygame.mixer.music.play()
+            # menu
+            self.state = game.stages["menu"][0]
+            
+            # music
+            # self.music()
+            
+            # running
             self.running = True
         
-        def change_stage(self, current_stage):
+        def music(self):
+            # play music
+            pygame.mixer.music.load("Dynamaxed ▸ Lavender Town (Red & Blue) copy.mp3")
+            pygame.mixer.music.play()
+        
+        def change_stage(self, current_stage, old_stage):
+            # change last stage
+            instantiate.last_stage = old_stage
+            
+            # change current state 
+            self.state = current_stage
+            
+            # remove old sprites
+            game.map_sprites.empty()
             game.enemy_sprite_list.empty()
             game.item_sprite_list.empty()
             
-            if current_stage == game.stages[2]:
-                game.current_stage = 2
-                instantiate.stage_one()
+            # create new sprites
+            game.current_stage = current_stage
             
-            if current_stage == game.stages[3]:
-                game.current_stage = 3
-                instantiate.stage_two()
+            if current_stage == game.stages["ardale"][0]:
+                instantiate.ardale_spawn()
             
-            if current_stage == game.stages[4]:
-                game.current_stage = 4
-                instantiate.stage_three()
+            if current_stage == game.stages["ardale"][1]:
+                instantiate.ardale_center()
             
-            if current_stage == game.stages[5]:
-                game.current_stage = 5
-                instantiate.stage_four()
+            if current_stage == game.stages["ardale"][2]:
+                instantiate.ardale_countryside()
+            
+            if current_stage == game.stages["flowerfield"][0]:
+                instantiate.flowerfield_entrance()
         
         def level(self):
+            # draw sprites
+            game.map_sprites.draw(screen)
             game.item_sprite_list.draw(screen)
             game.tutorial_sprites_list.draw(screen)
             game.enemy_sprite_list.draw(screen)
             game.character_sprite_list.draw(screen)
             self.user_interface()
             
+            # update sprites
             game.main_character.update()
+            game.map_sprites.update()
             game.enemy_sprite_list.update()
-            # game.item_sprite_list.update()
             game.tutorial_sprites_list.update()
             
+            # detect gui's
             if game.gui_open == "spellbook":
                 instantiate.spellbook()
             if game.gui_open == "inventory":
                 instantiate.inventory()
             if game.gui_open == "false":
                 game.check_attacks()
+            
+            # detect collisions
+            collisions.detect_collisions()
         
         def menu(self):
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    self.running = False
-        
-                if event.type == KEYDOWN:
-                    if event.key == K_ESCAPE:
-                        self.running = False
-        
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    if width / 2 - 50 <= mouse[0] <= width / 2 + 50 and height / 2 - 23 <= mouse[1] <= height / 2 + 23:
-                        self.state = game.stages[2]
-                        game_stage.change_stage(game.stages[2])
+            # fill screen
+            screen.fill(green)
             
+            # head animation
             game.headrect = game.headrect.move(speed)
             if game.headrect.left < 0 or game.headrect.right > width:
                 speed[0] = -speed[0]
             if game.headrect.top < 0 or game.headrect.bottom > height:
                 speed[1] = -speed[1]
 
-            screen.fill(green)
             screen.blit(game.head, game.headrect)
-
+            
+            # button text
             pygame.draw.rect(screen, black, [width / 2 - 50, height / 2 - 23, 100, 46], 0, 4)
             screen.blit(text, (width / 2 - 24, height / 2 - 12))
-
+            
+            # flip display
             pygame.display.flip()
         
-        def stage_one(self):
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    self.running = False
-
-                if event.type == KEYDOWN:
-                    if event.key == K_ESCAPE:
-                        self.running = False
-                
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    game.ui_buttons()
-                    
-                    print("mouse clicked")
-
+        def ardale_spawn(self):
+            # stage functions
             screen.fill(ground[0])
-            game.stage_one()
-            game.stage1_sprites_list.draw(screen)
+            game.ardale_spawn()
             self.level()
 
-            collisions.stage_one()
-
+            # stage changes
             if game.main_character.rect.y < -130 and 400 >= game.main_character.rect.x >= 300:
-                instantiate.last_stage = 1
-                self.state = game.stages[3]
-                self.change_stage(game.stages[3])
+                self.change_stage(game.stages["ardale"][1], 1)
             
             if height / 2 - 100 <= game.main_character.rect.y <= height / 2 + 100 and game.main_character.rect.x >= 750:
-                instantiate.last_stage = 1
-                self.state = game.stages[4]
-                self.change_stage(game.stages[4])
-
+                self.change_stage(game.stages["ardale"][2], 1)
+            
+            # flip display
             pygame.display.flip()
         
-        def stage_two(self):
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    self.running = False
-
-                if event.type == KEYDOWN:
-                    if event.key == K_ESCAPE:
-                        self.running = False
-                
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    game.ui_buttons()
-
+        def ardale_center(self):
+            # stage functions
             screen.fill(ground[0])
-            game.stage_two()
-            game.stage2_sprites_list.draw(screen)
+            game.ardale_center()
             self.level()
             
-            collisions.stage_two()
-            
+            # stage changes
             if game.main_character.rect.y > 400 and 400 >= game.main_character.rect.x >= 300:
-                instantiate.last_stage = 2
-                self.state = game.stages[2]
-                self.change_stage(game.stages[2])
+                self.change_stage(game.stages["ardale"][0], 2)
             
             if height / 2 - 100 <= game.main_character.rect.y <= height / 2 + 100 and game.main_character.rect.x <= -2:
-                instantiate.last_stage = 2
-                self.state = game.stages[5]
-                self.change_stage(game.stages[5])
-
+                self.change_stage(game.stages["flowerfield"][0], 2)
+                
+            # flip display
             pygame.display.flip()
         
-        def stage_three(self):
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    self.running = False
-
-                if event.type == KEYDOWN:
-                    if event.key == K_ESCAPE:
-                        self.running = False
-                
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    game.ui_buttons()
-            
+        def ardale_countryside(self):
+            # stage functions
             screen.fill(ground[0])
-            game.stage_three()
-            game.stage3_sprites_list.draw(screen)
+            game.ardale_countryside()
             self.level()
             
-            collisions.stage_three()
-            
+            # stage changes
             if height / 2 - 100 <= game.main_character.rect.y <= height / 2 + 100 and game.main_character.rect.x <= -2:
-                instantiate.last_stage = 3
-                self.state = game.stages[2]
-                self.change_stage(game.stages[2])
+                self.change_stage(game.stages["ardale"][0], 3)
             
+            # flip display
             pygame.display.flip()
 
-        def stage_four(self):
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    self.running = False
-
-                if event.type == KEYDOWN:
-                    if event.key == K_ESCAPE:
-                        self.running = False
-                
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    game.ui_buttons()
-            
+        def flowerfield_entrance(self):
+            # stage functions
             screen.fill(ground[1])
-            game.stage_four()
-            game.stage4_sprites_list.draw(screen)
+            game.flowerfield_entrance()
+            
             self.level()
             
-            collisions.stage_four()
-            
+            # stage changes
             if height / 2 - 100 <= game.main_character.rect.y <= height / 2 + 100 and game.main_character.rect.x >= width - 100:
-                instantiate.last_stage = 4
-                self.state = game.stages[3]
-                self.change_stage(game.stages[3])
+                self.change_stage(game.stages["ardale"][1], 4)
             
+            # flip display
             pygame.display.flip()
         
         def user_interface(self):
@@ -311,37 +272,50 @@ def main():
                     screen.blit(thunderbomb, (width / 2 + 34, height - 46))
         
         def stage_manager(self):
-            if self.state == "menu":
+            # stages
+            if self.state == game.stages["menu"][0]:
                 self.menu()
             
-            if self.state == "stage_one":
-                game.stage1_sprites_list.update()
-                # console.commands.tick()
-                self.stage_one()
+            if self.state == game.stages["ardale"][0]:
+                self.ardale_spawn()
             
-            if self.state == "stage_two":
-                game.stage2_sprites_list.update()
-                # console.commands.tick()
-                self.stage_two()
+            if self.state == game.stages["ardale"][1]:
+                self.ardale_center()
 
-            if self.state == "stage_three":
-                game.stage3_sprites_list.update()
-                # console.commands.tick()
-                self.stage_three()
+            if self.state == game.stages["ardale"][2]:
+                self.ardale_countryside()
             
-            if self.state == "stage_four":
-                game.stage4_sprites_list.update()
-                # console.commands.tick()
-                self.stage_four()
+            if self.state == game.stages["flowerfield"][0]:
+                self.flowerfield_entrance()
 
     game_stage = GameState()
 
     while game_stage.running:
+        # tick
         pygame.time.delay(7)
         
+        # detect window closing
+        for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    game_stage.running = False
+
+                if event.type == KEYDOWN:
+                    if event.key == K_ESCAPE:
+                        game_stage.running = False
+                
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if game_stage.state == game.stages["menu"][0]:
+                        if width / 2 - 50 <= mouse[0] <= width / 2 + 50 and height / 2 - 23 <= mouse[1] <= height / 2 + 23:
+                            game_stage.change_stage(game.stages["ardale"][0], game.stages["menu"][0])
+                    else:
+                        game.ui_buttons()
+        
+        # main
         game_stage.stage_manager()
+        
         mouse = pygame.mouse.get_pos()
     
+    # quit game
     pygame.quit()
 
 if __name__ == "__main__":

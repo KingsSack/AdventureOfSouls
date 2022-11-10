@@ -7,19 +7,18 @@ import map
 import savedata
 import collisions
 
-current_stage = 1
+stages = {"menu": ["one"], "ardale": ["spawn", "center", "country"], "flowerfield": ["entrance"]}
 
-stages = {1: "menu", 2: "stage_one", 3: "stage_two", 4: "stage_three", 5: "stage_four"}
+current_stage = stages["menu"][0]
+
 size = width, height = 852, 480
 screen = pygame.display.set_mode(size)
 
 red = 255, 25, 25
 green = 25, 255, 25
 
-stage1_sprites_list = pygame.sprite.Group()
-stage2_sprites_list = pygame.sprite.Group()
-stage3_sprites_list = pygame.sprite.Group()
-stage4_sprites_list = pygame.sprite.Group()
+map_sprites = pygame.sprite.Group()
+
 tutorial_sprites_list = pygame.sprite.Group()
 character_sprite_list = pygame.sprite.Group()
 enemy_sprite_list = pygame.sprite.Group()
@@ -229,17 +228,14 @@ class MainCharacter(pygame.sprite.Sprite):
                 
                 if pressed_keys[pygame.K_LEFT]:
                     self.moveLeft(savedata.speed1)
+                elif pressed_keys[pygame.K_RIGHT]:
+                    self.moveRight(savedata.speed1)
+                elif pressed_keys[pygame.K_DOWN]:
+                    self.moveForward(savedata.speed2)
+                elif pressed_keys[pygame.K_UP]:
+                    self.moveBack(savedata.speed2)
                 else:
-                    if pressed_keys[pygame.K_RIGHT]:
-                        self.moveRight(savedata.speed1)
-                    else:
-                        if pressed_keys[pygame.K_DOWN]:
-                            self.moveForward(savedata.speed2)
-                        else:
-                            if pressed_keys[pygame.K_UP]:
-                                self.moveBack(savedata.speed2)
-                            else:
-                                self.idle()
+                    self.idle()
 
 class House(pygame.sprite.Sprite):
     def __init__(self, width, height, rotation):
@@ -504,6 +500,7 @@ class NewSprite(pygame.sprite.Sprite):
 main_character = MainCharacter()
 main_character.rect.x = width / 2 - 86
 main_character.rect.y = height / 2 - 86
+character_sprite_list.add(main_character)
 
 health_ui = HealthUI()
 health_ui.rect.x = 5
@@ -512,10 +509,10 @@ health_ui.rect.y = 5
 spell_object1 = SpellObjects("fire")
 spell_glow1 = SpellGlow()
 
-def stage_one():
+def ardale_spawn():
     map.paths("y")
     
-def stage_two():
+def ardale_center():
     map.paths("spell1")
     
     # .spell_gain = 0
@@ -526,18 +523,17 @@ def stage_two():
         savedata.fireball_spell = 1
         if savedata.spell_slot1 == "empty":
             savedata.spell_slot1 = "fireball"
-        else:
-            if savedata.spell_slot1 != "fireball" and savedata.spell_slot3 != "fireball" and savedata.spell_slot2 == "empty":
-                savedata.spell_slot2 = "fireball"
-            else:
-                if savedata.spell_slot2 != "fireball" and savedata.spell_slot1 != "fireball" and savedata.spell_slot3 == "empty":
-                    savedata.spell_slot3 = "fireball"
+        elif savedata.spell_slot1 != "fireball" and savedata.spell_slot3 != "fireball" and savedata.spell_slot2 == "empty":
+            savedata.spell_slot2 = "fireball"
+        elif savedata.spell_slot2 != "fireball" and savedata.spell_slot1 != "fireball" and savedata.spell_slot3 == "empty":
+            savedata.spell_slot3 = "fireball"
 
-def stage_three():
+def ardale_countryside():
     map.paths("horizantal")
 
-def stage_four():
+def flowerfield_entrance():
     map.paths("horizantal")
+
 
 def check_attacks():
     mouse = pygame.mouse.get_pos()
@@ -584,6 +580,7 @@ def check_attacks():
     
     if animations.wizard_bomb_right_index == 323 or animations.wizard_bomb_left_index == 323 or animations.wizard_thunder_right_index == 348 or animations.wizard_thunder_left_index == 348:
         animations.attacking = "false"
+
 
 def ui_buttons():
     global gui_open
