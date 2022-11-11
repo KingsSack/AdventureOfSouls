@@ -1,6 +1,5 @@
 import pygame
 import time
-import main
 import instantiate
 import animations
 import map
@@ -461,12 +460,16 @@ class Arrow(pygame.sprite.Sprite):
         if self.frame > 15:
             self.rect.y = 46
         
-        if self.level == 1 and current_stage != 2:
+        if savedata.tutorial_level > 2 and current_stage != stages["ardale"][0]:
             self.kill()
 
 class TutorialBackdrop(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
+        
+        savedata.isbackdrop = True
+        
+        self.t = time.time()
         
         self.image = pygame.image.load("tutorial/TutorialBackdrop.png")
         self.image = pygame.transform.scale(self.image, (460, 160))
@@ -478,7 +481,9 @@ class TutorialBackdrop(pygame.sprite.Sprite):
     def update(self):
         pressed_keys = pygame.key.get_pressed()
         
-        if pressed_keys[pygame.K_SPACE]:
+        if pressed_keys[pygame.K_SPACE] and time.time() - self.t > 6:
+            savedata.tutorial_level += 1
+            savedata.isbackdrop = False
             self.kill()
         
         screen.blit(self.image, self.rect)

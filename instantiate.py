@@ -44,10 +44,10 @@ def ardale_spawn():
     new_house(0, width / 2 - 225, height / 2 - 235)
     new_house(0, width / 2 + 45, height / 2 - 235)
     
-    new_tree(1, 103, 129, 0, width / 2 + 225, height / 2 - 250)
+    new_tree(1, 103, 129, 0, width / 2 + 246, height / 2 - 250)
     new_tree(1, 108, 134, 0, width / 2 + 333, height / 2 - 225)
-    new_tree(1, 103, 129, 0, width / 2 + 275, height / 2 - 194)
-    new_tree(1, 103, 129, 0, width / 2 + 219, height / 2 - 179)
+    new_tree(1, 103, 129, 0, width / 2 + 219, height / 2 - 194)
+    new_tree(1, 103, 129, 0, width / 2 + 275, height / 2 - 179)
     new_tree(2, 168, 187, 0, width / 2 - 400, height / 2 - 240)
 
     if last_stage == 2:
@@ -61,7 +61,7 @@ def ardale_spawn():
             game.main_character.rect.x = width / 2 - 86
             game.main_character.rect.y = height / 2 - 86
     
-    if savedata.tutorial_level == 0:
+    if savedata.tutorial_level < 2:
         tutorial.ardale_spawn(0)
 
 def ardale_center():
@@ -88,6 +88,9 @@ def ardale_center():
     else:
         game.main_character.rect.x = width / 2 - 86
         game.main_character.rect.y = height / 2 - 86
+    
+    if savedata.tutorial_level < 3:
+        tutorial.ardale_center(0)
 
 def ardale_countryside():
     new_tree(1, 103, 129, 0, width / 2 - 352, height / 2 - 197)

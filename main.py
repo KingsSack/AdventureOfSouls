@@ -66,6 +66,7 @@ def main():
         def change_stage(self, current_stage, old_stage):
             # change last stage
             instantiate.last_stage = old_stage
+            savedata.isbackdrop = False
             
             # change current state 
             self.state = current_stage
@@ -143,7 +144,7 @@ def main():
             game.ardale_spawn()
             self.level()
             
-            if savedata.tutorial_level == 0:
+            if savedata.tutorial_level < 2:
                 tutorial.ardale_spawn(1)
 
             # stage changes
@@ -161,6 +162,9 @@ def main():
             screen.fill(ground[0])
             game.ardale_center()
             self.level()
+            
+            if savedata.tutorial_level < 3:
+                tutorial.ardale_center(1)
             
             # stage changes
             if game.main_character.rect.y > 400 and 400 >= game.main_character.rect.x >= 300:

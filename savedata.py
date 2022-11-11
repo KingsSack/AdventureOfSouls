@@ -3,7 +3,7 @@ t = 0
 
 isbackdrop = False
 
-tutorial_level = 0
+tutorial_level = 10
 
 speed1 = 3
 speed2 = 5
