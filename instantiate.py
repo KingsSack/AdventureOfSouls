@@ -32,6 +32,12 @@ def new_rock(type, width, height, rotation, rect_x, rect_y):
     current_rock.rect.y = rect_y
     game.map_sprites.add(current_rock)
 
+def new_sign(type, rotation, rect_x, rect_y):
+    current_sign = game.Sign(48, 48, rotation, type)
+    current_sign.rect.x = rect_x
+    current_sign.rect.y = rect_y
+    game.map_sprites.add(current_sign)
+
 def new_slime(rect_x, rect_y):
     if game.time.time() - savedata.t >= 100:
         current_slime = game.Slime()

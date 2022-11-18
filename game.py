@@ -18,6 +18,7 @@ green = 25, 255, 25
 
 map_sprites = pygame.sprite.Group()
 
+level_sprites_list = pygame.sprite.Group()
 tutorial_sprites_list = pygame.sprite.Group()
 character_sprite_list = pygame.sprite.Group()
 enemy_sprite_list = pygame.sprite.Group()
@@ -239,6 +240,8 @@ class MainCharacter(pygame.sprite.Sprite):
 class House(pygame.sprite.Sprite):
     def __init__(self, width, height, rotation):
         super().__init__()
+        
+        self.width, self.height = width, height
 
         self.image = pygame.image.load("house/House.png")
         self.image = pygame.transform.scale(self.image, (width, height))
@@ -246,12 +249,16 @@ class House(pygame.sprite.Sprite):
         
         self.rect = self.image.get_rect()
         
+        # self.hitbox = [self.rect.x, self.rect.x + width, self.rect.y, self.rect.y + height - 60]
+        
         screen.blit(self.image, self.rect)
 
 class Tree(pygame.sprite.Sprite):
     def __init__(self, type, width, height, rotation):
         super().__init__()
-
+        
+        self.width, self.height = width, height
+        
         if type == 1:
             self.image = pygame.image.load("tree/TallTree.png")
         else:
@@ -265,6 +272,8 @@ class Tree(pygame.sprite.Sprite):
 class Flower(pygame.sprite.Sprite):
     def __init__(self, type, width, height, rotation):
         super().__init__()
+        
+        self.width, self.height = width, height
 
         # if type == 1:
         #     self.image = pygame.image.load("tree/TallTree.png")
@@ -279,6 +288,8 @@ class Flower(pygame.sprite.Sprite):
 class Rock(pygame.sprite.Sprite):
     def __init__(self, type, width, height, rotation):
         super().__init__()
+        
+        self.width, self.height = width, height
 
         if type == 1:
             self.image = pygame.image.load("vegetation/Rock1.png")
@@ -293,6 +304,9 @@ class Rock(pygame.sprite.Sprite):
 class SpellObjects(pygame.sprite.Sprite):
     def __init__(self, spell):
         super().__init__()
+        
+        self.width, self.height = 64, 64
+        
         if spell == "fire":
             self.image = pygame.image.load("menu/Firebomb.png")
             self.image = pygame.transform.scale(self.image, (64, 64))
@@ -485,6 +499,21 @@ class TutorialBackdrop(pygame.sprite.Sprite):
             savedata.tutorial_level += 1
             savedata.isbackdrop = False
             self.kill()
+        
+        screen.blit(self.image, self.rect)
+
+class Sign(pygame.sprite.Sprite):
+    def __init__(self, width, height, rotation, type):
+        super().__init__()
+        
+        if type == "fire":
+            self.image = pygame.image.load("signs/fire sign.png")
+        elif type == "slime":
+            self.image = pygame.image.load("signs/slime sign.png")
+        self.image = pygame.transform.scale(self.image, (width, height))
+        self.image = pygame.transform.rotate(self.image, rotation)
+        
+        self.rect = self.image.get_rect()
         
         screen.blit(self.image, self.rect)
 

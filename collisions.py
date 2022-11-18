@@ -1,8 +1,8 @@
 import pygame
 import game
-import instantiate
+import savedata
 
-direction = "up"
+# irection = "up"
 
 
 class Hitbox(pygame.sprite.Sprite):
@@ -24,11 +24,13 @@ hitbox = Hitbox(43, 94)
 
 def detect_collisions():
     if pygame.sprite.spritecollideany(hitbox, game.map_sprites):
-        if direction == "left":
+        sprite = pygame.sprite.spritecollideany(hitbox, game.map_sprites)
+        
+        if hitbox.rect.x > sprite.rect.x + sprite.width - 4:
             game.main_character.rect.x += 3
-        if direction == "right":
+        if hitbox.rect.x < sprite.rect.x:
             game.main_character.rect.x -= 3
-        if direction == "down":
+        if hitbox.rect.y > sprite.rect.y + sprite.height - 4:
             game.main_character.rect.y += 3
-        if direction == "up":
+        if hitbox.rect.y < sprite.rect.y:
             game.main_character.rect.y -= 3

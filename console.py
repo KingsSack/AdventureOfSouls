@@ -30,5 +30,6 @@ class ConsoleCommands():
             savedata.speed1 = new_speed1
             new_speed2 = input("Enter new speed2: ")
             savedata.speed2 = new_speed2
+
 commands = ConsoleCommands()
         
