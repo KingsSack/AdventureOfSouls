@@ -39,9 +39,12 @@ class MainCharacter(pygame.sprite.Sprite):
         super().__init__()
 
         self.health = 1000
+        self.direction = "right"
+        
+        self.timestamp = time.time()
         
         if animations.attacking == "false":
-            if instantiate.direction == "left":
+            if self.direction == "left":
                 self.image = animations.idle_left_images[animations.idle_left_index]
                 self.image = pygame.transform.scale(self.image, (172, 172))
             else:
@@ -54,37 +57,51 @@ class MainCharacter(pygame.sprite.Sprite):
     
     def moveRight(self, pixels):
         self.rect.x += pixels
-        instantiate.direction = "right"
-        collisions.direction = "right"
-        animations.walk_right_index += 1
+        
+        self.direction = "right"
+        
+        if time.time() - self.timestamp >= 1 / animations.walk_right_fps:
+            animations.walk_right_index += 1
+            self.timestamp = time.time()
+        
         if animations.walk_right_index >= len(animations.walk_right_images):
             animations.walk_right_index = 0
+        
         self.image = animations.walk_right_images[animations.walk_right_index]
         self.image = pygame.transform.scale(self.image, (172, 172))
     
     def moveLeft(self, pixels):
         self.rect.x -= pixels
-        instantiate.direction = "left"
-        collisions.direction = "left"
-        animations.walk_left_index += 1
+        
+        self.direction = "left"
+        
+        if time.time() - self.timestamp >= 1 / animations.walk_left_fps:
+            animations.walk_left_index += 1
+            self.timestamp = time.time()
+        
         if animations.walk_left_index >= len(animations.walk_left_images):
             animations.walk_left_index = 0
+        
         self.image = animations.walk_left_images[animations.walk_left_index]
         self.image = pygame.transform.scale(self.image, (172, 172))
     
     def moveForward(self, speed):
         self.rect.y += speed * speed / 10
-        collisions.direction = "up"
-        if instantiate.direction == "left":
-            animations.walk_left_index += 1
 
+        if self.direction == "left":
+            if time.time() - self.timestamp >= 1 / animations.walk_left_fps:
+                animations.walk_left_index += 1
+                self.timestamp = time.time()
+            
             if animations.walk_left_index >= len(animations.walk_left_images):
                 animations.walk_left_index = 0
             
             self.image = animations.walk_left_images[animations.walk_left_index]
         else:
-            animations.walk_right_index += 1
-
+            if time.time() - self.timestamp >= 1 / animations.walk_right_fps:
+                animations.walk_right_index += 1
+                self.timestamp = time.time()
+            
             if animations.walk_right_index >= len(animations.walk_right_images):
                 animations.walk_right_index = 0
             
@@ -93,17 +110,21 @@ class MainCharacter(pygame.sprite.Sprite):
     
     def moveBack(self, speed):
         self.rect.y -= speed * speed / 10
-        collisions.direction = "down"
-        if instantiate.direction == "left":
-            animations.walk_left_index += 1
 
+        if self.direction == "left":
+            if time.time() - self.timestamp >= 1 / animations.walk_left_fps:
+                animations.walk_left_index += 1
+                self.timestamp = time.time()
+            
             if animations.walk_left_index >= len(animations.walk_left_images):
                 animations.walk_left_index = 0
             
             self.image = animations.walk_left_images[animations.walk_left_index]
         else:
-            animations.walk_right_index += 1
-
+            if time.time() - self.timestamp >= 1 / animations.walk_right_fps:
+                animations.walk_right_index += 1
+                self.timestamp = time.time()
+            
             if animations.walk_right_index >= len(animations.walk_right_images):
                 animations.walk_right_index = 0
             
@@ -112,16 +133,20 @@ class MainCharacter(pygame.sprite.Sprite):
     
     def idle(self):
         if self.health > 0:
-            if instantiate.direction == "left":
-                animations.idle_left_index += 1
-
+            if self.direction == "left":
+                if time.time() - self.timestamp >= 1 / animations.idle_left_fps:
+                    animations.idle_left_index += 1
+                    self.timestamp = time.time()
+                
                 if animations.idle_left_index >= len(animations.idle_left_images):
                     animations.idle_left_index = 0
-                
+                    
                 self.image = animations.idle_left_images[animations.idle_left_index]
             else:
-                animations.idle_right_index += 1
-
+                if time.time() - self.timestamp >= 1 / animations.idle_right_fps:
+                    animations.idle_right_index += 1
+                    self.timestamp = time.time()
+                
                 if animations.idle_right_index >= len(animations.idle_right_images):
                     animations.idle_right_index = 0
                 
@@ -130,19 +155,23 @@ class MainCharacter(pygame.sprite.Sprite):
     
     def hurt(self, damage):
         if self.health > 0:
-            if instantiate.direction == "left":
-                animations.hurt_left_index += 1
-
+            if self.direction == "left":
+                if time.time() - self.timestamp >= 1 / animations.hurt_left_fps:
+                    animations.hurt_left_index += 1
+                    self.timestamp = time.time()
+                
                 if animations.hurt_left_index >= len(animations.hurt_left_images):
                     animations.hurt_left_index = 0
-
+                    
                 self.image = animations.hurt_left_images[animations.hurt_left_index]
             else:
-                animations.hurt_right_index += 1
-
+                if time.time() - self.timestamp >= 1 / animations.hurt_right_fps:
+                    animations.hurt_right_index += 1
+                    self.timestamp = time.time()
+                
                 if animations.hurt_right_index >= len(animations.hurt_right_images):
                     animations.hurt_right_index = 0
-                
+                    
                 self.image = animations.hurt_right_images[animations.hurt_right_index]
             self.image = pygame.transform.scale(self.image, (172, 172))
             
@@ -150,37 +179,45 @@ class MainCharacter(pygame.sprite.Sprite):
 
     def wizardFirebomb(self):
         if self.health > 0:
-            if instantiate.direction == "left":
-                animations.wizard_bomb_left_index += 1
-
+            if self.direction == "left":
+                if time.time() - self.timestamp >= 1 / animations.wizard_bomb_left_fps:
+                    animations.wizard_bomb_left_index += 1
+                    self.timestamp = time.time()
+                
                 if animations.wizard_bomb_left_index >= len(animations.wizard_bomb_left_images):
                     animations.wizard_bomb_left_index = 0
-            
+                    
                 self.image = animations.wizard_bomb_left_images[animations.wizard_bomb_left_index]
             else:
-                animations.wizard_bomb_right_index += 1
-
+                if time.time() - self.timestamp >= 1 / animations.wizard_bomb_right_fps:
+                    animations.wizard_bomb_right_index += 1
+                    self.timestamp = time.time()
+                
                 if animations.wizard_bomb_right_index >= len(animations.wizard_bomb_right_images):
                     animations.wizard_bomb_right_index = 0
-            
+                    
                 self.image = animations.wizard_bomb_right_images[animations.wizard_bomb_right_index]
             self.image = pygame.transform.scale(self.image, (172, 172))
     
     def wizardThunder(self):
         if self.health > 0:
-            if instantiate.direction == "left":
-                animations.wizard_thunder_left_index += 1
-
+            if self.direction == "left":
+                if time.time() - self.timestamp >= 1 / animations.wizard_thunder_left_fps:
+                    animations.wizard_thunder_left_index += 1
+                    self.timestamp = time.time()
+                
                 if animations.wizard_thunder_left_index >= len(animations.wizard_thunder_left_images):
                     animations.wizard_thunder_left_index = 0
-            
+                    
                 self.image = animations.wizard_thunder_left_images[animations.wizard_thunder_left_index]
             else:
-                animations.wizard_thunder_right_index += 1
-
+                if time.time() - self.timestamp >= 1 / animations.wizard_thunder_right_fps:
+                    animations.wizard_thunder_right_index += 1
+                    self.timestamp = time.time()
+                
                 if animations.wizard_thunder_right_index >= len(animations.wizard_thunder_right_images):
                     animations.wizard_thunder_right_index = 0
-            
+                    
                 self.image = animations.wizard_thunder_right_images[animations.wizard_thunder_right_index]
             self.image = pygame.transform.scale(self.image, (172, 172))
     
@@ -191,30 +228,34 @@ class MainCharacter(pygame.sprite.Sprite):
                 break
     
     def death(self):
-        if instantiate.direction == "left":
-            animations.death_left_index += 1
-
+        if self.direction == "left":
+            if time.time() - self.timestamp >= 1 / animations.death_left_fps:
+                    animations.death_left_index += 1
+                    self.timestamp = time.time()
+                
             if animations.death_left_index >= len(animations.death_left_images):
                 animations.death_left_index = 0
                 self.health = 1000
                 self.rect.x = width / 2 - 86
                 self.rect.y = height / 2 - 86
-        
+                    
             self.image = animations.death_left_images[animations.death_left_index]
         else:
-            animations.death_right_index += 1
-
+            if time.time() - self.timestamp >= 1 / animations.death_right_fps:
+                    animations.death_right_index += 1
+                    self.timestamp = time.time()
+                
             if animations.death_right_index >= len(animations.death_right_images):
                 animations.death_right_index = 0
                 self.health = 1000
                 self.rect.x = width / 2 - 86
                 self.rect.y = height / 2 - 86
-        
+                    
             self.image = animations.death_right_images[animations.death_right_index]
         self.image = pygame.transform.scale(self.image, (172, 172))
     
     def update(self):
-        collisions.hitbox.update(self.rect.x + 64.5, self.rect.y + 40)
+        collisions.player_hitbox.update(self.rect.x + 64.5, self.rect.y + 40)
         
         health_ui.update(self.health)
         
@@ -223,7 +264,7 @@ class MainCharacter(pygame.sprite.Sprite):
         else:
             pressed_keys = pygame.key.get_pressed()
             if animations.attacking == "false" and gui_open == "false":
-                if pygame.sprite.spritecollideany(collisions.hitbox, item_sprite_list):
+                if pygame.sprite.spritecollideany(collisions.player_hitbox, item_sprite_list):
                     self.collect_item()
                 
                 if pressed_keys[pygame.K_LEFT]:
@@ -391,7 +432,7 @@ class Slime(pygame.sprite.Sprite):
         
         main_character.hurt(1)
         
-        if instantiate.direction == "left":
+        if main_character.direction == "left":
             self.rect.x += 1
         else:
             self.rect.x -= 1
@@ -406,7 +447,7 @@ class Slime(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (89, 89))
         
         if pygame.sprite.spritecollideany(main_character, enemy_sprite_list):
-            if instantiate.direction == "left":
+            if main_character.direction == "left":
                 self.rect.x += 1
             else:
                 self.rect.x -= 1
@@ -422,7 +463,7 @@ class Slime(pygame.sprite.Sprite):
                 self.rect.x -= 1
     
     def update(self):
-        if pygame.sprite.spritecollideany(collisions.hitbox, enemy_sprite_list):
+        if pygame.sprite.spritecollideany(collisions.player_hitbox, enemy_sprite_list):
             if animations.attacking != "false":
                 self.hurt()
             else:
@@ -442,7 +483,7 @@ class Item(pygame.sprite.Sprite):
         screen.blit(self.image, self.rect)
     
     def update(self, slot):
-        if pygame.sprite.spritecollideany(collisions.hitbox, item_sprite_list):
+        if pygame.sprite.spritecollideany(collisions.player_hitbox, item_sprite_list):
             savedata.inventory[slot] = "slimeball"
             self.kill()
 
@@ -569,7 +610,7 @@ def ardale_center():
     map.paths("spell1")
     
     # .spell_gain = 0
-    if spell_object1.rect.colliderect(collisions.hitbox.rect):
+    if spell_object1.rect.colliderect(collisions.player_hitbox.rect):
         spell_object1.gain_spell()
         spell_glow1.gain_spell()
         # spell_gain = 1
@@ -594,7 +635,6 @@ def check_attacks():
     for event in pygame.event.get():
         if event.type == pygame.MOUSEBUTTONDOWN:
             if animations.attacking == "false" and 350 <= mouse[0] <= 398 and 428 <= mouse[1] <= 476:
-                # animations.attacking = "true"
                 if savedata.spell_slot1 == "fireball":
                     animations.attacking = "fireball"
                     animations.wizard_bomb_left_index = 0
@@ -631,7 +671,7 @@ def check_attacks():
     if animations.attacking == "thunder":
         main_character.wizardThunder()
     
-    if animations.wizard_bomb_right_index == 323 or animations.wizard_bomb_left_index == 323 or animations.wizard_thunder_right_index == 348 or animations.wizard_thunder_left_index == 348:
+    if animations.wizard_bomb_right_index == 26 or animations.wizard_bomb_left_index == 26 or animations.wizard_thunder_right_index == 348 or animations.wizard_thunder_left_index == 348:
         animations.attacking = "false"
 
 

@@ -5,7 +5,6 @@ import savedata
 import tutorial
 
 size = width, height = 852, 480
-direction = "right"
 last_stage = 0
 
 def new_house(rotation, rect_x, rect_y):
