@@ -1,7 +1,9 @@
+from json import load
 import time
 import pygame
 import game
 import instantiate
+import interface
 import collisions
 import savedata
 import tutorial
@@ -26,7 +28,7 @@ def main():
     pygame.init()
 
     size = width, height = 852, 480
-    speed = [2, 2]
+    speed = [2, 2] 
     green = 25, 77, 0
     black = 0, 0, 0
     ground = [(153, 77, 0), (140, 255, 25), (77, 25, 0)]
@@ -43,12 +45,26 @@ def main():
     smallfont = pygame.font.SysFont('Corbel', 35)
     text = smallfont.render('Play' , True , green)
     
+    # sprites
+    drawable_sprites = [game.map_sprites, game.item_sprite_list, game.enemy_sprite_list, game.character_sprite_list]
+    updatable_sprites = [game.main_character, game.map_sprites, game.enemy_sprite_list, game.tutorial_sprites_list]
+    level_sprites = [game.map_sprites, game.item_sprite_list, game.enemy_sprite_list, game.tutorial_sprites_list]
+    
     # project loaded
     print(f'Project loaded in {time.time() - t}s')
 
     # game class
     class GameState():
         def __init__(self):
+            # state functions
+            self.state_functions = {
+                game.stages["menu"][0]: self.menu,
+                game.stages["ardale"][0]: self.ardale_spawn,
+                game.stages["ardale"][1]: self.ardale_center,
+                game.stages["ardale"][2]: self.ardale_countryside,
+                game.stages["flowerfield"][0]: self.flowerfield_entrance,
+            }
+            
             # menu
             self.state = game.stages["menu"][0]
             
@@ -72,10 +88,8 @@ def main():
             self.state = current_stage
             
             # remove old sprites
-            game.map_sprites.empty()
-            game.enemy_sprite_list.empty()
-            game.item_sprite_list.empty()
-            game.tutorial_sprites_list.empty()
+            for i in level_sprites:
+                i.empty()
             
             # create new sprites
             game.current_stage = current_stage
@@ -94,18 +108,15 @@ def main():
         
         def level(self):
             # draw sprites
-            game.map_sprites.draw(screen)
-            game.item_sprite_list.draw(screen)
-            game.enemy_sprite_list.draw(screen)
-            game.character_sprite_list.draw(screen)
-            self.user_interface()
-            game.tutorial_sprites_list.draw(screen)
+            for i in drawable_sprites:
+                i.draw(screen)
             
             # update sprites
-            game.main_character.update()
-            game.map_sprites.update()
-            game.enemy_sprite_list.update()
-            game.tutorial_sprites_list.update()
+            for i in updatable_sprites:
+                i.update()
+            
+            self.user_interface()
+            game.tutorial_sprites_list.draw(screen)
             
             # detect gui's
             if game.gui_open == "spellbook":
@@ -204,120 +215,53 @@ def main():
             pygame.display.flip()
         
         def user_interface(self):
-            health_background = pygame.image.load("menu/ui_background.png")
-            health_background = pygame.transform.scale(health_background, (140, 140))
-            screen.blit(health_background, (12, -32))
+            # health background
+            interface.load_and_blit_image(screen, "menu/ui_background.png", (140, 140), (12, -32))
             
-            settings_btn = pygame.image.load("menu/SquareMenu.png")
-            settings_btn = pygame.transform.scale(settings_btn, (48, 48))
-            screen.blit(settings_btn, (4, height - 52))
-            settings_icon = pygame.image.load("menu/Settings.png")
-            settings_icon = pygame.transform.scale(settings_icon, (36, 36))
-            screen.blit(settings_icon, (10, height - 46))
-
-            inventory_btn = pygame.image.load("menu/SquareMenu.png")
-            inventory_btn = pygame.transform.scale(inventory_btn, (48, 48))
-            screen.blit(inventory_btn, (56, height - 52))
-            inventory_icon = pygame.image.load("menu/Backpack.png")
-            inventory_icon = pygame.transform.scale(inventory_icon, (36, 36))
-            screen.blit(inventory_icon, (61.5, height - 46))
+            # settings
+            interface.load_and_blit_image(screen, "menu/SquareMenu.png", interface.BACKGROUND_SIZE, (4, height - 52))
+            interface.load_and_blit_image(screen, "menu/Settings.png", interface.ICON_SIZE, (10, height - 46))
             
-            spellbook_btn = pygame.image.load("menu/SquareMenu.png")
-            spellbook_btn = pygame.transform.scale(spellbook_btn, (48, 48))
-            screen.blit(spellbook_btn, (108, height - 52))
-            spellbook_icon = pygame.image.load("menu/Spellbook.png")
-            spellbook_icon = pygame.transform.scale(spellbook_icon, (36, 36))
-            screen.blit(spellbook_icon, (114, height - 46))
-
-            spell1 = pygame.image.load("menu/SquareMenu.png")
-            spell1 = pygame.transform.scale(spell1, (48, 48))
-            screen.blit(spell1, (width / 2 - 76, height - 52))
-            if savedata.spell_slot1 == "empty":
-                lock1 = pygame.image.load("menu/Lock.png")
-                lock1 = pygame.transform.scale(lock1, (36, 36))
-                screen.blit(lock1, (width / 2 - 70, height - 46))
-            else:
-                if savedata.spell_slot1 == "fireball":
-                    fireball = pygame.image.load("menu/Firebomb.png")
-                    fireball = pygame.transform.scale(fireball, (36, 36))
-                    screen.blit(fireball, (width / 2 - 70, height - 46))
-                if savedata.spell_slot1 == "thunder":
-                    thunderbomb = pygame.image.load("menu/Bolt.png")
-                    thunderbomb = pygame.transform.scale(thunderbomb, (36, 36))
-                    screen.blit(thunderbomb, (width / 2 - 70, height - 46))
-
-            spell2 = pygame.image.load("menu/SquareMenu.png")
-            spell2 = pygame.transform.scale(spell2, (48, 48))
-            screen.blit(spell2, (width / 2 - 24, height - 52))
-            if savedata.spell_slot2 == "empty":
-                lock2 = pygame.image.load("menu/Lock.png")
-                lock2 = pygame.transform.scale(lock2, (36, 36))
-                screen.blit(lock2, (width / 2 - 18, height - 46))
-            else:
-                if savedata.spell_slot2 == "fireball":
-                    fireball = pygame.image.load("menu/Firebomb.png")
-                    fireball = pygame.transform.scale(fireball, (36, 36))
-                    screen.blit(fireball, (width / 2 - 18, height - 46))
-                if savedata.spell_slot2 == "thunder":
-                    thunderbomb = pygame.image.load("menu/Firebomb.png")
-                    thunderbomb = pygame.transform.scale(thunderbomb, (36, 36))
-                    screen.blit(thunderbomb, (width / 2 - 18, height - 46))
-
-            spell3 = pygame.image.load("menu/SquareMenu.png")
-            spell3 = pygame.transform.scale(spell3, (48, 48))
-            screen.blit(spell3, (width / 2 + 28, height - 52))
-            if savedata.spell_slot3 == "empty":
-                lock3 = pygame.image.load("menu/Lock.png")
-                lock3 = pygame.transform.scale(lock3, (36, 36))
-                screen.blit(lock3, (width / 2 + 34, height - 46))
-            else:
-                if savedata.spell_slot3 == "fireball":
-                    fireball = pygame.image.load("menu/Firebomb.png")
-                    fireball = pygame.transform.scale(fireball, (36, 36))
-                    screen.blit(fireball, (width / 2 + 34, height - 46))
-                if savedata.spell_slot3 == "thunder":
-                    thunderbomb = pygame.image.load("menu/Firebomb.png")
-                    thunderbomb = pygame.transform.scale(thunderbomb, (36, 36))
-                    screen.blit(thunderbomb, (width / 2 + 34, height - 46))
+            # backpack
+            interface.load_and_blit_image(screen, "menu/SquareMenu.png", interface.BACKGROUND_SIZE, (56, height - 52))
+            interface.load_and_blit_image(screen, "menu/Backpack.png", interface.ICON_SIZE, (61.5, height - 46))
+            
+            # spellbook
+            interface.load_and_blit_image(screen, "menu/SquareMenu.png", interface.BACKGROUND_SIZE, (108, height - 52))
+            interface.load_and_blit_image(screen, "menu/Spellbook.png", interface.ICON_SIZE, (114, height - 46))
+            
+            # spell slots
+            for i, spell in enumerate([savedata.spell_slot1, savedata.spell_slot2, savedata.spell_slot3]):
+                spell_image_path = interface.SPELL_IMAGES[spell]
+                interface.load_and_blit_image(screen, "menu/SquareMenu.png", interface.BACKGROUND_SIZE, (width / 2 - 76 + i * 52, height - 52))
+                interface.load_and_blit_image(screen, spell_image_path, interface.ICON_SIZE, (width / 2 - 70 + i * 52, height - 46))
         
         def stage_manager(self):
             # stages
-            if self.state == game.stages["menu"][0]:
-                self.menu()
-            
-            if self.state == game.stages["ardale"][0]:
-                self.ardale_spawn()
-            
-            if self.state == game.stages["ardale"][1]:
-                self.ardale_center()
-
-            if self.state == game.stages["ardale"][2]:
-                self.ardale_countryside()
-            
-            if self.state == game.stages["flowerfield"][0]:
-                self.flowerfield_entrance()
+            if self.state in self.state_functions:
+                self.state_functions[self.state]()
 
     game_stage = GameState()
 
     while game_stage.running:
         # tick
-        pygame.time.delay(7)
+        pygame.time.delay(int(1000 / 60))
         
         # detect window closing
         for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    game_stage.running = False
+            if event.type == pygame.QUIT:
+                game_stage.running = False
 
-                if event.type == KEYDOWN:
-                    if event.key == K_ESCAPE:
-                        game_stage.running = False
+            if event.type == KEYDOWN:
+                if event.key == K_ESCAPE:
+                    game_stage.running = False
                 
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    if game_stage.state == game.stages["menu"][0]:
-                        if width / 2 - 50 <= mouse[0] <= width / 2 + 50 and height / 2 - 23 <= mouse[1] <= height / 2 + 23:
-                            game_stage.change_stage(game.stages["ardale"][0], game.stages["menu"][0])
-                    else:
-                        game.ui_buttons()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if game_stage.state == game.stages["menu"][0]:
+                    if width / 2 - 50 <= mouse[0] <= width / 2 + 50 and height / 2 - 23 <= mouse[1] <= height / 2 + 23:
+                        game_stage.change_stage(game.stages["ardale"][0], game.stages["menu"][0])
+                else:
+                    game.ui_buttons()
         
         # main
         game_stage.stage_manager()

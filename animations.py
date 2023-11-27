@@ -29,25 +29,25 @@ hurt_left_index = 0
 death_right_images = []
 for i in range(20):
     death_right_images.append(pygame.image.load(f'wizard/WizardDie1-{i}.png'))
-death_right_fps = 5
+death_right_fps = 6
 death_right_index = 0
 
 death_left_images = []
 for i in range(20):
     death_left_images.append(pygame.image.load(f'wizard/WizardDie2-{i}.png'))
-death_left_fps = 5
+death_left_fps = 6
 death_left_index = 0
 
 walk_right_images = []
 for i in range(4):
     walk_right_images.append(pygame.image.load(f'wizard/WizardWalk1-{i + 1}.png'))
-walk_right_fps = 4
+walk_right_fps = 6
 walk_right_index = 0
 
 walk_left_images = []
 for i in range(4):
     walk_left_images.append(pygame.image.load(f'wizard/WizardWalk2-{i + 1}.png'))
-walk_left_fps = 4
+walk_left_fps = 6
 walk_left_index = 0
 
 wizard_bomb_right_images = []

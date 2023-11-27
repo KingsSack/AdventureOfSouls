@@ -1,5 +1,5 @@
-import pygame
 import time
+import pygame
 import instantiate
 import animations
 import map
