@@ -3,6 +3,8 @@ t = 0
 
 isbackdrop = False
 
+current_stage = 0
+
 tutorial_level = 10
 
 speed1 = 3

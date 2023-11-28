@@ -1,20 +1,18 @@
+import instantiate
 import time
 import pygame
-import instantiate
 import animations
 import map
 import savedata
 import collisions
 
-stages = {"menu": ["one"], "ardale": ["spawn", "center", "country"], "flowerfield": ["entrance"]}
-
-current_stage = stages["menu"][0]
+current_stage = "menu"
 
 size = width, height = 852, 480
 screen = pygame.display.set_mode(size)
 
-red = 255, 25, 25
-green = 25, 255, 25
+RED = 255, 25, 25
+GREEN = 25, 255, 25
 
 map_sprites = pygame.sprite.Group()
 
@@ -408,7 +406,7 @@ class Slime(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image, (89, 89))
         
         damage_font = pygame.font.Font("fonts/PixelFont.ttf", 21)
-        damage_text = damage_font.render("2", True, green)
+        damage_text = damage_font.render("2", True, GREEN)
         screen.blit(damage_text, (self.rect.x + 40, self.rect.y + 40))
         
         if self.health == 0:
@@ -515,7 +513,7 @@ class Arrow(pygame.sprite.Sprite):
         if self.frame > 15:
             self.rect.y = 46
         
-        if savedata.tutorial_level > 2 and current_stage != stages["ardale"][0]:
+        if savedata.tutorial_level > 2 and current_stage != "ardale_spawn":
             self.kill()
 
 class TutorialBackdrop(pygame.sprite.Sprite):
@@ -563,12 +561,12 @@ class HealthUI(pygame.sprite.Sprite):
         super().__init__()
         
         self.font = pygame.font.Font('fonts/UndertaleFont.ttf', 30)
-        self.image = self.font.render("1000", True , red)
+        self.image = self.font.render("1000", True , RED)
         
         self.rect = self.image.get_rect()
     
     def update(self, health):
-        self.image = self.font.render(f'{health}', True, red)
+        self.image = self.font.render(f'{health}', True, RED)
         
         self.rect = self.image.get_rect()
         self.rect.x = 22
