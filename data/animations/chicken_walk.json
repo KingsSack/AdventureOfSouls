@@ -1,0 +1,7 @@
+{
+    "path": "entities/chicken",
+    "name": "chicken_walk",
+    "num_frames": 2,
+    "fps": 4,
+    "frames": []
+}

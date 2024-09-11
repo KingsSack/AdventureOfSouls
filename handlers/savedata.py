@@ -1,0 +1,23 @@
+import pickle
+
+
+class Data:
+    def __init__(self):
+        self.data = self.load_data()
+    
+    def load_data(self):
+        try:
+            with open("data.pkl", "rb") as file:
+                data = pickle.load(file)
+        except:
+            data = {}
+            print("No save data found.")
+        return data
+
+    def save_data(self):
+        with open("data.pkl", "wb") as file:
+            pickle.dump(self.data, file)
+    
+    def modify_data(self, key, value):
+        self.data[key] = value
+        self.save_data()
