@@ -15,7 +15,7 @@ class Player(Entity):
         self.inventory = savedata.data.get('inventory', [])
         self.in_combat = savedata.data.get('in_combat', False)
         
-        self.rect.x, self.rect.y = (screen.get_width() / 2) - 64, (screen.get_height() / 2) - 96
+        self.rect.x, self.rect.y = (self.screen.get_width() / 2) - 64, (self.screen.get_height() / 2) - 96
 
     def move(self, pressed_keys):
         if pressed_keys[pygame.K_w] or pressed_keys[pygame.K_UP] or pressed_keys[pygame.K_s] or pressed_keys[pygame.K_DOWN] or pressed_keys[pygame.K_a] or pressed_keys[pygame.K_LEFT] or pressed_keys[pygame.K_d] or pressed_keys[pygame.K_RIGHT]:

@@ -1,4 +1,3 @@
-from html import entities
 import json
 import pygame
 
@@ -59,11 +58,10 @@ class Levels:
             print("Level data is not formatted correctly.")
             return
 
-        if self.level:
-            self.current_level = name
-            self.load_tilemaps()
-            self.load_entities()
-            self.savedata.modify_data('current_level', self.current_level)
+        self.current_level = name
+        self.load_tilemaps()
+        self.load_entities()
+        self.savedata.modify_data('current_level', self.current_level)
 
     def check_level(self):
         if self.player.rect.x < 0:
@@ -80,8 +78,7 @@ class Levels:
             self.player.rect.y = 0
     
     def update_level(self):
-        for entity in self.entities:
-            entity.update()
+        [entity.update() for entity in self.entities]
 
     def draw_level(self):
         self.screen.fill(self.level.background_color)
@@ -89,8 +86,7 @@ class Levels:
         self.layer_1.draw_map(self.screen)
         self.layer_2.draw_map(self.screen)
         
-        for entity in self.entities:
-            entity.draw()
+        [entity.draw() for entity in self.entities]
 
     def update(self, events):
         for event in events:
