@@ -64,18 +64,18 @@ class Levels:
         self.savedata.modify_data('current_level', self.current_level)
 
     def check_level(self):
-        if self.player.rect.x < 0:
+        if self.player.x < 0:
             self.load_level(self.level.surrounding_levels['left'])
-            self.player.rect.x = self.screen.get_width() - 128
-        elif self.player.rect.y < 0:
+            self.player.x = self.screen.get_width() - 128
+        elif self.player.y < 0:
             self.load_level(self.level.surrounding_levels['above'])
-            self.player.rect.y = self.screen.get_height() - 128
-        elif self.player.rect.x > self.screen.get_width():
+            self.player.y = self.screen.get_height() - 128
+        elif self.player.x > self.screen.get_width():
             self.load_level(self.level.surrounding_levels['right'])
-            self.player.rect.x = 0
-        elif self.player.rect.y > self.screen.get_height():
+            self.player.x = 0
+        elif self.player.y > self.screen.get_height():
             self.load_level(self.level.surrounding_levels['below'])
-            self.player.rect.y = 0
+            self.player.y = 0
     
     def update_level(self):
         [entity.update() for entity in self.entities]
