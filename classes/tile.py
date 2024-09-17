@@ -15,8 +15,6 @@ class Tile(pygame.sprite.Sprite):
         self.sprite = pygame.transform.scale(image, (tile_size, tile_size))
         self.rect = self.sprite.get_rect()
         self.rect.x, self.rect.y = x, y
-        # self.sprite = sprite
-        # self.rect = rect
 
     def draw(self, screen):
         screen.blit(self.sprite, self.rect)

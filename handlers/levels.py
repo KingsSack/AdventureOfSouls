@@ -5,6 +5,7 @@ from classes.level import Level
 from classes.spritesheet import Spritesheet
 from classes.tilemap import Tilemap
 from entities.chicken import Chicken
+from entities.golem import Golem
 
 
 class Levels:
@@ -12,38 +13,75 @@ class Levels:
         self.screen = screen
         self.savedata = savedata
         self.player = player
-        self.current_level = savedata.data.get('current_level', 'ardale_lower')
+        self.current_level = savedata.data.get("current_level", "ardale_lower")
         self.level = None
-        
-        self.grass_spritesheet = Spritesheet('assets/tilesets/Grass.png')
-        self.path_spritesheet = Spritesheet('assets/tilesets/Tilled_Dirt_v2.png')
-        self.layer_1 = []
-        self.layer_2 = []
+
+        self.grass_spritesheet = Spritesheet("assets/tilesets/Grass.png")
+        self.path_spritesheet = Spritesheet("assets/tilesets/Tilled_Dirt_v2.png")
+        self.layer_1 = None
+        self.layer_2 = None
         self.entities = []
+        self.enemies = []
 
         self.load_level(self.current_level)
-    
+
     def load_tilemaps(self):
         try:
-            self.layer_1 = Tilemap(self.grass_spritesheet, self.level.layer_1, self.screen.get_width(), self.screen.get_height())
-            self.layer_2 = Tilemap(self.path_spritesheet, self.level.layer_2, self.screen.get_width(), self.screen.get_height())
-        except:
-            print("Layers are not formatted correctly.")
+            self.layer_1 = Tilemap(
+                self.grass_spritesheet,
+                self.level.layer_1,
+                self.screen.get_width(),
+                self.screen.get_height(),
+            )
+            self.layer_2 = Tilemap(
+                self.path_spritesheet,
+                self.level.layer_2,
+                self.screen.get_width(),
+                self.screen.get_height(),
+            )
+        except (AttributeError, TypeError, ValueError) as e:
+            print(f"Error loading tilemaps: {e}")
 
     def load_entities(self):
         self.entities.clear()
         try:
-            [self.entities.append(Chicken(self.screen, x, y)) for x, y in self.level.entities["chickens"]]
+            [
+                self.entities.append(Chicken(self.screen, x, y))
+                for x, y in self.level.entities["chickens"]
+            ]
         except KeyError as e:
-            print(f"KeyError: {e} - Entity names might be mispelled or not in expected format.")
+            print(
+                f"KeyError: {e} - Entity names might be mispelled or not in expected format."
+            )
         except TypeError as e:
-            print(f"TypeError: {e} - Entities might not be iterable or not in expected format.")
-        except Exception as e:
-            print(f"Unexpected error: {e}")
+            print(
+                f"TypeError: {e} - Entities might not be iterable or not in expected format."
+            )
+        except AttributeError as e:
+            print(f"AttributeError: {e} - Level data might be missing.")
+
+    def load_enemies(self):
+        self.enemies.clear()
+        # [self.enemies.append(Golem(self.screen, x, y)) for x, y in self.level.enemies["golems"]]
+        try:
+            [
+                self.enemies.append(Golem(self.screen, self.player, x, y))
+                for x, y in self.level.enemies["golems"]
+            ]
+        except KeyError as e:
+            print(
+                f"KeyError: {e} - Enemy names might be mispelled or not in expected format."
+            )
+        except TypeError as e:
+            print(
+                f"TypeError: {e} - Enemies might not be iterable or not in expected format."
+            )
+        except AttributeError as e:
+            print(f"AttributeError: {e} - Level data might be missing.")
 
     def load_level(self, name):
         try:
-            with open(f'data/levels/{name}.json', 'r') as file:
+            with open(f"data/levels/{name}.json", "r", encoding="utf-8") as file:
                 level_data = json.load(file)
         except FileNotFoundError:
             print(f"Level file '{name}.json' does not exist.")
@@ -61,39 +99,50 @@ class Levels:
         self.current_level = name
         self.load_tilemaps()
         self.load_entities()
-        self.savedata.modify_data('current_level', self.current_level)
+        self.load_enemies()
+        self.savedata.modify_data("current_level", self.current_level)
 
     def check_level(self):
         if self.player.x < 0:
-            self.load_level(self.level.surrounding_levels['left'])
+            self.load_level(self.level.surrounding_levels["left"])
             self.player.x = self.screen.get_width() - 128
         elif self.player.y < 0:
-            self.load_level(self.level.surrounding_levels['above'])
+            self.load_level(self.level.surrounding_levels["above"])
             self.player.y = self.screen.get_height() - 128
         elif self.player.x > self.screen.get_width():
-            self.load_level(self.level.surrounding_levels['right'])
+            self.load_level(self.level.surrounding_levels["right"])
             self.player.x = 0
         elif self.player.y > self.screen.get_height():
-            self.load_level(self.level.surrounding_levels['below'])
+            self.load_level(self.level.surrounding_levels["below"])
             self.player.y = 0
-    
+        
+        for enemy in self.enemies:
+            if self.player.hitbox.collides(enemy.hitbox):
+                self.player.initiate_combat(enemy)
+
     def update_level(self):
-        [entity.update() for entity in self.entities]
+        for entity in self.entities:
+            entity.update()
+        for enemy in self.enemies:
+            enemy.update()
 
     def draw_level(self):
         self.screen.fill(self.level.background_color)
-        
+
         self.layer_1.draw_map(self.screen)
         self.layer_2.draw_map(self.screen)
-        
-        [entity.draw() for entity in self.entities]
+
+        for entity in self.entities:
+            entity.draw()
+        for enemy in self.enemies:
+            enemy.draw()
 
     def update(self, events):
         for event in events:
             if event.type == pygame.VIDEORESIZE:
                 self.layer_1.update_window_size(event.w, event.h)
                 self.layer_2.update_window_size(event.w, event.h)
-        
-        self.check_level()
+
         self.update_level()
+        self.check_level()
         self.draw_level()

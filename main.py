@@ -1,9 +1,9 @@
+import sys
 import pygame
 import game
-import sys
 
 
-def exit():
+def end():
     pygame.quit()
     sys.exit()
 
@@ -39,7 +39,7 @@ def main():
         pygame.display.update()
         clock.tick(max_frame_rate)
 
-    exit()
+    end()
 
 if __name__ == "__main__":
     main()

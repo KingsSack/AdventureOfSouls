@@ -1,0 +1,7 @@
+{
+    "path": "entities/golem/golem_idle",
+    "name": "golem_idle",
+    "num_frames": 8,
+    "fps": 6,
+    "frames": []
+}

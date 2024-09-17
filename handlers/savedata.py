@@ -9,9 +9,9 @@ class Data:
         try:
             with open("data.pkl", "rb") as file:
                 data = pickle.load(file)
-        except:
+        except (FileNotFoundError, EOFError) as e:
             data = {}
-            print("No save data found.")
+            print(f'Error: {e} - No save data found.')
         return data
 
     def save_data(self):

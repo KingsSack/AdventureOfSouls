@@ -1,5 +1,5 @@
-from handlers.levels import Levels
 from classes.menu import Menu
+from handlers.levels import Levels
 from handlers.savedata import Data
 from player.player import Player
 

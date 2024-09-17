@@ -16,15 +16,15 @@ class Animations:
         self.timestamp = time.time()
     
     def load_animation(self, name):
-        with open(f'data/animations/{name}.json', 'r') as file:
+        with open(f'data/animations/{name}.json', 'r', encoding="utf-8") as file:
             self.current_animation = name
 
             animation_data = json.load(file)
 
             try:
                 self.animation = Animation(**animation_data)
-            except:
-                print("Animation data is not formatted correctly.")
+            except (TypeError, ValueError) as e:
+                print(f'Error: {e} - Animation data is not formatted correctly.')
                 return
         
         spritesheet = Spritesheet(f'assets/{self.animation.path}.png')

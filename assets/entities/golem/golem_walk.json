@@ -1,0 +1,74 @@
+{
+    "frames": {
+        "golem_walk1": {
+            "frame": { "x": 0, "y": 0, "w": 90, "h": 64 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 90, "h": 64 },
+            "sourceSize": { "w": 90, "h": 64 }
+        },
+        "golem_walk2": {
+            "frame": { "x": 90, "y": 0, "w": 90, "h": 64 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 90, "h": 64 },
+            "sourceSize": { "w": 90, "h": 64 }
+        },
+        "golem_walk3": {
+            "frame": { "x": 180, "y": 0, "w": 90, "h": 64 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 90, "h": 64 },
+            "sourceSize": { "w": 90, "h": 64 }
+        },
+        "golem_walk4": {
+            "frame": { "x": 270, "y": 0, "w": 90, "h": 64 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 90, "h": 64 },
+            "sourceSize": { "w": 90, "h": 64 }
+        },
+        "golem_walk5": {
+            "frame": { "x": 360, "y": 0, "w": 90, "h": 64 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 90, "h": 64 },
+            "sourceSize": { "w": 90, "h": 64 }
+        },
+        "golem_walk6": {
+            "frame": { "x": 450, "y": 0, "w": 90, "h": 64 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 90, "h": 64 },
+            "sourceSize": { "w": 90, "h": 64 }
+        },
+        "golem_walk7": {
+            "frame": { "x": 540, "y": 0, "w": 90, "h": 64 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 90, "h": 64 },
+            "sourceSize": { "w": 90, "h": 64 }
+        },
+        "golem_walk8": {
+            "frame": { "x": 630, "y": 0, "w": 90, "h": 64 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 90, "h": 64 },
+            "sourceSize": { "w": 90, "h": 64 }
+        },
+        "golem_walk9": {
+            "frame": { "x": 720, "y": 0, "w": 90, "h": 64 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 90, "h": 64 },
+            "sourceSize": { "w": 90, "h": 64 }
+        },
+        "golem_walk10": {
+            "frame": { "x": 810, "y": 0, "w": 90, "h": 64 },
+            "rotated": false,
+            "trimmed": false,
+            "spriteSourceSize": { "x": 0, "y": 0, "w": 90, "h": 64 },
+            "sourceSize": { "w": 90, "h": 64 }
+        }
+    }
+}

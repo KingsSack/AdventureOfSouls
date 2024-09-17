@@ -1,9 +1,17 @@
-import pygame
-
+from classes.collider import Collider
 from classes.entity import Entity
 
 
 class Chicken(Entity):
     def __init__(self, screen, x, y):
-        super().__init__(screen, 48, 48, 6, 6, 42, 42, 'chicken_idle', 'chicken_walk')
-        self.x, self.y = self.rect.x, self.rect.y = x, y
+        super().__init__(
+            screen,
+            x=x,
+            y=y,
+            width=48,
+            height=48,
+            speed=2,
+            hitbox=Collider(self, 6, 6, 42, 42),
+            idle_animation='chicken_idle',
+            walk_animation='chicken_walk'
+        )

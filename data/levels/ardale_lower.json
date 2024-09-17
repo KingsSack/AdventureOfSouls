@@ -5,7 +5,7 @@
     "above": "ardale_upper",
     "below": "",
     "left": "ardale_countryside",
-    "right": ""
+    "right": "ardale_forest"
   },
   "layer_1": [
     ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],

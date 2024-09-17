@@ -4,13 +4,13 @@ from classes.tile import EmptyTile, Tile
 
 
 class Tilemap():
-    def __init__(self, spritesheet, map, window_width, window_height):
-        self.map = map
+    def __init__(self, spritesheet, map_, window_width, window_height):
+        self.map = map_
         self.spritesheet = spritesheet
         self.window_width = window_width
         self.window_height = window_height
         self.tile_size = self.calculate_tile_size()
-        self.tiles = self.load_tiles(map)
+        self.tiles = self.load_tiles(map_)
         self.map_surface = pygame.Surface((window_width, window_height))
         self.map_surface.set_colorkey((0, 0, 0))
         self.load_map()
@@ -42,10 +42,10 @@ class Tilemap():
         for tile in self.tiles:
             tile.draw(self.map_surface)
 
-    def load_tiles(self, map):
+    def load_tiles(self, map_):
         tiles = []
         x, y = 0, 0
-        for row in map:
+        for row in map_:
             x = 0
             for tile in row:
                 if tile != '':
