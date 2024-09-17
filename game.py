@@ -8,6 +8,7 @@ class GameManager:
     def __init__(self, screen):
         self.screen = screen
         self.running = True
+        self.debug = False
         self.savedata = Data()
         self.main_menu = Menu(self.screen)
         self.player = Player(self.screen, self.savedata)
@@ -20,6 +21,6 @@ class GameManager:
         elif self.player.in_combat:
             pass
         else:
-            self.level_handler.update(events)
+            self.level_handler.update(self.debug, events)
             self.player.update(pressed_keys)
-            self.player.draw()
+            self.player.draw(self.debug)

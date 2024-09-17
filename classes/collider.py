@@ -12,9 +12,9 @@ class Collider:
         self.height = height
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
 
-    def collides(self, other: 'Collider') -> bool:
-        return (self.rect.colliderect(other.rect))
-    
+    def collides(self, other: "Collider") -> bool:
+        return self.rect.colliderect(other.rect)
+
     def update(self):
         self.x = self.entity.x + self.x_offset
         self.y = self.entity.y + self.y_offset

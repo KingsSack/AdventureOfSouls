@@ -115,7 +115,7 @@ class Levels:
         elif self.player.y > self.screen.get_height():
             self.load_level(self.level.surrounding_levels["below"])
             self.player.y = 0
-        
+
         for enemy in self.enemies:
             if self.player.hitbox.collides(enemy.hitbox):
                 self.player.initiate_combat(enemy)
@@ -126,18 +126,18 @@ class Levels:
         for enemy in self.enemies:
             enemy.update()
 
-    def draw_level(self):
+    def draw_level(self, debug):
         self.screen.fill(self.level.background_color)
 
         self.layer_1.draw_map(self.screen)
         self.layer_2.draw_map(self.screen)
 
         for entity in self.entities:
-            entity.draw()
+            entity.draw(debug)
         for enemy in self.enemies:
-            enemy.draw()
+            enemy.draw(debug)
 
-    def update(self, events):
+    def update(self, debug, events):
         for event in events:
             if event.type == pygame.VIDEORESIZE:
                 self.layer_1.update_window_size(event.w, event.h)
@@ -145,4 +145,4 @@ class Levels:
 
         self.update_level()
         self.check_level()
-        self.draw_level()
+        self.draw_level(debug)

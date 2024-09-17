@@ -13,7 +13,7 @@ class Golem(Enemy):
             height=160,
             speed=1,
             hitbox=Collider(self, 75, 80, 75, 80),
-            idle_animation='golem_idle',
-            walk_animation='golem_walk',
-            pathfinding_distance=40
+            idle_animation="golem_idle",
+            walk_animation="golem_walk",
+            pathfinding_distance=40,
         )
