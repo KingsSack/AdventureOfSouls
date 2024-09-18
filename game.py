@@ -1,7 +1,7 @@
 from classes.menu import Menu
 from handlers.levels import Levels
 from handlers.savedata import Data
-from player.player import Player
+from player.player import Player, PlayerState
 
 
 class GameManager:
@@ -18,9 +18,14 @@ class GameManager:
         if self.main_menu.in_menu:
             self.main_menu.update(mouse, events)
             self.main_menu.draw()
-        elif self.player.in_combat:
+        elif self.player.state == PlayerState.COMBAT:
             pass
-        else:
+        elif self.player.state == PlayerState.DIALOGUE:
+            pass
+        elif self.player.state == PlayerState.ADVENTURE:
             self.level_handler.update(self.debug, events)
             self.player.update(pressed_keys)
             self.player.draw(self.debug)
+        else:
+            print("Unknown player state.")
+            return

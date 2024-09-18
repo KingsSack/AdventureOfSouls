@@ -32,5 +32,7 @@
   "objects": {},
   "entities": {},
   "enemies": {},
-  "npcs": {}
+  "npcs": {
+    "wizard": [5, 5]
+  }
 }

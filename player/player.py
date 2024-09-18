@@ -1,7 +1,15 @@
+from enum import Enum
+
 import pygame
 
 from classes.collider import Collider
 from classes.entity import Entity
+
+
+class PlayerState(Enum):
+    ADVENTURE = 1
+    COMBAT = 2
+    DIALOGUE = 3
 
 
 class Player(Entity):
@@ -24,10 +32,13 @@ class Player(Entity):
         self.power = self.savedata.data.get("power", 5)
         self.defense = self.savedata.data.get("defense", 5)
         self.inventory = self.savedata.data.get("inventory", [])
-        self.in_combat = self.savedata.data.get("in_combat", False)
+        self.state = self.savedata.data.get("state", PlayerState.ADVENTURE)
 
     def initiate_combat(self, opponent):
-        self.in_combat = True
+        self.state = PlayerState.COMBAT
+    
+    def initiate_dialogue(self, npc):
+        self.state = PlayerState.DIALOGUE
 
     def move(self, pressed_keys):
         if (

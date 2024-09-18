@@ -6,6 +6,7 @@ from classes.spritesheet import Spritesheet
 from classes.tilemap import Tilemap
 from entities.chicken import Chicken
 from entities.golem import Golem
+from entities.wizard import Wizard
 
 
 class Levels:
@@ -22,6 +23,7 @@ class Levels:
         self.layer_2 = None
         self.entities = []
         self.enemies = []
+        self.npcs = []
 
         self.load_level(self.current_level)
 
@@ -62,7 +64,6 @@ class Levels:
 
     def load_enemies(self):
         self.enemies.clear()
-        # [self.enemies.append(Golem(self.screen, x, y)) for x, y in self.level.enemies["golems"]]
         try:
             [
                 self.enemies.append(Golem(self.screen, self.player, x, y))
@@ -75,6 +76,21 @@ class Levels:
         except TypeError as e:
             print(
                 f"TypeError: {e} - Enemies might not be iterable or not in expected format."
+            )
+        except AttributeError as e:
+            print(f"AttributeError: {e} - Level data might be missing.")
+    
+    def load_npcs(self):
+        self.npcs.clear()
+        try:
+            self.npcs.append(Wizard(self.screen, self.player, self.level.npcs["wizard"][0], self.level.npcs["wizard"][1]))
+        except KeyError as e:
+            print(
+                f"KeyError: {e} - NPC names might be mispelled or not in expected format."
+            )
+        except TypeError as e:
+            print(
+                f"TypeError: {e} - NPC might not be iterable or not in expected format."
             )
         except AttributeError as e:
             print(f"AttributeError: {e} - Level data might be missing.")
@@ -100,6 +116,7 @@ class Levels:
         self.load_tilemaps()
         self.load_entities()
         self.load_enemies()
+        self.load_npcs()
         self.savedata.modify_data("current_level", self.current_level)
 
     def check_level(self):
@@ -119,12 +136,20 @@ class Levels:
         for enemy in self.enemies:
             if self.player.hitbox.collides(enemy.hitbox):
                 self.player.initiate_combat(enemy)
+                return
+        
+        for npc in self.npcs:
+            if self.player.hitbox.collides(npc.hitbox):
+                self.player.initiate_dialogue(npc)
+                return
 
     def update_level(self):
         for entity in self.entities:
             entity.update()
         for enemy in self.enemies:
             enemy.update()
+        for npc in self.npcs:
+            npc.update()
 
     def draw_level(self, debug):
         self.screen.fill(self.level.background_color)
@@ -136,6 +161,8 @@ class Levels:
             entity.draw(debug)
         for enemy in self.enemies:
             enemy.draw(debug)
+        for npc in self.npcs:
+            npc.draw(debug)
 
     def update(self, debug, events):
         for event in events:

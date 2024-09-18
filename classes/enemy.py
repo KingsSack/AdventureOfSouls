@@ -29,7 +29,6 @@ class Enemy(Entity):
             idle_animation,
             walk_animation,
         )
-        self.screen = screen
         self.player = player
 
         self.spawn_point = (self.x, self.y)
