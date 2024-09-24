@@ -31,8 +31,5 @@ build/AdventureOfSouls/localpycs/struct.pyc
 AdventureOfSouls.spec
 build/.DS_Store
 dist/.DS_Store
-classes/__pycache__
-entities/__pycache__
-handlers/__pycache__
-player/__pycache__
+*.pyc
 *.pkl
