@@ -1,7 +1,7 @@
 import math
 
 from classes.alert import Alert
-from classes.entity import Entity
+from classes.entity.entity import Entity
 
 
 class Enemy(Entity):

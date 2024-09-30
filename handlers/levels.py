@@ -1,11 +1,12 @@
 import json
+
 import pygame
 
+from classes.entity.chicken import Chicken
+from classes.entity.enemy.golem import Golem
 from classes.level import Level
 from classes.spritesheet import Spritesheet
 from classes.tilemap import Tilemap
-from entities.chicken import Chicken
-from entities.golem import Golem
 
 
 class Levels:

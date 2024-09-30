@@ -1,5 +1,5 @@
 from classes.collider import Collider
-from classes.enemy import Enemy
+from classes.entity.enemy.enemy import Enemy
 
 
 class Golem(Enemy):

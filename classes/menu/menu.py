@@ -1,7 +1,7 @@
 import pygame
-import fonts
 
-from classes.menu_button import MenuButton
+import fonts
+from classes.menu.menu_button import MenuButton
 
 
 class Menu:

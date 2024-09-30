@@ -1,4 +1,4 @@
-from classes.menu import Menu
+from classes.menu.menu import Menu
 from handlers.hud import HUD
 from handlers.levels import Levels
 from handlers.savedata import Data

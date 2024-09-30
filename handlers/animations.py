@@ -1,5 +1,6 @@
 import json
 import time
+
 import pygame
 
 from classes.animation import Animation

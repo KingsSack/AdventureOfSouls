@@ -1,5 +1,5 @@
 from classes.collider import Collider
-from classes.entity import Entity
+from classes.entity.entity import Entity
 
 
 class Chicken(Entity):

@@ -2,10 +2,10 @@ from enum import Enum
 
 import pygame
 
-from classes.cloak import Cloak
 from classes.collider import Collider
-from classes.entity import Entity
-from classes.weapon import Weapon
+from classes.entity.entity import Entity
+from classes.item.cloak.cloak import Cloak
+from classes.item.weapon.weapon import Weapon
 
 
 class PlayerState(Enum):
