@@ -112,12 +112,11 @@ class Levels:
             print("Level data is not formatted correctly.")
             return
 
-        self.current_level = name
+        self.current_level = self.savedata.modify("current_level", name)
         self.load_tilemaps()
         self.load_entities()
         self.load_enemies()
         self.load_npcs()
-        self.savedata.modify_data("current_level", self.current_level)
 
     def check_level(self):
         if self.player.x < 0:

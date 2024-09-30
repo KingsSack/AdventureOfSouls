@@ -27,12 +27,13 @@ class Player(Entity):
         )
         self.savedata = savedata
 
-        self.max_health = self.savedata.data.get("health", 100)
-        self.speed = self.savedata.data.get("speed", 5)
-        self.power = self.savedata.data.get("power", 5)
-        self.defense = self.savedata.data.get("defense", 5)
-        self.inventory = self.savedata.data.get("inventory", [])
-        self.state = self.savedata.data.get("state", PlayerState.ADVENTURE)
+        self.max_health = self.savedata.get_or_set_default("health", 100)
+        self.speed = self.savedata.get_or_set_default("speed", 5)
+        self.power = self.savedata.get_or_set_default("power", 5)
+        self.defense = self.savedata.get_or_set_default("defense", 5)
+        self.inventory = self.savedata.get_or_set_default("inventory", [])
+        
+        self.state = PlayerState.ADVENTURE
 
     def initiate_combat(self, opponent):
         self.state = PlayerState.COMBAT
