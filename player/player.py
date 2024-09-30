@@ -74,6 +74,10 @@ class Player(Entity):
 
     def initiate_dialogue(self, npc):
         self.state = PlayerState.DIALOGUE
+    
+    def attack(self, opponent):
+        damage = self.calculate_power() - opponent.calculate_defense()
+        opponent.health -= damage
 
     def move(self, pressed_keys):
         if (
