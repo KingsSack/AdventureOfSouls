@@ -2,9 +2,11 @@ import pygame
 
 
 class Container(pygame.sprite.Sprite):
-    def __init__(self, screen, width, height, sprite, num_slots: tuple, contents=[]):
+    def __init__(self, screen, title, width, height, sprite, num_slots: tuple, contents=[]):
         super().__init__()
         self.screen = screen
+        
+        self.title = title
         
         self.width, self.height = width, height
         
