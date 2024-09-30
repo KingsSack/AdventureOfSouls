@@ -2,8 +2,10 @@ from enum import Enum
 
 import pygame
 
+from classes.cloak import Cloak
 from classes.collider import Collider
 from classes.entity import Entity
+from classes.weapon import Weapon
 
 
 class PlayerState(Enum):
@@ -20,20 +22,52 @@ class Player(Entity):
             (screen.get_height() / 2) - 96,
             128,
             128,
-            5,
             Collider(self, 48, 36, 48, 64),
             "player_idle",
             "player_walk",
         )
         self.savedata = savedata
-
-        self.max_health = self.savedata.get_or_set_default("health", 100)
-        self.speed = self.savedata.get_or_set_default("speed", 5)
-        self.power = self.savedata.get_or_set_default("power", 5)
-        self.defense = self.savedata.get_or_set_default("defense", 5)
+        
+        self.health = self.savedata.get_or_set_default("health", 100)
         self.inventory = self.savedata.get_or_set_default("inventory", [])
         
+        self.cloak = self.savedata.get_or_set_default("cloak", None)
+        self.weapon = self.savedata.get_or_set_default("weapon", None)
+        
+        self.spells = self.savedata.get_or_set_default("spells", [])
+        
         self.state = PlayerState.ADVENTURE
+        
+    def equip_cloak(self, cloak: Cloak):
+        self.cloak = cloak
+        self.change_animations(self.cloak.idle_animation, self.cloak.walk_animation)
+    
+    def equip_weapon(self, weapon: Weapon):
+        self.weapon = weapon
+        
+    def calculate_power(self) -> int:
+        power = 5
+        if self.cloak:
+            power += self.cloak.power_modifier
+        if self.weapon:
+            power += self.weapon.power_modifier
+        return power
+    
+    def calculate_defense(self) -> int:
+        defense = 5
+        if self.cloak:
+            defense += self.cloak.defense_modifier
+        if self.weapon:
+            defense += self.weapon.defense_modifier
+        return defense
+
+    def calculate_speed(self) -> int:
+        speed = 5
+        if self.cloak:
+            speed += self.cloak.speed_modifier
+        if self.weapon:
+            speed += self.weapon.speed_modifier
+        return speed
 
     def initiate_combat(self, opponent):
         self.state = PlayerState.COMBAT
@@ -57,15 +91,15 @@ class Player(Entity):
             self.moving = False
 
         if pressed_keys[pygame.K_w] or pressed_keys[pygame.K_UP]:
-            self.y -= self.speed
+            self.y -= self.calculate_speed()
         if pressed_keys[pygame.K_s] or pressed_keys[pygame.K_DOWN]:
-            self.y += self.speed
+            self.y += self.calculate_speed()
         if pressed_keys[pygame.K_a] or pressed_keys[pygame.K_LEFT]:
             self.flip = True
-            self.x -= self.speed
+            self.x -= self.calculate_speed()
         if pressed_keys[pygame.K_d] or pressed_keys[pygame.K_RIGHT]:
             self.flip = False
-            self.x += self.speed
+            self.x += self.calculate_speed()
 
     def update(self, pressed_keys):
         super().update()

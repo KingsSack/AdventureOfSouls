@@ -6,7 +6,6 @@ from classes.spritesheet import Spritesheet
 from classes.tilemap import Tilemap
 from entities.chicken import Chicken
 from entities.golem import Golem
-from entities.wizard import Wizard
 
 
 class Levels:
@@ -83,7 +82,7 @@ class Levels:
     def load_npcs(self):
         self.npcs.clear()
         try:
-            self.npcs.append(Wizard(self.screen, self.player, self.level.npcs["wizard"][0], self.level.npcs["wizard"][1]))
+            pass
         except KeyError as e:
             print(
                 f"KeyError: {e} - NPC names might be mispelled or not in expected format."

@@ -25,12 +25,13 @@ class Enemy(Entity):
             y,
             width,
             height,
-            speed,
             hitbox,
             idle_animation,
             walk_animation,
         )
         self.player = player
+        
+        self.speed = speed
 
         self.spawn_point = (self.x, self.y)
         self.pathfinding_distance = pathfinding_distance
