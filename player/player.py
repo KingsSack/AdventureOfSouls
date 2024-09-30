@@ -18,33 +18,33 @@ class Player(Entity):
     def __init__(self, screen, savedata):
         super().__init__(
             screen,
-            (screen.get_width() / 2) - 64,
-            (screen.get_height() / 2) - 96,
-            128,
-            128,
-            Collider(self, 48, 36, 48, 64),
-            "player_idle",
-            "player_walk",
+            x=(screen.get_width() / 2) - 64,
+            y=(screen.get_height() / 2) - 96,
+            width=128,
+            height=128,
+            hitbox=Collider(self, 48, 36, 48, 64),
+            idle_animation="player_idle",
+            walk_animation="player_walk",
         )
         self.savedata = savedata
-        
+
         self.health = self.savedata.get_or_set_default("health", 100)
         self.inventory = self.savedata.get_or_set_default("inventory", [])
-        
+
         self.cloak = self.savedata.get_or_set_default("cloak", None)
         self.weapon = self.savedata.get_or_set_default("weapon", None)
-        
+
         self.spells = self.savedata.get_or_set_default("spells", [])
-        
+
         self.state = PlayerState.ADVENTURE
-        
+
     def equip_cloak(self, cloak: Cloak):
         self.cloak = cloak
         self.change_animations(self.cloak.idle_animation, self.cloak.walk_animation)
-    
+
     def equip_weapon(self, weapon: Weapon):
         self.weapon = weapon
-        
+
     def calculate_power(self) -> int:
         power = 5
         if self.cloak:
@@ -52,7 +52,7 @@ class Player(Entity):
         if self.weapon:
             power += self.weapon.power_modifier
         return power
-    
+
     def calculate_defense(self) -> int:
         defense = 5
         if self.cloak:
@@ -71,7 +71,7 @@ class Player(Entity):
 
     def initiate_combat(self, opponent):
         self.state = PlayerState.COMBAT
-    
+
     def initiate_dialogue(self, npc):
         self.state = PlayerState.DIALOGUE
 

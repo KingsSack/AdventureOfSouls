@@ -1,11 +1,12 @@
 import pygame
 
+from classes.collider import Collider
 from handlers.animations import Animations
 
 
 class Entity(pygame.sprite.Sprite):
     def __init__(
-        self, screen, x, y, width, height, hitbox, idle_animation, walk_animation
+        self, screen, x, y, width, height, hitbox: Collider, idle_animation, walk_animation
     ):
         super().__init__()
         self.screen = screen
@@ -25,7 +26,7 @@ class Entity(pygame.sprite.Sprite):
         self.sprite = self.animation_handler.get_frame()
 
         self.rect = self.sprite.get_rect()
-    
+
     def change_animations(self, idle_animation, walk_animation):
         self.idle_animation = idle_animation
         self.walk_animation = walk_animation
