@@ -10,7 +10,6 @@ class Chicken(Entity):
             y=y,
             width=48,
             height=48,
-            speed=2,
             hitbox=Collider(self, 6, 6, 42, 42),
             idle_animation='chicken_idle',
             walk_animation='chicken_walk'

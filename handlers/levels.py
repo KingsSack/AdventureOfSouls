@@ -14,11 +14,13 @@ class Levels:
         self.screen = screen
         self.savedata = savedata
         self.player = player
+
         self.current_level = savedata.data.get("current_level", "ardale_lower")
         self.level = None
 
         self.grass_spritesheet = Spritesheet("assets/tilesets/Grass.png")
-        self.path_spritesheet = Spritesheet("assets/tilesets/Tilled_Dirt_v2.png")
+        self.path_spritesheet = Spritesheet(
+            "assets/tilesets/Tilled_Dirt_v2.png")
         self.layer_1 = None
         self.layer_2 = None
         self.entities = []
@@ -53,11 +55,13 @@ class Levels:
             ]
         except KeyError as e:
             print(
-                f"KeyError: {e} - Entity names might be mispelled or not in expected format."
+                f"KeyError: {
+                    e} - Entity names might be mispelled or not in expected format."
             )
         except TypeError as e:
             print(
-                f"TypeError: {e} - Entities might not be iterable or not in expected format."
+                f"TypeError: {
+                    e} - Entities might not be iterable or not in expected format."
             )
         except AttributeError as e:
             print(f"AttributeError: {e} - Level data might be missing.")
@@ -71,26 +75,30 @@ class Levels:
             ]
         except KeyError as e:
             print(
-                f"KeyError: {e} - Enemy names might be mispelled or not in expected format."
+                f"KeyError: {
+                    e} - Enemy names might be mispelled or not in expected format."
             )
         except TypeError as e:
             print(
-                f"TypeError: {e} - Enemies might not be iterable or not in expected format."
+                f"TypeError: {
+                    e} - Enemies might not be iterable or not in expected format."
             )
         except AttributeError as e:
             print(f"AttributeError: {e} - Level data might be missing.")
-    
+
     def load_npcs(self):
         self.npcs.clear()
         try:
             pass
         except KeyError as e:
             print(
-                f"KeyError: {e} - NPC names might be mispelled or not in expected format."
+                f"KeyError: {
+                    e} - NPC names might be mispelled or not in expected format."
             )
         except TypeError as e:
             print(
-                f"TypeError: {e} - NPC might not be iterable or not in expected format."
+                f"TypeError: {
+                    e} - NPC might not be iterable or not in expected format."
             )
         except AttributeError as e:
             print(f"AttributeError: {e} - Level data might be missing.")
@@ -136,7 +144,7 @@ class Levels:
             if self.player.hitbox.collides(enemy.hitbox):
                 self.player.initiate_combat(enemy)
                 return
-        
+
         for npc in self.npcs:
             if self.player.hitbox.collides(npc.hitbox):
                 self.player.initiate_dialogue(npc)

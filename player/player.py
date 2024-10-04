@@ -4,6 +4,7 @@ import pygame
 
 from classes.collider import Collider
 from classes.entity.entity import Entity
+from classes.gui.container.inventory import Inventory
 from classes.item.cloak.cloak import Cloak
 from classes.item.weapon.weapon import Weapon
 
@@ -29,7 +30,7 @@ class Player(Entity):
         self.savedata = savedata
 
         self.health = self.savedata.get_or_set_default("health", 100)
-        self.inventory = self.savedata.get_or_set_default("inventory", [])
+        self.inventory = Inventory(self.screen, self.savedata)
 
         self.cloak = self.savedata.get_or_set_default("cloak", None)
         self.weapon = self.savedata.get_or_set_default("weapon", None)
@@ -40,7 +41,8 @@ class Player(Entity):
 
     def equip_cloak(self, cloak: Cloak):
         self.cloak = cloak
-        self.change_animations(self.cloak.idle_animation, self.cloak.walk_animation)
+        self.change_animations(self.cloak.idle_animation,
+                               self.cloak.walk_animation)
 
     def equip_weapon(self, weapon: Weapon):
         self.weapon = weapon
@@ -74,7 +76,7 @@ class Player(Entity):
 
     def initiate_dialogue(self, npc):
         self.state = PlayerState.DIALOGUE
-    
+
     def attack(self, opponent):
         damage = self.calculate_power() - opponent.calculate_defense()
         opponent.health -= damage
