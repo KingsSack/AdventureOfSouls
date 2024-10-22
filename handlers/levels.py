@@ -30,6 +30,9 @@ class Levels:
         self.load_level(self.current_level)
 
     def load_tilemaps(self):
+        if self.level is None:
+            return
+
         try:
             self.layer_1 = Tilemap(
                 self.grass_spritesheet,
@@ -47,6 +50,9 @@ class Levels:
             print(f"Error loading tilemaps: {e}")
 
     def load_entities(self):
+        if self.level is None:
+            return
+
         self.entities.clear()
         try:
             [
@@ -54,19 +60,22 @@ class Levels:
                 for x, y in self.level.entities["chickens"]
             ]
         except KeyError as e:
-            print(
-                f"KeyError: {
-                    e} - Entity names might be mispelled or not in expected format."
-            )
+            # print(
+            #     f"KeyError: {e} - Entity names might be mispelled or not in expected format."
+            # )
+            pass
         except TypeError as e:
             print(
-                f"TypeError: {
-                    e} - Entities might not be iterable or not in expected format."
+                f"TypeError: {e} - " +
+                "Entities might not be iterable or not in expected format."
             )
         except AttributeError as e:
             print(f"AttributeError: {e} - Level data might be missing.")
 
     def load_enemies(self):
+        if self.level is None:
+            return
+
         self.enemies.clear()
         try:
             [
@@ -74,10 +83,11 @@ class Levels:
                 for x, y in self.level.enemies["golems"]
             ]
         except KeyError as e:
-            print(
-                f"KeyError: {
-                    e} - Enemy names might be mispelled or not in expected format."
-            )
+            # print(
+            #     f"KeyError: {
+            #         e} - Enemy names might be mispelled or not in expected format."
+            # )
+            pass
         except TypeError as e:
             print(
                 f"TypeError: {
@@ -87,6 +97,9 @@ class Levels:
             print(f"AttributeError: {e} - Level data might be missing.")
 
     def load_npcs(self):
+        if self.level is None:
+            return
+
         self.npcs.clear()
         try:
             pass
@@ -127,6 +140,9 @@ class Levels:
         self.load_npcs()
 
     def check_level(self):
+        if self.level is None:
+            return
+
         if self.player.x < 0:
             self.load_level(self.level.surrounding_levels["left"])
             self.player.x = self.screen.get_width() - 128
@@ -159,10 +175,14 @@ class Levels:
             npc.update()
 
     def draw_level(self, debug):
+        if self.level is None:
+            return
+
         self.screen.fill(self.level.background_color)
 
-        self.layer_1.draw_map(self.screen)
-        self.layer_2.draw_map(self.screen)
+        if self.layer_1 is not None and self.layer_2 is not None:
+            self.layer_1.draw_map(self.screen)
+            self.layer_2.draw_map(self.screen)
 
         for entity in self.entities:
             entity.draw(debug)
@@ -172,10 +192,11 @@ class Levels:
             npc.draw(debug)
 
     def update(self, debug, events):
-        for event in events:
-            if event.type == pygame.VIDEORESIZE:
-                self.layer_1.update_window_size(event.w, event.h)
-                self.layer_2.update_window_size(event.w, event.h)
+        if self.layer_1 is not None and self.layer_2 is not None:
+            for event in events:
+                if event.type == pygame.VIDEORESIZE:
+                    self.layer_1.update_window_size(event.w, event.h)
+                    self.layer_2.update_window_size(event.w, event.h)
 
         self.update_level()
         self.check_level()

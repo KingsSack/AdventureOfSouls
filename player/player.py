@@ -106,7 +106,3 @@ class Player(Entity):
         if pressed_keys[pygame.K_d] or pressed_keys[pygame.K_RIGHT]:
             self.flip = False
             self.x += self.calculate_speed()
-
-    def update(self, pressed_keys):
-        super().update()
-        self.move(pressed_keys)

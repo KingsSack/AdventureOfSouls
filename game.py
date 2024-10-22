@@ -26,7 +26,8 @@ class GameManager:
             pass
         elif self.player.state == PlayerState.ADVENTURE:
             self.level_handler.update(self.debug, events)
-            self.player.update(pressed_keys)
+            self.player.update()
+            self.player.move(pressed_keys)
             self.player.draw(self.debug)
             self.hud_handler.update(mouse, events)
             self.hud_handler.draw()
